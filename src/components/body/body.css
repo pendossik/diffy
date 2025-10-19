@@ -1,0 +1,12 @@
+.comparison-form__inner {
+    background-color: var(--color-green);
+}
+
+.main__inner {
+    flex-direction: column;
+    justify-content: center;
+}
+
+.main__two-input {
+    flex-direction: column;
+}

@@ -1,0 +1,19 @@
+.header {
+    width: 100%;
+}
+
+.header__inner {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    background-color: var(--color-coffee);
+    border: 2px solid red;
+}
+
+.header__menu-list {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 143px;
+}
