@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "name": "Iphone 17 PRO MAX",
+        "img": "./static/media/iPhone-17-Pro-Max.81516cddfb316ed3523a.png",
+        "category": "smartphone"
+    },
+
+    {
+        "id": 2,
+        "name": "Iphone AIR",
+        "img": "./static/media/iPhone-Air.8ab355f577c8c3346fa2.png",
+        "category": "smartphone"
+    },
+
+    {
+        "id": 3,
+        "name": "Xiaomi 17 PRO ",
+        "img": "",
+        "category": "smartphone"
+    }
+]

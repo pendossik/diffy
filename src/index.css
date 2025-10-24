@@ -1,0 +1,94 @@
+body {
+  font-family:'Segoe UI';
+  background-color: #1D4A58;
+  margin: 0;
+}
+
+header {
+  background-color: #FCE5CC;
+  padding: 40px;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.header-sections{
+  color: #1D4A58;
+  font-size: 18px; 
+  border-radius: 4px;
+}
+
+.logo {
+  font-size: 50px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+main.search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+div.search {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+input::placeholder {
+  border: none;
+  background: #FCE5CC;
+  color: #988979;
+  width: 300px;
+}
+
+button {
+  width: 150px;
+  height: 50px;
+  border: none;
+  background: #FCE5CC;
+  color: #988979;
+  font-size: medium;
+}
+
+ul {
+  list-style-type: none;
+}
+
+footer {
+  background-color: black;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+img.card {
+  height: 300px;
+}
+
+.compare {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+div.card {
+  margin-top: 50px;
+  background-color: #FCE5CC;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
