@@ -1,30 +1,37 @@
 import "./header.css";
+import { Link } from 'react-router-dom';
 
 export default function Header() {
     return (
         <header className="header">
             <div className="header__inner">
-                <a href="/" className="header__logo logo">
+                <Link to="/" className="header__logo logo">
                     <img src="./src/icons/Diffy.svg" alt="Diffy_logo" className="header__image" />
-                </a>
+                </Link>
                 <nav className="header__menu">
                     <ul className="header__menu-list">
                         <li className="header__menu-item">
                             Гаджеты
-                            <a href="/" className="header__menu-link"></a>
+                            <Link to="/" className="header__menu-link"></Link>
                         </li>
                         <li className="header__menu-item">
                             Комплектующие ПК
-                            <a href="/" className="header__menu-link"></a>
+                            <Link to="/" className="header__menu-link"></Link>
                         </li>
                         <li className="header__menu-item">
-                            Авторизация
-                            <a href="/" className="header__menu-link"></a>
+                            <Link to="/login" className="header__menu-link">Авторизация</Link>
                         </li>
                     </ul>
                 </nav>
-                <button className="header__button-like"></button>
-                <button className="header__button-account"></button>
+                <div className="header__menu-button">
+                    <Link to ="/" className="header__button-like">
+                        <img src="./src/icons/Favourite.svg" alt="header__button-like-image" />
+                    </Link>
+                    {/* нужно будет переименовать класс у Link */}
+                    <Link to="/register" className="header__button-account">
+                        <img src="./src/icons/User.svg" alt="header__button-account-image" />  
+                    </Link>
+                </div>
             </div>
         </header>
     )

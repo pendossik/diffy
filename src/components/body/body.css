@@ -1,12 +1,46 @@
-.comparison-form__inner {
-    background-color: var(--color-green);
-}
-
-.main__inner {
-    flex-direction: column;
+.comparison-form {
+    display: flex;
     justify-content: center;
+    align-items: center;
+    background-color: var(--color-green);
+    width: 100%;
+    min-height: 100vh;
+    font-family:'Segoe UI';
+    font-size: 18px;
 }
 
-.main__two-input {
-    flex-direction: column;
+.comparison-form__inner {
+    display: flex;
+    align-items: center;
 }
+
+.comparison-form__inputs-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    min-width: 320px
+}
+
+.comparison-form__input-wrapper {
+    width: 100;
+}
+
+.comparison-form__plus {
+    height: 24px;
+    width: 24px;
+    opacity: 0.7;
+}
+
+.comparison-form__compare-button {
+    padding: 16px 48px;
+    background-color: var(--color-coffee);
+    border: none;
+    border-radius: 6px;
+    transition: background-color 0.5s;
+}
+
+.comparison-form__compare-button:hover {
+    background-color:var(--color-soft_white);
+}
+

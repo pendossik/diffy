@@ -1,0 +1,142 @@
+
+.auth {
+  display: flex;
+  height: 100vh;
+  background-color: var(--color-soft_blue); /* светло-голубой фон */
+  margin: 0;
+  padding: 0;
+}
+
+
+.auth__inner {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Левая часть — изображение */
+.auth__image {
+  flex: 1;
+  background-color: #d4f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.auth__image img {
+  max-width: 90%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+/* Правая часть — форма */
+.auth__form {
+  flex: 1;
+  background-color: var(--color-green);
+  color: white;
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.auth__form h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: white;
+
+}
+
+.auth__form p {
+  font-size: 1rem;
+  color: #b0c4c8;
+  margin-bottom: 2rem;
+}
+
+/* Группа формы */
+.form__group {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.form__group label {
+  display: block;
+  font-size: 0.9rem;
+  color: #b0c4c8;
+  margin-bottom: 0.5rem;
+}
+
+.form__group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #3a6a75;
+  border-radius: 6px;
+  background-color: #2d5a63;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+
+/* Кнопки */
+.btn-primary {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--color-coffee); /* персиковый */
+
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+
+.btn-google {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #2d5a63;
+  color: white;
+  border: 1px solid #3a6a75;
+  border-radius: 6px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-google:hover {
+  background-color: #3a6a75;
+}
+
+.google-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Подвал формы */
+.auth__footer {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #b0c4c8;
+  width: 100%;
+}
+
+.auth__footer .auth__link {
+  color: #ffffff;
+  margin-left: 0.5rem;
+  font-weight: 600;
+}
+

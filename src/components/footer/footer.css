@@ -1,0 +1,40 @@
+.footer {
+    background-color: #000;
+    color: white;
+    padding: 2rem 0;
+    border-top: 2px solid #007bff;
+    font-family:'Segoe UI';
+}
+
+.footer__inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    gap: 4rem; 
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 4rem; 
+}
+
+
+.footer__logo-wrapper {
+    flex-shrink: 0;
+    margin-top: 0.5rem; 
+}
+
+.footer__logo {
+    display: block;
+}
+
+.footer__image {
+    height: 40px;
+    width: auto;
+}
+
+.footer__menu {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+

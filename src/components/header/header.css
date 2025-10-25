@@ -1,5 +1,7 @@
 .header {
     width: 100%;
+    font-family:'Segoe UI';
+    font-size: 18px;
 }
 
 .header__inner {
@@ -7,9 +9,8 @@
     justify-content: space-around;
     align-items: center;
     width: 100%;
-    height: 100px;
+    height: 130px;
     background-color: var(--color-coffee);
-    border: 2px solid red;
 }
 
 .header__menu-list {
