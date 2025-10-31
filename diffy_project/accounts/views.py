@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 User = get_user_model()
 
@@ -57,7 +57,23 @@ def login_user(request):
         
     except json.JSONDecoderError:
         return JsonResponse({'error': 'uncorrect format of JSON'}, status=400)
+    
 
+def current_user(request):
+    if request.user.is_authenticated:
+        return JsonResponse({'username': request.user.username})
+    else:
+        return JsonResponse({'username' : None})
+
+
+def logout_user(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            logout(request)
+            return JsonResponse({'message' : 'Succesfully logOUT'})
+        else:
+            return JsonResponse({'message' : 'You are not logged in'})
+    return JsonResponse({'error': 'Only POST request allowed'}, status=405)
 
 def register_page(request):
     return render(request, 'accounts/register.html')
@@ -65,3 +81,6 @@ def register_page(request):
 
 def login_page(request):
     return render(request, 'accounts/login.html')
+
+def profile_page(request):
+    return render(request, 'accounts/profile.html')
