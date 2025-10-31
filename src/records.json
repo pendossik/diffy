@@ -2,7 +2,7 @@
     {
         "id": 1,
         "name": "Iphone 17 PRO MAX",
-        "img": "./static/media/iPhone-17-Pro-Max.81516cddfb316ed3523a.png",
+        "img": "../src/assets/iPhone-17-Pro-Max.png",
         "category": "smartphone"
     },
 
@@ -15,7 +15,7 @@
 
     {
         "id": 3,
-        "name": "Xiaomi 17 PRO ",
+        "name": "Xiaomi 17 PRO",
         "img": "",
         "category": "smartphone"
     }

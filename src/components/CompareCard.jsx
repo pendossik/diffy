@@ -1,5 +1,5 @@
-import './index.css';
-import Records from './records.json';
+import '../index.css';
+import Records from '../records.json'
 
 export default function CompareCard({product}){
 

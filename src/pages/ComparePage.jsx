@@ -1,7 +1,7 @@
-import './index.css';
-import Header from './Header';
-import Footer from './Footer';
-import CompareCard from './CompareCard';
+import '../index.css';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import CompareCard from '../components/CompareCard';
 import { useLocation } from 'react-router-dom';
 
 
