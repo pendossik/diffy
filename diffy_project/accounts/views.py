@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.shortcuts import render
+from django.contrib.auth import authenticate, login
 
 User = get_user_model()
 
@@ -34,5 +35,33 @@ def register(request):
 
     return JsonResponse({'message': 'User registered successfully'}, status = 201)
 
+
+# @csrf_exempt
+def login_user(request):
+    if request.method != "POST":
+        return JsonResponse({'error': 'Only POST request allowed'}, status=405)
+    try:
+        data = json.loads(request.body)
+        username = data.get('username')
+        password = data.get('password')
+
+        if not username or not password:
+            return JsonResponse({'error': 'username and password required'}, status=405)
+        
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return JsonResponse({'message': f'You are welcome, {username}!'})
+        else:
+            return JsonResponse({'error': 'uncorrenct login data'}, status=400)
+        
+    except json.JSONDecoderError:
+        return JsonResponse({'error': 'uncorrect format of JSON'}, status=400)
+
+
 def register_page(request):
     return render(request, 'accounts/register.html')
+
+
+def login_page(request):
+    return render(request, 'accounts/login.html')
