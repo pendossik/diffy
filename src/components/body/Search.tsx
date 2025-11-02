@@ -1,7 +1,13 @@
-import './index.css';
-import Records from './records.json';
 
-export default function Search({text, value, onChange}) {
+import Records from '../../records.json';
+
+type Props = {
+  text: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+export default function Search({text, value, onChange}: Props) {
+
   return(
     <div>
     <input placeholder={text} value={value} onChange={onChange} list='items'></input>

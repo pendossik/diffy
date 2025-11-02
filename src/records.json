@@ -15,8 +15,8 @@
 
     {
         "id": 3,
-        "name": "Xiaomi 17 PRO ",
-        "img": "",
+        "name": "Xiaomi 17 PRO",
+        "img": "./static/media/iPhone-Air.8ab355f577c8c3346fa2.png",
         "category": "smartphone"
     }
 ]
