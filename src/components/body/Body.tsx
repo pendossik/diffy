@@ -35,7 +35,7 @@ export function Body() {
                             />
                     </div>
                 </div>
-                <button onClick={() => setShowComparison(true)}>Сравниить</button>
+                <button onClick={() => setShowComparison(true)}>Сравнить</button>
             </div>
 
             {showComparison && (
