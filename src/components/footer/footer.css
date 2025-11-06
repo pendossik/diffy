@@ -1,0 +1,21 @@
+footer {
+  background-color: black;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  left: 0px;
+  width: 100%;
+  padding: 20px 0px;
+  margin: 0;
+}
+
+.footer-logo {
+    margin-top: 70px;
+}
+.footer-text {
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
+  padding-top: 10px;
+}

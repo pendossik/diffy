@@ -1,10 +1,12 @@
-import '../index.css';
-import Records from '../records.json'
+import Records from '../../records.json';
 
-export default function CompareCard({product}){
+type Props = {
+  productName: string;
+};
 
+export default function CompareCard({productName}: Props){
 
-    const productData = Records.find(record => record.name === product);
+    const productData = Records.find(record => record.name === productName);
 
     return(
       productData && (

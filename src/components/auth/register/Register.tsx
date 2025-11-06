@@ -1,20 +1,20 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import "../register.css"
-import Iphone from '../assets/iPhone-17.png'
+import "./register.css"
 
-export default function Register() {
+export function Register() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    function handleSubmit() {
+    function handleSubmit(e: React.FormEvent) {
+        e.preventDefault();
     
 
         const users = JSON.parse(localStorage.getItem('users') || '[]'); // Берем пользователей
 
-        const exists = users.some((user) => user.email === email); // true or false; провертка на emaill
+        const exists = users.some((user: any) => user.email === email); // true or false; провертка на emaill
         if(exists){
             alert('Пользователь с таким email существует')
             return;
@@ -31,7 +31,7 @@ export default function Register() {
         <main className="auth">
             <div className="auth__inner">
             <div className="auth__image">
-                <img src={Iphone} alt="Photo_Iphone_17_Pro_dark" />
+                <img src="./src/images/iPhone-17.png" alt="Photo_Iphone_17_Pro_dark" />
             </div>
             <div className="auth__form">
                 <h1>Создать аккаунт</h1>
@@ -75,7 +75,7 @@ export default function Register() {
                 </button>
                 <button type="button" className="btn-google">
                     <img
-                    src=""
+                    src="./src/icons/Google.svg"
                     alt="Google"
                     className="google-icon"
                     />

@@ -4,29 +4,6 @@ body {
   margin: 0;
 }
 
-header {
-  background-color: #fce5cc;
-  padding: 40px;
-}
-
-nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
-
-.header-sections {
-  color: #1d4a58;
-  font-size: 18px;
-  border-radius: 4px;
-}
-
-.logo {
-  font-size: 50px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
 input {
   border: none;
   background: #F4E9DE;
@@ -40,14 +17,14 @@ input::placeholder{
   text-align: center;
 }
 
-div.search {
+div.search-compare {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-top: 60px;
 }
-.search-blocks {
+.search-block {
   display: flex;
   flex-direction: row;
   padding-left: 700px;
@@ -97,16 +74,4 @@ div.card {
   display: flex;
   justify-content: center;
   
-}
-
-footer {
-  background-color: black;
-  color: white;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  left: 0px;
-  width: 100%;
-  margin: 0;
-
 }

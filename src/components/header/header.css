@@ -1,0 +1,25 @@
+header {
+  background-color: #fce5cc;
+  padding: 40px;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.header-link {
+  color: #1d4a58;
+  font-size: 18px;
+  border-radius: 4px;
+}
+.header-section {
+    display: flex;
+}
+
+.logo {
+  font-size: 50px;
+  text-decoration: none;
+  font-weight: bold;
+}
