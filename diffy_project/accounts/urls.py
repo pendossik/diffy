@@ -1,5 +1,7 @@
 from django.urls import path
+# устарели, но пока оставил
 from .views import register, register_page, login_user, login_page, current_user, logout_user, profile_page
+from .api_views import RegisterAPIView, CurrentUserAPIView#, LoginAPIView
 
 urlpatterns = [
     path('register/', register, name='register'),
@@ -9,4 +11,11 @@ urlpatterns = [
     path('current_user/', current_user, name='current_user'),
     path('logout/', logout_user, name='logout_user'),
     path('profile-page/', profile_page, name='profile_page'),
+    
+    path('api/register/', RegisterAPIView.as_view(), name='api_register'),
+    # был нужен когад использвоали token вместо jwtда
+    # path('api/login/', LoginAPIView.as_view(), name='api_login'),
+    path('api/current_user/', CurrentUserAPIView.as_view(), name='api_current_user'),
+
+    
 ]
