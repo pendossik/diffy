@@ -1,11 +1,16 @@
-# React + TypeScript + Vite
+# Стек: React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Как запустить
 
-Currently, two official plugins are available:
+1.  ```bash
+     git clone -b Maxik https://github.com/pendossik/diffy.git
+2. ```bash
+   cd diffy
+3. ```bash
+   npm install
+4. ```bash
+    npm run dev
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
 ## Expanding the ESLint configuration
 
