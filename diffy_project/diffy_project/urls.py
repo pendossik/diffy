@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('compare/', include('compare.urls')), пока не создали urls.py в compare
     path('accounts/', include('accounts.urls')),
+    # для авторизации
     path('api/token/', EmailTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 

@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status#, permission
 from django.contrib.auth.models import User
 from .serializers import RegisterSerializer, UserSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -15,7 +15,6 @@ from .serializers import EmailTokenObtainPairSerializer
 
 
 class RegisterAPIView(APIView):
-    # этот API не требует входа в систему
     permission_classes = [AllowAny]
 
     def post(self, request):
@@ -60,4 +59,21 @@ class CurrentUserAPIView(APIView):
 
 class EmailTokenObtainPairView(TokenObtainPairView):
     serializer_class = EmailTokenObtainPairSerializer
+
+class LogoutAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            refresh_token = request.data['refresh']
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+
+            return Response({"message": "Logged out successfully"}, status=status.HTTP_205_RESET_CONTENT)
+
+        except KeyError:
+            return Response({"error": "Refresh token is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        except Exception:
+            return Response({"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
 
