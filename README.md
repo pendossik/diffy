@@ -3,7 +3,7 @@
 ## Как запустить
 
 1.  ```bash
-     git clone -b Maxik https://github.com/pendossik/diffy.git
+     git clone -b FE_main https://github.com/pendossik/diffy.git
 2. ```bash
    cd diffy
 3. ```bash
