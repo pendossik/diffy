@@ -9,7 +9,7 @@
 3. ```bash
    npm install
 4. ```bash
-    npm run dev
+   npm run dev
 
 
 ## Expanding the ESLint configuration
