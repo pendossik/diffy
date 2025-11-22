@@ -1,22 +1,101 @@
 [
     {
         "id": 1,
-        "name": "Iphone 17 PRO MAX",
-        "img": "./static/media/iPhone-17-Pro-Max.81516cddfb316ed3523a.png",
-        "category": "smartphone"
+        "name": "Iphone 17 Pro Max",
+        "img": "./src/images/iPhone-17-Pro-Max.png",
+        "category": "smartphone",
+        "release-date": "2025",
+        "size": {
+            "width": "78 мм",
+            "height": "163.4 мм",
+            "thickness": "8.7 мм"
+        },
+        "weight": "233 г",
+        "body": {
+            "back": "стекло",
+            "edges": "алюминий",
+            "ip": "IP68"
+        },
+        "display": {
+            "type": "Super Retina XDR",
+            "size": "6.9 '",
+            "resolution": "2868x1320",
+            "frequency": "120 Гц",
+            "brightness": "3000 нит",
+            "ppi": "460 ppi",
+            "aspect-ratio": "19.5:9"
+        },
+        "cpu": {
+            "model": "Apple A18 Pro",
+            "cores": "6"
+        },
+        "battery": "4823 мАч",
+        "ram": "12 ГБ",
+        "storage": "256 ГБ",
+        "camera": {
+            "amount": "3",
+            "mp": "48+48+48 Мп",
+            "type": "основная камера, сверхширокоугольная камера, телефотокамера"
+        },
+        "frontal-camera": {"mp": "18 Мп"},
+        "os": "iOS",
+        "bluetooth": "6.0"
     },
-
     {
         "id": 2,
-        "name": "Iphone AIR",
-        "img": "./static/media/iPhone-Air.8ab355f577c8c3346fa2.png",
-        "category": "smartphone"
+        "name": "Iphone Air",
+        "img": "./src/images/iPhone-Air.png",
+        "category": "smartphone",
+        "release-date": "2025",
+        "size": {
+            "width": "74.7 мм",
+            "height": "156.2 мм",
+            "thickness": "5.6 мм"
+        },
+        "weight": "165 г",
+        "body": {
+            "back": "стекло",
+            "edges": "титан",
+            "ip": "IP68"
+        },
+        "display": {
+            "type": "Super Retina XDR",
+            "size": "6.5 '",
+            "resolution": "2736x1260",
+            "frequency": "120 Гц",
+            "brightness": "3000 нит",
+            "ppi": "460 ppi",
+            "aspect-ratio": "19.5:9"
+        },
+        "cpu": {
+            "model": "Apple A19 Pro",
+            "cores": "6"
+        },
+        "battery": "3149 мАч",
+        "ram": "12 ГБ",
+        "storage": "256 ГБ",
+        "camera": {
+            "amount": "1",
+            "mp": "48Мп",
+            "type": "основная камера"
+        },
+        "frontal-camera": {"mp": "18 Мп"},
+        "os": "iOS",
+        "bluetooth": "6.0"
     },
-
     {
         "id": 3,
-        "name": "Xiaomi 17 PRO",
+        "name": "Xiaomi 17 Pro",
         "img": "./static/media/iPhone-Air.8ab355f577c8c3346fa2.png",
-        "category": "smartphone"
+        "category": "smartphone",
+        "display": {
+            "type": "",
+            "size": "",
+            "resolution": "",
+            "frequency": ""
+        },
+        "battery": "",
+        "ram": "",
+        "storage": ""
     }
 ]

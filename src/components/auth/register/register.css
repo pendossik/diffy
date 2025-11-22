@@ -1,20 +1,38 @@
+<<<<<<< HEAD
 .reg {
   display: flex;
   height: 100vh;
   background-color: var(--color-soft_blue); 
+=======
+
+.auth {
+  display: flex;
+  height: 100vh;
+  background-color: var(--color-soft_blue); /* светло-голубой фон */
+>>>>>>> karen
   margin: 0;
   padding: 0;
 }
 
+<<<<<<< HEAD
 .reg__inner {
+=======
+
+.auth__inner {
+>>>>>>> karen
   display: flex;
   width: 100%;
   height: 100%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
+<<<<<<< HEAD
 
 .reg__image {
+=======
+/* Левая часть — изображение */
+.auth__image {
+>>>>>>> karen
   flex: 1;
   background-color: #d4f0f0;
   display: flex;
@@ -24,14 +42,23 @@
   box-sizing: border-box;
 }
 
+<<<<<<< HEAD
 .reg__image img {
+=======
+.auth__image img {
+>>>>>>> karen
   max-width: 90%;
   max-height: 80vh;
   object-fit: contain;
   border-radius: 8px;
 }
 
+<<<<<<< HEAD
 .reg__form {
+=======
+/* Правая часть — форма */
+.auth__form {
+>>>>>>> karen
   flex: 1;
   background-color: var(--color-green);
   color: white;
@@ -44,7 +71,11 @@
   overflow-y: auto;
 }
 
+<<<<<<< HEAD
 .reg__form h1 {
+=======
+.auth__form h1 {
+>>>>>>> karen
   font-size: 2.5rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
@@ -52,7 +83,11 @@
 
 }
 
+<<<<<<< HEAD
 .reg__form p {
+=======
+.auth__form p {
+>>>>>>> karen
   font-size: 1rem;
   color: #b0c4c8;
   margin-bottom: 2rem;
@@ -84,11 +119,19 @@
 }
 
 
+<<<<<<< HEAD
 
 .btn-create__acc {
   width: 100%;
   padding: 0.75rem;
   background-color: var(--color-coffee);
+=======
+/* Кнопки */
+.btn-primary {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--color-coffee); /* персиковый */
+>>>>>>> karen
 
   border: none;
   border-radius: 6px;
@@ -122,7 +165,12 @@
   height: 20px;
 }
 
+<<<<<<< HEAD
 .reg__footer {
+=======
+/* Подвал формы */
+.auth__footer {
+>>>>>>> karen
   margin-top: 2rem;
   text-align: center;
   font-size: 0.9rem;
@@ -130,8 +178,17 @@
   width: 100%;
 }
 
+<<<<<<< HEAD
 .reg__footer .reg__link {
   color: #ffffff;
   margin-left: 0.5rem;
   font-weight: 600;
 }
+=======
+.auth__footer .auth__link {
+  color: #ffffff;
+  margin-left: 0.5rem;
+  font-weight: 600;
+}
+
+>>>>>>> karen

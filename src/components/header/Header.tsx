@@ -1,37 +1,21 @@
-import "./header.css";
-import { Link } from 'react-router-dom';
+import './header.css';
+import Logo from '../../icons/Diffy.svg';
+import Favorites from '../../icons/Favourite.svg';
+import User from '../../icons/User.svg';
 
 export default function Header() {
-    return (
-        <header className="header">
-            <div className="header__inner">
-                <Link to="/" className="header__logo logo">
-                    <img src="./src/icons/Diffy.svg" alt="Diffy_logo" className="header__image" />
-                </Link>
-                <nav className="header__menu">
-                    <ul className="header__menu-list">
-                        <li className="header__menu-item">
-                            Гаджеты
-                            <Link to="/" className="header__menu-link"></Link>
-                        </li>
-                        <li className="header__menu-item">
-                            Комплектующие ПК
-                            <Link to="/" className="header__menu-link"></Link>
-                        </li>
-                        <li className="header__menu-item">
-                            <Link to="/login" className="header__menu-link">Авторизация</Link>
-                        </li>
-                    </ul>
-                </nav>
-                <div className="header__menu-button">
-                    <Link to ="/" className="header__button-like">
-                        <img src="./src/icons/Favourite.svg" alt="header__button-like-image" />
-                    </Link>
-                    <Link to="/register" className="header__button-account">
-                        <img src="./src/icons/User.svg" alt="header__button-account-image" />  
-                    </Link>
-                </div>
-            </div>
-        </header>
-    )
+  return(
+  <header>
+    <nav>
+      <a className="header-link" href="/"><img src={Logo} alt='Diffy' /></a>
+      <a className="header-link" href="#gadgets">Гаджеты</a>
+      <a className="header-link" href="#parts">Комплектующие</a>
+      <a className="header-link" href="/register">Регистрация</a>
+      <div className="header-section">
+        <a href='#favorites'><img src={Favorites} alt='Favorites' /></a>
+        <a href='/login'><img src={User} alt='User' /></a>
+      </div>
+    </nav>
+  </header>
+  );
 }

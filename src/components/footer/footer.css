@@ -1,29 +1,22 @@
-.footer {
-    background-color: #000;
-    color: white;
-    padding: 2rem 0;
-    font-family:'Segoe UI';
+footer {
+  background-color: black;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  left: 0px;
+  width: 100%;
+  padding: 20px 0px;
+  margin: 0;
+  margin-top: auto;
 }
 
-.footer__inner {
-    display: flex;
-    align-items: flex-start;
-    padding: 0 2rem;
+.footer-logo {
+    margin-top: 70px;
 }
-
-.footer__logo-wrapper {
-    flex-shrink: 0;
-    margin-top: 0.5rem;
-}
-
-.footer__menu {
-    display: flex;
-    justify-content: center;
-    gap: 24rem;
-    flex: 1;
-    margin: 0 auto;
-}
-
-.footer__menu-column {
-    text-align: left;
+.footer-text {
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
+  padding-top: 10px;
 }
