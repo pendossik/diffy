@@ -34,7 +34,7 @@ export default function Footer() {
             </a>
           </li>
           <li>
-            <a href="/" className="footer-text">
+            <a href="/register" className="footer-text">
               Вход/Регистрация
             </a>
           </li>

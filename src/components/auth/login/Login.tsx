@@ -1,27 +1,35 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-     const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
+const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-        const users = JSON.parse(localStorage.getItem('users') || '[]');
+    try {
+        const response = await axios.post("http://127.0.0.1:8000/api/token/", {
+            email: email, // если ты используешь email как логин
+            password: password,
+        });
 
-        const user = users.find(
-            (u: any) => u.email === email && u.password === password
-        );
+        const { access, refresh } = response.data;
 
-        if (user) {
-            alert('Всё гуд! Вы вошли в аккаунт.');
-            navigate('/');
-        } else {
-            alert('Нет такого пользователя или неверный пароль.');
-        }
-    };
+        // сохраняем токены
+        localStorage.setItem("access_token", access);
+        localStorage.setItem("refresh_token", refresh);
+
+        alert("Вы вошли в аккаунт!");
+        navigate("/");
+    } catch (error: any) {
+        console.error("Ошибка входа:", error.response?.data || error.message);
+        alert("Неверный логин или пароль");
+    }
+};
+
     return(
         <main className="auth">
         <div className="auth__inner">

@@ -1,6 +1,11 @@
 header {
   background-color: #fce5cc;
   padding: 40px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 nav {
@@ -13,9 +18,13 @@ nav {
   color: #1d4a58;
   font-size: 18px;
   border-radius: 4px;
+  text-decoration: none;
+}
+.header-link:hover {
+  text-decoration: underline;
 }
 .header-section {
-    display: flex;
+  display: flex;
 }
 
 .logo {

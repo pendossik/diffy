@@ -2,11 +2,13 @@ import "./body.css";
 import Search from "./Search";
 import { useState } from "react";
 import CompareCard from "./CompareCard";
+import { useNavigate } from "react-router-dom";
 
 export function Body() {
   const [firstProduct, setFirstProduct] = useState("");
   const [secondProduct, setSecondProduct] = useState("");
   const [showComparison, setShowComparison] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <main>
@@ -18,7 +20,7 @@ export function Body() {
             onChange={(e) => setFirstProduct(e.target.value)}
           />
 
-          <img src="./src/icons/Plus.svg" alt="image plus" />
+          <img src="./src/icons/Plus.svg" alt="image plus" width="70" />
 
           <Search
             text="Название второго товара"
@@ -30,12 +32,23 @@ export function Body() {
           <button onClick={() => setShowComparison(true)}>Сравнить</button>
         </div>
       </div>
-      <img src="./src/images/Cat.png"></img>
-      <div className="a">
+      <div className="cards-bg">
         {showComparison && (
-          <div className="compare">
-            <CompareCard productName={firstProduct} />
-            <CompareCard productName={secondProduct} />
+          <div>
+            <div className="compare">
+              <CompareCard productName={firstProduct} bg="short-product1" />
+              <CompareCard productName={secondProduct} bg="short-product2" />
+            </div>
+
+            <button className="more-btn"
+              onClick={() => {
+                navigate("/compare", {
+                  state: { firstProduct, secondProduct },
+                });
+              }}
+            >
+              Подробнее
+            </button>
           </div>
         )}
       </div>

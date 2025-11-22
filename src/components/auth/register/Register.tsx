@@ -1,6 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./register.css"
+import axios from "axios";
+
 
 export function Register() {
     const [name, setName] = useState('');
@@ -8,24 +10,25 @@ export function Register() {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    function handleSubmit(e: React.FormEvent) {
+    async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-    
 
-        const users = JSON.parse(localStorage.getItem('users') || '[]'); // Берем пользователей
+        try {
+            const response = await axios.post("http://127.0.0.1:8000/accounts/api/register/", {
+                username: name,
+                email: email,
+                password: password,
+            });
 
-        const exists = users.some((user: any) => user.email === email); // true or false; провертка на emaill
-        if(exists){
-            alert('Пользователь с таким email существует')
-            return;
+            console.log("Пользователь создан:", response.data);
+            alert("Аккаунт создан успешно!");
+            navigate("/login");
+        } catch (error: any) {
+            console.error("Ошибка при регистрации:", error.response?.data || error.message);
+            alert("Ошибка регистрации: " + (error.response?.data?.detail || "проверь данные"));
         }
-
-        users.push({name, email, password});
-        localStorage.setItem('users', JSON.stringify(users));
-
-        alert('Аккаунт создан');
-        navigate('/login');
     }
+
 
     return (
         <main className="auth">
