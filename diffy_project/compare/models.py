@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=100, verbose_name="Категория")
@@ -34,3 +35,26 @@ class Characteristic(models.Model):
     class Meta:
         verbose_name = "Характеристика"
         verbose_name_plural = "Характеристики"
+
+
+
+class FavoritePair(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="favorite_pairs")
+    product_1 = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="favorite_as_first")
+    product_2 = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="favorite_as_second")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Избранная пара"
+        verbose_name_plural = "Избранные пары"
+        unique_together = ("user", "product_1", "product_2")  # защита от дублей
+
+    def save(self, *args, **kwargs):
+        # сортируем id чтобы (A,B) == (B,A)
+        if self.product_1_id > self.product_2_id:
+            self.product_1, self.product_2 = self.product_2, self.product_1
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.user.username}: {self.product_1.name} + {self.product_2.name}"

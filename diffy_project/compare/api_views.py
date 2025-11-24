@@ -9,6 +9,12 @@ from rest_framework import status
 
 import re
 
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+
+from .models import FavoritePair
+from .serializers import FavoritePairSerializer, FavoritePairCreateSerializer
+
 NUMBER_RE = re.compile(r"\d+\.?\d*")
 
 # Список всех категорий для теста
@@ -133,3 +139,53 @@ class CompareAPIView(APIView):
 
         return Response(result, status=status.HTTP_200_OK)
 
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def add_favorite_pair(request):
+    serializer = FavoritePairCreateSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+
+    p1 = serializer.validated_data["product_1"]
+    p2 = serializer.validated_data["product_2"]
+
+    # сортируем для правильного поиска дублей
+    p1, p2 = sorted([p1, p2])
+
+    # проверяем дубликаты
+    exists = FavoritePair.objects.filter(
+        user=request.user,
+        product_1_id=p1,
+        product_2_id=p2
+    ).exists()
+
+    if exists:
+        return Response({"detail": "Уже в избранном."}, status=200)
+
+    FavoritePair.objects.create(
+        user=request.user,
+        product_1_id=p1,
+        product_2_id=p2
+    )
+
+    return Response({"detail": "Добавлено в избранное."}, status=status.HTTP_201_CREATED)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def list_favorites(request):
+    favorites = FavoritePair.objects.filter(user=request.user).order_by("-created_at")
+    serializer = FavoritePairSerializer(favorites, many=True)
+    return Response(serializer.data)
+
+
+@api_view(["DELETE"])
+@permission_classes([IsAuthenticated])
+def delete_favorite(request, pk):
+    try:
+        fav = FavoritePair.objects.get(id=pk, user=request.user)
+    except FavoritePair.DoesNotExist:
+        return Response({"detail": "Не найдено."}, status=404)
+
+    fav.delete()
+    return Response({"detail": "Удалено."})
