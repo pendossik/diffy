@@ -1,6 +1,6 @@
 import { PhoneCards } from "./PhoneCards";
 
-export function Compare() {
+export function ComparePage() {
   return (
     <main>
       <PhoneCards />

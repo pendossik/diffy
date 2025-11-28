@@ -8,7 +8,7 @@
 }
 
 .char-header {
-  background-color: #97A1A1;
+  background-color: #97a1a1;
   color: #fff6f6;
   display: flex;
   justify-content: center;
@@ -59,6 +59,7 @@
 
 .char {
   background-color: #fce5cc;
+  color: #1d4a58;
   width: 100%;
   padding: 10px 0px;
   display: flex;
@@ -86,7 +87,7 @@
   height: 40px;
 }
 
-.fav-btn:hover{
+.fav-btn:hover {
   background-color: unset;
 }
 
@@ -96,6 +97,6 @@
 }
 
 .cards {
-    all:unset;
-    position: relative;
+  all: unset;
+  position: relative;
 }

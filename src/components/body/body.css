@@ -6,15 +6,15 @@ body {
 
 input {
   border: none;
-  background: #F4E9DE;
-  color: #4D463E;
+  background: #f4e9de;
+  color: #4d463e;
   width: 800px;
   height: 70px;
   align-items: center;
   border-radius: 2.5px;
 }
 
-input::placeholder{
+input::placeholder {
   text-align: center;
 }
 
@@ -22,8 +22,8 @@ div.search-compare {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin-top: 120px;
+  gap: 10px;
+  margin-top: 200px;
 }
 
 .search-block {
@@ -31,14 +31,13 @@ div.search-compare {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding-bottom: 290px;
+  padding-bottom: 270px;
 }
 
 .compare-button {
   position: absolute;
-  right: 300px;
-  top:310px;
-
+  right: 320px;
+  top: 385px;
 }
 
 button {
@@ -52,8 +51,12 @@ button {
   border-radius: 2.5px;
 }
 
-button:hover {
-  background-color: #FFF0DF;
+button:hover:enabled {
+  background-color: #fff0df;
+}
+
+button:disabled {
+  opacity: 0.6;
 }
 
 ul {
@@ -65,9 +68,8 @@ img.card {
   object-fit: contain;
 }
 
-
 div.card {
-  background-color: #91A0A0;
+  background-color: #91a0a0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -79,28 +81,21 @@ div.card {
 .a {
   display: flex;
   justify-content: center;
-  
 }
 
-.fill-emptiness {
-  height: 550px;
-  background-color: #fce5cc;
-}
-
-.more-btn{
-  margin-top: 20px;
-  margin-left:875px;
-  margin-bottom: 20px;
+.more-btn {
+  margin-top: 70px;
+  margin-left: 875px;
+  margin-bottom: 60px;
 }
 
 .more-btn:hover {
-  background-color: #FFF0DF;
+  background-color: #fff0df;
 }
 
 .cards-bg {
   background: no-repeat center/cover url("../../images/cards-bg.png");
 }
-
 
 .short-product1 {
   background: no-repeat center/cover url("../../images/short-product1-bg.png");
@@ -136,7 +131,6 @@ div.card {
   justify-content: space-evenly;
 }
 
-
 .short-char {
   display: flex;
   flex-direction: column;
@@ -145,4 +139,10 @@ div.card {
 }
 h4 {
   margin-bottom: 0;
+}
+
+.error-text {
+  color: #ff4d4f;
+  margin-top: 10px;
+  font-size: 16px;
 }

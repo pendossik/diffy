@@ -1,221 +1,273 @@
 import "./phone-cards.css";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import Records from "../../records.json";
 import favOff from "../../icons/Favourite_button.svg";
 import favOn from "../../icons/Favourite_button_active.svg";
 
+type Characteristics = {
+  id: number;
+  name: string;
+  value: string;
+};
+
+type Product = {
+  id: number;
+  name: string;
+  category: {
+    id: number;
+    name: string;
+  };
+  characteristics: Characteristics[];
+};
+
 export function PhoneCards() {
   const { state } = useLocation();
-  const { firstProduct, secondProduct } = state;
-  const firstProductData = Records.find(
-    (record) => record.name === firstProduct
-  );
-  const secondProductData = Records.find(
-    (record) => record.name === secondProduct
-  );
+  const { firstData, secondData } = state;
 
   const [isFav, setIsFav] = useState(false);
+
+  // Функция для получения значения характеристики по названию
+  const getChar = (product: Product, name: string) => {
+    return product?.characteristics?.find((c) => c.name === name)?.value || "-";
+  };
 
   return (
     <main>
       <div className="cards">
         <div className="description">
           <div className="product1">
-            <img className="card" src={firstProductData?.img} alt={firstProductData?.name} />
-            <p>{firstProductData?.name}</p>
+            <img
+              className="card"
+              src={getChar(firstData, "Фото")}
+              alt={firstData?.name}
+            />
+            <p>{firstData?.name}</p>
           </div>
+
           <div className="product2">
-            <img className="card" src={secondProductData?.img} alt={secondProductData?.name} />
-            <p>{secondProductData?.name}</p>
+            <img
+              className="card"
+              src={getChar(secondData, "Фото")}
+              alt={secondData?.name}
+            />
+            <p>{secondData?.name}</p>
           </div>
         </div>
+
         <button className="fav-btn" onClick={() => setIsFav(!isFav)}>
           <img src={isFav ? favOn : favOff} alt="favourite icon" />
         </button>
       </div>
 
       <div className="full-card">
-
+        {/* --- ГОД РЕЛИЗА --- */}
         <h4 className="char-header">Год релиза</h4>
         <div className="char">
-          <p>{firstProductData?.["release-date"]}</p>
+          <p>{firstData?.release_date}</p>
           <div className="vertical-line"></div>
-          <p>{secondProductData?.["release-date"]}</p>
+          <p>{secondData?.release_date}</p>
         </div>
 
-        
-      <div className="main-char-header">
+        {/* --- РАЗМЕРЫ --- */}
+        <div className="main-char-header">
           <h2>Размеры</h2>
         </div>
+
         <h4 className="char-header">Ширина</h4>
         <div className="char">
-          <p>{firstProductData?.size?.width}</p>
+          <p>{getChar(firstData, "Ширина")}</p>
           <div className="vertical-line"></div>
-          <p>{secondProductData?.size?.width}</p>
+          <p>{getChar(secondData, "Ширина")}</p>
         </div>
+
         <h4 className="char-header">Высота</h4>
         <div className="char">
-          <p>{firstProductData?.size?.height}</p>
+          <p>{getChar(firstData, "Высота")}</p>
           <div className="vertical-line"></div>
-          <p>{secondProductData?.size?.height}</p>
+          <p>{getChar(secondData, "Высота")}</p>
         </div>
+
         <h4 className="char-header">Толщина</h4>
         <div className="char">
-          <p>{firstProductData?.size?.thickness}</p>
+          <p>{getChar(firstData, "Толщина")}</p>
           <div className="vertical-line"></div>
-          <p>{secondProductData?.size?.thickness}</p>
+          <p>{getChar(secondData, "Толщина")}</p>
         </div>
+
         <h4 className="char-header">Вес</h4>
         <div className="char">
-          <p>{firstProductData?.weight}</p>
+          <p>{getChar(firstData, "Вес")}</p>
           <div className="vertical-line"></div>
-          <p>{secondProductData?.weight}</p>
+          <p>{getChar(secondData, "Вес")}</p>
         </div>
 
-<div className="main-char-header">
+        {/* --- КОРПУС --- */}
+        <div className="main-char-header">
           <h2>Корпус</h2>
         </div>
+
         <h4 className="char-header">Материал задней панели</h4>
         <div className="char">
-          <p>{firstProductData?.body?.back}</p>
+          <p>{getChar(firstData, "Материал задней панели")}</p>
           <div className="vertical-line"></div>
-          <p>{secondProductData?.body?.back}</p>
-        </div>
-        <h4 className="char-header">Материал граней</h4>
-        <div className="char">
-          <p>{firstProductData?.body?.edges}</p>
-          <div className="vertical-line"></div>
-          <p>{secondProductData?.body?.edges}</p>
-        </div>
-        <h4 className="char-header">Степень защиты IP</h4>
-        <div className="char">
-          <p>{firstProductData?.body?.ip}</p>
-          <div className="vertical-line"></div>
-          <p>{secondProductData?.body?.ip}</p>
+          <p>{getChar(secondData, "Материал задней панели")}</p>
         </div>
 
+        <h4 className="char-header">Материал граней</h4>
+        <div className="char">
+          <p>{getChar(firstData, "Материал граней")}</p>
+          <div className="vertical-line"></div>
+          <p>{getChar(secondData, "Материал граней")}</p>
+        </div>
+
+        <h4 className="char-header">Пыле-влагозащита</h4>
+        <div className="char">
+          <p>{getChar(firstData, "Пыле-влагозащита")}</p>
+          <div className="vertical-line"></div>
+          <p>{getChar(secondData, "Пыле-влагозащита")}</p>
+        </div>
+
+        {/* --- ДИСПЛЕЙ --- */}
         <div className="main-char-header">
           <h2>Дисплей</h2>
         </div>
-        <h4 className="char-header">Тип матрицы</h4>
+
+        <h4 className="char-header">Тип экрана</h4>
         <div className="char">
-          <p>{firstProductData?.display.type}</p>
+          <p>{getChar(firstData, "Тип экрана")}</p>
           <div className="vertical-line"></div>
-          <p>{secondProductData?.display.type}</p>
+          <p>{getChar(secondData, "Тип экрана")}</p>
         </div>
-        <h4 className="char-header">Размер</h4>
+
+        <h4 className="char-header">Диагональ экрана</h4>
         <div className="char">
-          <p>{firstProductData?.display.size}</p>
+          <p>{getChar(firstData, "Диагональ экрана")}</p>
           <div className="vertical-line"></div>
-          <p>{secondProductData?.display.size}</p>
+          <p>{getChar(secondData, "Диагональ экрана")}</p>
         </div>
-        <h4 className="char-header">Разрешение</h4>
+
+        <h4 className="char-header">Разрешение экрана</h4>
         <div className="char">
-          <p>{firstProductData?.display.resolution}</p>
+          <p>{getChar(firstData, "Разрешение экрана")}</p>
           <div className="vertical-line"></div>
-          <p>{secondProductData?.display.resolution}</p>
+          <p>{getChar(secondData, "Разрешение экрана")}</p>
         </div>
-        <h4 className="char-header">Частота</h4>
+
+        <h4 className="char-header">Частота экрана</h4>
         <div className="char">
-          <p>{firstProductData?.display.frequency}</p>
+          <p>{getChar(firstData, "Частота экрана")}</p>
           <div className="vertical-line"></div>
-          <p>{secondProductData?.display.frequency}</p>
+          <p>{getChar(secondData, "Частота экрана")}</p>
         </div>
-        <h4 className="char-header">Яркость</h4>
+
+        <h4 className="char-header">Яркость экрана</h4>
         <div className="char">
-          <p>{firstProductData?.display.brightness}</p>
+          <p>{getChar(firstData, "Яркость экрана")}</p>
           <div className="vertical-line"></div>
-          <p>{secondProductData?.display.brightness}</p>
+          <p>{getChar(secondData, "Яркость экрана")}</p>
         </div>
+
         <h4 className="char-header">Плотность пикселей</h4>
         <div className="char">
-          <p>{firstProductData?.display.ppi}</p>
+          <p>{getChar(firstData, "Плотность пикселей")}</p>
           <div className="vertical-line"></div>
-          <p>{secondProductData?.display.ppi}</p>
+          <p>{getChar(secondData, "Плотность пикселей")}</p>
         </div>
+
         <h4 className="char-header">Соотношение сторон</h4>
         <div className="char">
-          <p>{firstProductData?.display["aspect-ratio"]}</p>
+          <p>{getChar(firstData, "Соотношение сторон")}</p>
           <div className="vertical-line"></div>
-          <p>{secondProductData?.display["aspect-ratio"]}</p>
+          <p>{getChar(secondData, "Соотношение сторон")}</p>
         </div>
 
-
-      <div className="main-char-header">
+        {/* --- ПРОЦЕССОР --- */}
+        <div className="main-char-header">
           <h2>Процессор</h2>
         </div>
+
         <h4 className="char-header">Модель процессора</h4>
         <div className="char">
-          <p>{firstProductData?.cpu?.model}</p>
+          <p>{getChar(firstData, "Модель процессора")}</p>
           <div className="vertical-line"></div>
-          <p>{secondProductData?.cpu?.model}</p>
+          <p>{getChar(secondData, "Модель процессора")}</p>
         </div>
+
         <h4 className="char-header">Количество ядер</h4>
         <div className="char">
-          <p>{firstProductData?.cpu?.cores}</p>
+          <p>{getChar(firstData, "Количество ядер")}</p>
           <div className="vertical-line"></div>
-          <p>{secondProductData?.cpu?.cores}</p>
+          <p>{getChar(secondData, "Количество ядер")}</p>
         </div>
+
+        {/* --- БАТАРЕЯ --- */}
         <div className="main-char-header">
           <h2>Батарея</h2>
         </div>
-        <h4 className="char-header">Емкость батареи</h4>
-         <div className="char">
-          <p>{firstProductData?.battery}</p>
+
+        <h4 className="char-header">Аккумулятор</h4>
+        <div className="char">
+          <p>{getChar(firstData, "Аккумулятор")}</p>
           <div className="vertical-line"></div>
-          <p>{secondProductData?.battery}</p>
+          <p>{getChar(secondData, "Аккумулятор")}</p>
         </div>
 
+        {/* --- ОСНОВНАЯ КАМЕРА --- */}
         <div className="main-char-header">
           <h2>Основная камера</h2>
         </div>
+
         <h4 className="char-header">Количество камер</h4>
-         <div className="char">
-          <p>{firstProductData?.camera?.amount}</p>
+        <div className="char">
+          <p>{getChar(firstData, "Количество камер")}</p>
           <div className="vertical-line"></div>
-          <p>{secondProductData?.camera?.amount}</p>
-        </div>
-        <h4 className="char-header">Количество мегапикселей</h4>
-         <div className="char">
-          <p>{firstProductData?.camera?.mp}</p>
-          <div className="vertical-line"></div>
-          <p>{secondProductData?.camera?.mp}</p>
-        </div>
-        <h4 className="char-header">Тип модулей камеры</h4>
-         <div className="char">
-          <p>{firstProductData?.camera?.type}</p>
-          <div className="vertical-line"></div>
-          <p>{secondProductData?.camera?.type}</p>
+          <p>{getChar(secondData, "Количество камер")}</p>
         </div>
 
+        <h4 className="char-header">Количество мегапикселей</h4>
+        <div className="char">
+          <p>{getChar(firstData, "Количество мегапикселей")}</p>
+          <div className="vertical-line"></div>
+          <p>{getChar(secondData, "Количество мегапикселей")}</p>
+        </div>
+
+        <h4 className="char-header">Тип задней камеры</h4>
+        <div className="char">
+          <p>{getChar(firstData, "Тип задней камеры")}</p>
+          <div className="vertical-line"></div>
+          <p>{getChar(secondData, "Тип задней камеры")}</p>
+        </div>
+
+        {/* --- ФРОНТАЛКА --- */}
         <div className="main-char-header">
           <h2>Фронтальная камера</h2>
         </div>
-        <h4 className="char-header">Количество мегапикселей</h4>
-         <div className="char">
-          <p>{firstProductData?.["frontal-camera"]?.mp}</p>
+        <h4 className="char-header">Фронтальная камера</h4>
+        <div className="char">
+          <p>{getChar(firstData, "Фронтальная камера")}</p>
           <div className="vertical-line"></div>
-          <p>{secondProductData?.["frontal-camera"]?.mp}</p>
+          <p>{getChar(secondData, "Фронтальная камера")}</p>
         </div>
 
+        {/* --- ОС --- */}
         <div className="main-char-header">
           <h2>Операционная система</h2>
         </div>
-         <div className="char">
-          <p>{firstProductData?.os}</p>
+        <div className="char">
+          <p>{getChar(firstData, "Операционная система")}</p>
           <div className="vertical-line"></div>
-          <p>{secondProductData?.os}</p>
+          <p>{getChar(secondData, "Операционная система")}</p>
         </div>
 
+        {/* --- BLUETOOTH --- */}
         <div className="main-char-header">
           <h2>Bluetooth</h2>
         </div>
         <h4 className="char-header">Версия bluetooth</h4>
-         <div className="char">
-          <p>{firstProductData?.bluetooth}</p>
+        <div className="char">
+          <p>{getChar(firstData, "Bluetooth")}</p>
           <div className="vertical-line"></div>
-          <p>{secondProductData?.bluetooth}</p>
+          <p>{getChar(secondData, "Bluetooth")}</p>
         </div>
       </div>
     </main>
