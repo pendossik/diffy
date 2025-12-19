@@ -5,51 +5,80 @@ from drf_spectacular.utils import extend_schema_field
 
 
 
-class CharacteristicValueSerializer(serializers.ModelSerializer):
-    name = serializers.CharField(source='template.name', read_only=True)
+# class CharacteristicValueSerializer(serializers.ModelSerializer):
+#     name = serializers.CharField(source='template.name', read_only=True)
+    
+#     class Meta:
+#         model = CharacteristicValue
+#         fields = ['id', 'name', 'value']
+
+# class CharacteristicGroupSerializer(serializers.ModelSerializer):
+#     characteristics = serializers.SerializerMethodField()
+
+#     class Meta:
+#         model = CharacteristicGroup
+#         fields = ['name', 'characteristics']
+
+#     # Подсказываем Swagger, что тут вернется список CharacteristicValueSerializer
+#     @extend_schema_field(CharacteristicValueSerializer(many=True))
+#     def get_characteristics(self, group):
+#         # Возвращаем только характеристики текущего продукта
+#         product = self.context.get('product')
+#         if not product:
+#             return []
+#         values = CharacteristicValue.objects.filter(product=product, template__group=group)
+#         return CharacteristicValueSerializer(values, many=True).data
+
+# class DetailedProductSerializer(serializers.ModelSerializer):
+#     """Полный объект товара с вложенными характеристиками"""
+#     category = serializers.CharField(source='category.name')
+#     # Явно указываем сериализатор для групп, чтобы Swagger не писал "string"
+#     characteristics_groups = CharacteristicGroupSerializer(many=True)
+#     class Meta:
+#         model = Product
+#         fields = ['id', 'name', 'category', 'img', 'characteristics_groups']
+
+# только для отображения каталога, без характеристик
+class ProductSerializer(serializers.ModelSerializer):
+    category = serializers.CharField(source='category.name', read_only=True)
+    # Мы убираем SerializerMethodField, так как для списка товаров 
+    # характеристики обычно не нужны или грузятся отдельно.
     
     class Meta:
-        model = CharacteristicValue
-        fields = ['id', 'name', 'value']
+        model = Product
+        fields = ['id', 'name', 'category', 'img']
 
-class CharacteristicGroupSerializer(serializers.ModelSerializer):
-    characteristics = serializers.SerializerMethodField()
+class CharacteristicItemSerializer(serializers.Serializer):
+    id = serializers.IntegerField(help_text="ID значения или шаблона")
+    name = serializers.CharField(help_text="Название характеристики (н-р, 'Вес')")
+    value = serializers.CharField(help_text="Значение (н-р, '1.5 кг')")
 
-    class Meta:
-        model = CharacteristicGroup
-        fields = ['name', 'characteristics']
+class CharsGroupSerializer(serializers.Serializer):
+    name = serializers.CharField(help_text="Название группы (н-р, 'Корпус')")
+    characteristics = CharacteristicItemSerializer(many=True)
 
-    # Подсказываем Swagger, что тут вернется список CharacteristicValueSerializer
-    @extend_schema_field(CharacteristicValueSerializer(many=True))
-    def get_characteristics(self, group):
-        # Возвращаем только характеристики текущего продукта
-        product = self.context.get('product')
-        if not product:
-            return []
-        values = CharacteristicValue.objects.filter(product=product, template__group=group)
-        return CharacteristicValueSerializer(values, many=True).data
+class CompareResultSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    name = serializers.CharField()
+    category = serializers.CharField()
+    img = serializers.CharField()
+    characteristics_groups = CharsGroupSerializer(many=True)
 
+
+
+# Сериализатор для входных данных сравнения
+class CompareRequestSerializer(serializers.Serializer):
+    product_ids = serializers.ListField(
+        child=serializers.IntegerField(),
+        min_length=1,
+        max_length=3,
+        help_text="Список ID товаров для сравнения (от 1 до 3)"
+    )
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ['id', 'name']
-
-
-class ProductSerializer(serializers.ModelSerializer):
-    category = serializers.StringRelatedField()
-    characteristics_groups = serializers.SerializerMethodField()
-    img = serializers.CharField()
-
-    class Meta:
-        model = Product
-        fields = ['id', 'name', 'category', 'img', 'characteristics_groups']
-
-    def get_characteristics_groups(self, product):
-        groups = CharacteristicGroup.objects.filter(category=product.category).order_by('order')
-        serializer = CharacteristicGroupSerializer(groups, many=True, context={'product': product})
-        return serializer.data
-
 
 class FavoritePairSerializer(serializers.ModelSerializer):
     # Используем вложенный сериализатор для чтения

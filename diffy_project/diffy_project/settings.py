@@ -158,9 +158,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Diffy Project API',
-    'DESCRIPTION': 'Документация API для сравнения товаров',
+    'DESCRIPTION': 'API для сравнения товаров и управления аккаунтами',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
-    # Настройка для JWT (чтобы в Swagger появилась кнопка Authorize)
-    'COMPONENT_SPLIT_REQUEST': True,
+    # Группировка по тегам
+    'TAGS': [
+        {'name': 'Сравнение', 'description': 'Методы для сопоставления характеристик товаров'},
+        {'name': 'Каталог', 'description': 'Категории и товары'},
+        {'name': 'Избранное', 'description': 'Сохраненные пары/группы товаров'},
+        {'name': 'Авторизация', 'description': 'Регистрация, JWT токены, профиль'},
+    ],
+    # Чтобы JWT работал в UI
+    'APPEND_COMPONENTS': {
+        "securitySchemes": {
+            "Bearer": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+            }
+        }
+    },
+    'SECURITY': [{'Bearer': []}],
 }

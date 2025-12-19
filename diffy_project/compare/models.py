@@ -34,6 +34,7 @@ class CharacteristicGroup(models.Model):
 
     class Meta:
         ordering = ['order']
+        unique_together = ('category', 'name')
         verbose_name = "Группа характеристик"
         verbose_name_plural = "Группы характеристик"
 

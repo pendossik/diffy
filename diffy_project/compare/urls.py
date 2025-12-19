@@ -9,14 +9,12 @@ router.register(r'products', ProductViewSet)
 router.register(r'favorites', FavoritePairViewSet, basename='favoritepair')
 
 urlpatterns = [
+    # Все стандартные пути: 
+    # /compare/categories/
+    # /compare/products/
+    # /compare/favorites/
     path('', include(router.urls)),
+
+    # Специальный эндпоинт для сравнения 1-3 товаров
     path('comparetest/', CompareAPIView.as_view(), name='comparetest'),
-    # было без router
-    # path('categories/', CategoryListAPIView.as_view(), name='api_categories'),
-    # path('products/', ProductListAPIView.as_view(), name='api_products'),
-    # path('products/<int:pk>/', ProductDetailAPIView.as_view(), name='api_product_detail'),
-    # path('comparetest/', CompareAPIView.as_view(), name='compare-test'),
-    # path("favorites/add/", add_favorite_pair),
-    # path("favorites/", list_favorites),
-    # path("favorites/<int:pk>/", delete_favorite),
 ]
