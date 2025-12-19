@@ -7,6 +7,13 @@ from rest_framework.generics import get_object_or_404
 from .models import Category, Product, FavoritePair
 from .serializers import CategorySerializer, ProductSerializer, FavoritePairSerializer
 
+# чтобы сваггер понял CompareAPIView
+from drf_spectacular.utils import extend_schema, inline_serializer, OpenApiParameter, OpenApiExample
+from drf_spectacular.types import OpenApiTypes
+from rest_framework import serializers
+
+
+
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     """
     Автоматически создает:
@@ -43,9 +50,55 @@ class FavoritePairViewSet(viewsets.ModelViewSet):
         # Возвращаем только пары текущего пользователя
         return FavoritePair.objects.filter(user=self.request.user).order_by("-created_at")
     
+# Убрали .prefetch_related("characteristics") а так тоже самое
+# class CompareAPIView(APIView):
+#     permission_classes = [AllowAny]
+
+#     def post(self, request):
+#         p1_id = request.data.get("product1")
+#         p2_id = request.data.get("product2")
+
+#         if not p1_id or not p2_id:
+#             return Response({"detail": "product1 and product2 IDs are required"}, status=400)
+        
+#         # Оптимизированный запрос к БД (в один заход, если повезет, или два быстрых)
+#         products = Product.objects.filter(id__in=[p1_id, p2_id])\
+#                                   .select_related("category")\
+#                               Убрали .prefetch_related("characteristics")
+#                                   .prefetch_related("characteristics")
+
+#         if len(products) != 2:
+#              return Response({"detail": "One or both products not found"}, status=404)
+
+#         p1, p2 = products[0], products[1]
+
+#         if p1.category_id != p2.category_id:
+#              return Response({"detail": "Products must be from the same category"}, status=400)
+        
+#         serializer = ProductSerializer([p1, p2], many=True)
+
+#         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 
 class CompareAPIView(APIView):
     permission_classes = [AllowAny]
+
+    @extend_schema(
+            summary="Сравнение двух товаров",
+            description="Возвращает детальную информацию по двум товарам со всеми характеристиками.",
+            # Описываем, что мы отправляем на сервер (Request Body)
+            request=inline_serializer(
+                name='CompareRequest',
+                fields={
+                    'product1': serializers.IntegerField(),
+                    'product2': serializers.IntegerField(),
+                }
+            ),
+            # Описываем, что получаем в ответ (Response)
+            # many=True означает, что вернется список [...]
+            responses={200: ProductSerializer(many=True)}
+    )
 
     def post(self, request):
         p1_id = request.data.get("product1")
@@ -54,22 +107,24 @@ class CompareAPIView(APIView):
         if not p1_id or not p2_id:
             return Response({"detail": "product1 and product2 IDs are required"}, status=400)
         
-        # Оптимизированный запрос к БД (в один заход, если повезет, или два быстрых)
-        products = Product.objects.filter(id__in=[p1_id, p2_id])\
-                                  .select_related("category")\
-                                  .prefetch_related("characteristics")
+        # Оптимизированный запрос к БД
+        # prefetch_related подтягивает сразу все группы и характеристики в них
+        # TODO: Optimize N+1 query (В ProductSerializer метод get_characteristics_groups и внутри CharacteristicGroupSerializer get_characteristics(self, group))
+        products = Product.objects.filter(id__in=[p1_id, p2_id]) \
+                                  .select_related("category") \
+                                  .prefetch_related("category__char_groups__templates__values")
 
         if len(products) != 2:
-             return Response({"detail": "One or both products not found"}, status=404)
+            return Response({"detail": "One or both products not found"}, status=404)
 
         p1, p2 = products[0], products[1]
 
         if p1.category_id != p2.category_id:
-             return Response({"detail": "Products must be from the same category"}, status=400)
+            return Response({"detail": "Products must be from the same category"}, status=400)
         
         serializer = ProductSerializer([p1, p2], many=True)
+        return Response(serializer.data, status=200)
 
-        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 # @api_view(["POST"])

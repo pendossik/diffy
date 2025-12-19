@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-2b_ch-$6a_q3a_@vnq9#()rtrn24)-$j3-#ur0vsl9ishv&a6e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '100.105.194.90', 'macbook-air']
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Application definition
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt.token_blacklist',
+    'drf_spectacular', # для сваггер
     # для взаимд с react
     'corsheaders'
 ]
@@ -56,6 +58,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly', # IsAuthenticatedOrReadOnly AllowAny
     ),
+    # чтобы включить генерацию схемы через spectacular
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 
@@ -71,9 +75,9 @@ MIDDLEWARE = [
 ]
 
 # мои настрйоки
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173"
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:5173",
+# ]
 AUTHENTICATION_BACKENDS = [
     'accounts.backends.EmailBackend',
     'django.contrib.auth.backends.ModelBackend',
@@ -151,3 +155,12 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Diffy Project API',
+    'DESCRIPTION': 'Документация API для сравнения товаров',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # Настройка для JWT (чтобы в Swagger появилась кнопка Authorize)
+    'COMPONENT_SPLIT_REQUEST': True,
+}

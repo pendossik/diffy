@@ -1,11 +1,33 @@
 from rest_framework import serializers
-from .models import Category, Product, Characteristic, FavoritePair
+from .models import Category, Product, FavoritePair, CharacteristicGroup, CharacteristicValue
+# для свагера
+from drf_spectacular.utils import extend_schema_field
 
 
-class CharacteristicSerializer(serializers.ModelSerializer):
+
+class CharacteristicValueSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(source='template.name', read_only=True)
+    
     class Meta:
-        model = Characteristic
+        model = CharacteristicValue
         fields = ['id', 'name', 'value']
+
+class CharacteristicGroupSerializer(serializers.ModelSerializer):
+    characteristics = serializers.SerializerMethodField()
+
+    class Meta:
+        model = CharacteristicGroup
+        fields = ['name', 'characteristics']
+
+    # Подсказываем Swagger, что тут вернется список CharacteristicValueSerializer
+    @extend_schema_field(CharacteristicValueSerializer(many=True))
+    def get_characteristics(self, group):
+        # Возвращаем только характеристики текущего продукта
+        product = self.context.get('product')
+        if not product:
+            return []
+        values = CharacteristicValue.objects.filter(product=product, template__group=group)
+        return CharacteristicValueSerializer(values, many=True).data
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -15,12 +37,18 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    category = CategorySerializer(read_only=True)
-    characteristics = CharacteristicSerializer(many=True, read_only=True)
+    category = serializers.StringRelatedField()
+    characteristics_groups = serializers.SerializerMethodField()
+    img = serializers.CharField()
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'category', 'characteristics']
+        fields = ['id', 'name', 'category', 'img', 'characteristics_groups']
+
+    def get_characteristics_groups(self, product):
+        groups = CharacteristicGroup.objects.filter(category=product.category).order_by('order')
+        serializer = CharacteristicGroupSerializer(groups, many=True, context={'product': product})
+        return serializer.data
 
 
 class FavoritePairSerializer(serializers.ModelSerializer):
