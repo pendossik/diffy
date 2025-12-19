@@ -6,20 +6,21 @@ type Props = {
 export default function ShortCompareCard({ data, bg }: Props) {
   if (!data) return null;
 
-  const getValue = (name: string) =>
-    data.characteristics.find((c: any) => c.name === name)?.value || "—";
-
   return (
     <div className={bg}>
-      <img className="card" src={getValue("Фото")} alt={data.name} />
+      <img className="card" src={data.img} alt={data.name} />
 
       <h3>{data.name}</h3>
       <h4>Характеристики</h4>
 
-      {data.characteristics.map((c: any) => (
-        <div className="short-char">
-          <h4>{c.name}</h4>
-          <p>{c.value}</p>
+      {data.characteristics_groups.map((group: any) => (
+        <div key={group.name} className="short-group">
+          {group.characteristics.map((c: any) => (
+            <div key={c.id} className="short-char">
+              <h4>{c.name}</h4>
+              <p>{c.value}</p>
+            </div>
+          ))}
         </div>
       ))}
     </div>

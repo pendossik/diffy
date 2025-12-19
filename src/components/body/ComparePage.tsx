@@ -1,9 +1,9 @@
-import { PhoneCards } from "./PhoneCards";
+import { FullCompareCard } from "./FullCompareCard";
 
 export function ComparePage() {
   return (
     <main>
-      <PhoneCards />
+      <FullCompareCard />
     </main>
   );
 }

@@ -27,13 +27,20 @@
     "globals": "^16.3.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
+    "prettier": "^3.7.1",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.35.1",
     "vite": "^7.0.4"
   },
   "lint-staged": {
-    "*.{js,ts,tsx,jsx}": ["prettier --write"],
-    "*.css": ["prettier --write"],
-    "*.html": ["prettier --write"]
+    "*.{js,ts,tsx,jsx}": [
+      "prettier --write"
+    ],
+    "*.css": [
+      "prettier --write"
+    ],
+    "*.html": [
+      "prettier --write"
+    ]
   }
 }

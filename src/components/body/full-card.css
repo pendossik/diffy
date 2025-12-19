@@ -53,6 +53,21 @@
   border-radius: 2.5px;
 }
 
+.product3 {
+  background: no-repeat center/cover url("./src/images/product1-bg.png");
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  gap: 30px;
+  color: white;
+  padding: 175px 50px;
+  font-weight: bold;
+  border-radius: 2.5px;
+}
+
 .display-header {
   visibility: hidden;
 }
@@ -99,4 +114,23 @@
 .cards {
   all: unset;
   position: relative;
+}
+
+.best {
+  background-color: #d4f8d4; /* мягкий зелёный */
+  border-radius: 6px;
+  padding: 4px 6px;
+}
+
+.worst {
+  background-color: #ffd6d6; /* мягкий красный */
+  border-radius: 6px;
+  padding: 4px 6px;
+}
+
+.full {
+  background: url("../../images/cards-bg.png") no-repeat center/cover;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }

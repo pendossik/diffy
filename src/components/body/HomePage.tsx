@@ -5,58 +5,29 @@ import ShortCompareCard from "./ShortCompareCard";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-type CompareResponse = {
-  product1: any;
-  product2: any;
-  product3: any;
-};
-
 export function HomePage() {
-  const [firstProduct, setFirstProduct] = useState<{
-    id: number;
-    name: string;
-  }>({
-    id: 0,
-    name: "",
-  });
-
-  const [secondProduct, setSecondProduct] = useState<{
-    id: number;
-    name: string;
-  }>({
-    id: 0,
-    name: "",
-  });
-
-  const [thirdProduct, setThirdProduct] = useState<{
-    id: number;
-    name: string;
-  }>({
-    id: 0,
-    name: "",
-  });
-
-  const [compareData, setCompareData] = useState<CompareResponse | null>(null);
+  const [firstProduct, setFirstProduct] = useState({ id: 0, name: "" });
+  const [secondProduct, setSecondProduct] = useState({ id: 0, name: "" });
+  const [compareData, setCompareData] = useState<any[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const handleCompare = () => {
-    const ids = [firstProduct.id, secondProduct.id, thirdProduct.id];
-    const uniqueIds = new Set(ids);
-
-    if (uniqueIds.size !== 3) {
+    if (firstProduct.id === secondProduct.id) {
       setError("Товары должны быть разными");
       return;
     }
 
     axios
-      .post<CompareResponse>("http://127.0.0.1:8000/compare/", {
+      .post(`${import.meta.env.VITE_API_URL}/compare/comparetest/`, {
         product1: firstProduct.id,
         product2: secondProduct.id,
-        product3: thirdProduct.id,
       })
-      .then((res) => setCompareData(res.data))
-      .catch((err) => setError("Ошибка загрузки данных"));
+      .then((res) => {
+        console.log("RESPONSE:", res.data);
+        setCompareData(res.data);
+      })
+      .catch(() => setError("Ошибка загрузки данных"));
   };
 
   return (
@@ -68,27 +39,17 @@ export function HomePage() {
             value={firstProduct.name}
             onChange={(id, name) => setFirstProduct({ id, name })}
           />
-
           <img src="./src/icons/Plus.svg" alt="image plus" width="70" />
-
           <Search
             text="Название второго товара"
             value={secondProduct.name}
             onChange={(id, name) => setSecondProduct({ id, name })}
           />
-
-          <img src="./src/icons/Plus.svg" alt="image plus" width="70" />
-
-          <Search
-            text="Название третьего товара"
-            value={thirdProduct.name}
-            onChange={(id, name) => setThirdProduct({ id, name })}
-          />
         </div>
 
         <div className="compare-button">
           <button
-            disabled={!firstProduct.id && !secondProduct.id && !thirdProduct.id}
+            disabled={!firstProduct.id || !secondProduct.id}
             onClick={handleCompare}
           >
             Сравнить
@@ -99,21 +60,11 @@ export function HomePage() {
       </div>
 
       <div className="cards-bg">
-        {compareData && (
+        {compareData && compareData.length >= 2 && (
           <div>
             <div className="compare">
-              <ShortCompareCard
-                data={compareData.product1}
-                bg="short-product1"
-              />
-              <ShortCompareCard
-                data={compareData.product2}
-                bg="short-product2"
-              />
-              <ShortCompareCard
-                data={compareData.product3}
-                bg="short-product2"
-              />
+              <ShortCompareCard data={compareData[0]} bg="short-product1" />
+              <ShortCompareCard data={compareData[1]} bg="short-product2" />
             </div>
 
             <button
@@ -121,9 +72,8 @@ export function HomePage() {
               onClick={() =>
                 navigate("/compare", {
                   state: {
-                    firstData: compareData.product1,
-                    secondData: compareData.product2,
-                    thirdData: compareData.product3,
+                    firstData: compareData[0],
+                    secondData: compareData[1],
                   },
                 })
               }
