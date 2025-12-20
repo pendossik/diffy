@@ -8,7 +8,16 @@ export default function ShortCompareCard({ data, bg }: Props) {
 
   return (
     <div className={bg}>
-      <img className="card" src={data.img} alt={data.name} />
+      <div className="card-image-wrapper">
+        {data.img && (
+          <img
+            className="card-image"
+            src={data.img}
+            alt={data.name}
+            loading="lazy"
+          />
+        )}
+      </div>
 
       <h3>{data.name}</h3>
       <h4>Характеристики</h4>

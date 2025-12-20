@@ -25,11 +25,15 @@ type Product = {
 export function FullCompareCard() {
   const { state } = useLocation();
 
-  const products: Product[] = [
-    state.firstData,
-    state.secondData,
-    state.thirdData,
-  ].filter(Boolean);
+  const products: Product[] = state?.products || [];
+
+  if (!products.length) {
+    return (
+      <p style={{ color: "white", textAlign: "center" }}>
+        Нет данных для сравнения
+      </p>
+    );
+  }
 
   const [isFav, setIsFav] = useState(false);
 
@@ -125,7 +129,18 @@ export function FullCompareCard() {
         <div className="description">
           {products.map((p, i) => (
             <div key={p.id} className={`product${i + 1}`}>
-              <img className="card" src={p.img || ""} alt={p.name} />
+              <div className="card-image-wrapper">
+                {p.img ? (
+                  <img
+                    className="card-image"
+                    src={p.img}
+                    alt={p.name}
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="image-placeholder" />
+                )}
+              </div>
               <p>{p.name}</p>
             </div>
           ))}

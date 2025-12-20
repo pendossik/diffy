@@ -134,3 +134,26 @@
   justify-content: center;
   align-content: center;
 }
+
+.card-image-wrapper {
+  width: 150px; /* фиксированная ширина */
+  height: 150px; /* фиксированная высота */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px; /* фон, если картинки нет */
+  border-radius: 8px;
+}
+
+.card-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.image-placeholder {
+  width: 60%;
+  height: 60%;
+  background: #e0e0e0;
+  border-radius: 6px;
+}
