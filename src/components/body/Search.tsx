@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 
 type Props = {
@@ -14,6 +14,9 @@ type Product = {
 
 export default function Search({ text, value, onChange }: Props) {
   const [products, setProducts] = useState<Product[]>([]);
+  const [filtered, setFiltered] = useState<Product[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     axios
@@ -22,25 +25,53 @@ export default function Search({ text, value, onChange }: Props) {
       .catch((error) => console.error("Ошибка загрузки:", error));
   }, []);
 
-  function handleSelect(e: React.ChangeEvent<HTMLInputElement>) {
-    const name = e.target.value;
-    const product = products.find((p) => p.name === name);
-    onChange(product ? product.id : 0, name);
+  // Закрытие подсказок при клике вне компонента
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const text = e.target.value;
+    onChange(0, text); // обновляем текст
+    const filteredProducts = products.filter((p) =>
+      p.name.toLowerCase().includes(text.toLowerCase()),
+    );
+    setFiltered(filteredProducts);
+    setIsOpen(true);
+  }
+
+  function handleSelect(product: Product) {
+    onChange(product.id, product.name);
+    setIsOpen(false);
   }
 
   return (
-    <div>
+    <div className="search-wrapper" ref={wrapperRef}>
       <input
         placeholder={text}
         value={value}
-        onChange={handleSelect}
-        list="items"
+        onChange={handleInputChange}
+        onFocus={() => setIsOpen(true)}
+        className="search-input"
       />
-      <datalist id="items">
-        {products.map((product) => (
-          <option key={product.id} value={product.name} />
-        ))}
-      </datalist>
+      {isOpen && filtered.length > 0 && (
+        <ul className="search-dropdown">
+          {filtered.map((p) => (
+            <li key={p.id} onClick={() => handleSelect(p)}>
+              {p.name}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
