@@ -25,11 +25,15 @@ type Product = {
 export function FullCompareCard() {
   const { state } = useLocation();
 
-  const products: Product[] = [
-    state.firstData,
-    state.secondData,
-    state.thirdData,
-  ].filter(Boolean);
+  const products: Product[] = state?.products || [];
+
+  if (!products.length) {
+    return (
+      <p style={{ color: "white", textAlign: "center" }}>
+        Нет данных для сравнения
+      </p>
+    );
+  }
 
   const [isFav, setIsFav] = useState(false);
 

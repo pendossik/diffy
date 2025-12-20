@@ -28,6 +28,7 @@ export function Login() {
 
       alert("Вы вошли в аккаунт!");
       navigate("/");
+      window.location.reload();
     } catch (error: any) {
       console.error("Ошибка входа:", error.response?.data || error.message);
       alert("Неверный логин или пароль");
