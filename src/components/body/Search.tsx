@@ -17,7 +17,7 @@ export default function Search({ text, value, onChange }: Props) {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/compare/products/`)
+      .get(`${import.meta.env.VITE_API_URL}/api/compare/products/`)
       .then((response) => setProducts(response.data))
       .catch((error) => console.error("Ошибка загрузки:", error));
   }, []);

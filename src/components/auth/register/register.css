@@ -130,3 +130,15 @@
   margin-left: 0.5rem;
   font-weight: 600;
 }
+
+@media (max-width: 768px) {
+  .reg__image {
+    display: none;
+  }
+  .reg {
+    height: auto;
+  }
+  .reg__form h1 {
+    font-size: 2rem;
+  }
+}

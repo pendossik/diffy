@@ -1,35 +1,66 @@
-header {
-  background-color: #fce5cc;
-  padding: 30px;
+.main-header {
+  background-color: #f8d9b5;
+  padding: 0 20px;
+  min-height: 100px; /* Фиксированная высота для предсказуемости */
+  display: flex;
+  align-items: center;
   position: sticky;
   top: 0;
   z-index: 1000;
-
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-nav {
+.header-nav {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 40px;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.header-actions {
+  display: flex;
+  gap: 20px;
   align-items: center;
 }
 
 .header-link {
   color: #1d4a58;
-  font-size: 18px;
-  border-radius: 4px;
+  font-weight: 500;
   text-decoration: none;
+  transition: color 0.2s ease;
 }
+
 .header-link:hover {
   text-decoration: underline;
 }
-.header-section {
-  display: flex;
+
+.action-link img {
+  width: 32px; /* Задаем четкий размер иконкам */
+  height: 32px;
+  transition: transform 0.2s;
 }
 
-.logo {
-  font-size: 50px;
-  text-decoration: none;
-  font-weight: bold;
+.action-link:hover img {
+  transform: scale(1.1);
+}
+
+.logo-link,
+.header-actions {
+  flex-shrink: 0;
+}
+
+/* Адаптив: на телефонах скрываем текстовое меню */
+@media (max-width: 768px) {
+  .nav-menu {
+    display: none; /* В идеале тут должно быть бургер-меню */
+  }
 }

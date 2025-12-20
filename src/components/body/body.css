@@ -1,148 +1,185 @@
+html,
 body {
-  font-family: "Segoe UI";
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: #1d4a58;
   margin: 0;
-}
-
-input {
-  border: none;
-  background: #f4e9de;
   color: #4d463e;
-  width: 800px;
-  height: 70px;
-  align-items: center;
-  border-radius: 2.5px;
 }
 
-input::placeholder {
-  text-align: center;
+* {
+  box-sizing: border-box; /* Чтобы padding не ломал ширину элементов */
 }
 
-div.search-compare {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  margin-top: 200px;
-}
-
-.search-block {
-  height: 940px;
-  background: no-repeat center/cover url("../../images/body-bg.png");
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.compare-button {
-  position: absolute;
-  right: 320px;
-  top: 385px;
-}
-
+/* 2. Общие стили для всех кнопок (Сравнить и Подробнее теперь одинаковые) */
 button {
-  width: 150px;
-  height: 50px;
+  width: 100%;
+  max-width: 200px;
+  height: 55px;
   border: none;
   background: #fce5cc;
   color: #988979;
-  font-size: medium;
+  font-size: 16px;
   font-weight: 500;
   border-radius: 2.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto; /* Центрирование кнопки */
 }
 
 button:hover:enabled {
   background-color: #fff0df;
+  transform: translateY(-2px); /* Легкий эффект при наведении */
 }
 
 button:disabled {
   opacity: 0.6;
+  cursor: not-allowed;
 }
 
-ul {
-  list-style-type: none;
-}
-
-img.card {
-  height: 250px;
-  object-fit: contain;
-}
-
-div.card {
-  background-color: #91a0a0;
+/* 3. Секция поиска */
+.search-section {
+  min-height: 90vh; /* Занимает почти всю высоту экрана */
+  background: no-repeat center/cover url("../../images/body-bg.png");
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 960px;
-  padding-bottom: 30px;
+  padding: 40px 20px;
 }
 
-.a {
+.search-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px; /* Поля теперь широкие */
 }
 
-.more-btn {
-  margin-top: 70px;
-  margin-left: 875px;
-  margin-bottom: 60px;
+.search-inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
 }
 
-.more-btn:hover {
-  background-color: #fff0df;
+.search-container input {
+  border: none;
+  background: #f4e9de;
+  color: #4d463e;
+  width: 100%;
+  height: 75px;
+  border-radius: 2.5px;
+  padding: 0 36px;
+  font-size: 18px;
 }
 
+/* 4. Карточки результатов */
 .cards-bg {
   background: no-repeat center/cover url("../../images/cards-bg.png");
 }
 
-.short-product1 {
-  background: no-repeat center/cover url("../../images/short-product1-bg.png");
+.compare-cards-flex {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  overflow-x: auto; /* Позволяет карточкам переноситься на новую строку */
+}
+
+/* Общие стили карточек */
+.short-product1,
+.short-product2,
+.short-product3 {
   display: flex;
   flex-direction: column;
+  align-items: center; /* Текст по левому краю */
   justify-content: center;
-  align-items: center;
-  padding: 0px 120px;
-  padding-top: 50px;
-  padding-bottom: 30px;
-  margin-top: 100px;
+  padding: 40px;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 480px; /* Две карточки влезут в ряд на десктопе */
+  min-height: 300px;
+  background-size: cover;
+  background-position: center;
+}
+
+.short-product1 {
+  background-image: url("../../images/short-product1-bg.png");
   color: white;
-  border-radius: 2.5px;
 }
 
 .short-product2 {
-  background: no-repeat center/cover url("./src/images/short-product2-bg.png");
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0px 200px;
-  padding-top: 50px;
-  padding-bottom: 20px;
-  margin-top: 100px;
+  background-image: url("../../images/short-product2-bg.png");
   color: #1d4a58;
-  border-radius: 2.5px;
 }
 
-.compare {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+.short-product3 {
+  background-image: url("../../images/short-product1-bg.png");
+  color: white;
 }
 
 .short-char {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-h4 {
-  margin-bottom: 0;
+  text-align: center; /* Выравнивание текста характеристик */
 }
 
+/* 5. АДАПТИВНОСТЬ (Media Queries) */
+
+/* Планшеты и небольшие ноутбуки */
+@media (max-width: 1024px) {
+  .search-container input {
+    height: 65px;
+  }
+  .short-product1,
+  .short-product2,
+  .short-product3 {
+    max-width: 45%;
+    padding: 30px;
+  }
+}
+
+/* Мобильные устройства */
+@media (max-width: 768px) {
+  .search-section {
+    min-height: 600px;
+  }
+
+  .plus-icon img {
+    width: 50px; /* Уменьшаем плюс на мобилках */
+  }
+
+  .compare-cards-flex {
+    flex-direction: row; /* Карточки встают друг под друга */
+    align-items: center;
+  }
+
+  .short-product1,
+  .short-product2,
+  .short-product3 {
+    max-width: 70%; /* Карточка на всю ширину экрана */
+    min-height: auto;
+    padding: 30px 20px;
+  }
+
+  .search-container input {
+    height: 60px;
+    font-size: 16px;
+  }
+}
+
+/* Ошибка */
 .error-text {
   color: #ff4d4f;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 5px 15px;
+  border-radius: 4px;
   margin-top: 10px;
-  font-size: 16px;
 }

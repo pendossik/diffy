@@ -107,3 +107,12 @@
   margin-left: 0.5rem;
   font-weight: 600;
 }
+
+@media (max-width: 768px) {
+  .auth__image {
+    display: none;
+  }
+  .auth {
+    height: auto;
+  }
+}

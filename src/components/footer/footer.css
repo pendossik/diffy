@@ -1,22 +1,57 @@
 footer {
   background-color: black;
   color: white;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  left: 0px;
   width: 100%;
-  padding: 20px 0px;
-  margin: 0;
-  margin-top: auto;
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center; /* Центрируем контентный блок */
 }
 
-.footer-logo {
-    margin-top: 70px;
+/* Обертка для всех колонок футера */
+.footer-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  flex-wrap: wrap; /* Позволяет колонкам падать вниз на мобилках */
+  gap: 40px;
 }
+
+footer ul {
+  list-style: none;
+  padding: 0; /* ОБЯЗАТЕЛЬНО: убирает сдвиг текста вправо */
+  margin: 0;
+}
+
+.footer-header {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #fce5cc;
+}
+
 .footer-text {
   color: white;
-  font-size: 16px;
+  font-size: 14px;
   text-decoration: none;
-  padding-top: 10px;
+  display: block; /* Чтобы паддинги работали корректно */
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+.footer-text:hover {
+  opacity: 1;
+}
+
+/* Адаптив для футера */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column; /* Колонки встают друг под друга */
+    text-align: left; /* Текст по центру на мобилках */
+  }
+
+  .footer-logo {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
 }
