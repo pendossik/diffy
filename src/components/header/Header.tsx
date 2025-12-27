@@ -95,19 +95,16 @@ export default function Header() {
               Комплектующие
             </a>
           </li>
-          {!user && (
-            <li>
-              <Link to="/register" className="header-link">
-                Регистрация
-              </Link>
-            </li>
-          )}
         </ul>
 
         <div className="header-actions">
-          <a href="#favorites" className="action-link" title="Избранное">
+          <Link
+            to={user ? "/favorites" : "/login"}
+            className="action-link"
+            title="Избранное"
+          >
             <img src={Favorites} alt="Избранное" />
-          </a>
+          </Link>
 
           {/* Контейнер профиля с рефом */}
           <div className="user-profile-container" ref={dropdownRef}>

@@ -51,10 +51,6 @@
   margin-bottom: 2rem;
 }
 
-.auth__form form {
-  width: 100%;
-}
-
 .auth__form input {
   width: 100%;
   padding: 0.75rem 1rem;
