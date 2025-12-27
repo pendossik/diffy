@@ -24,8 +24,9 @@ type Product = {
 
 export function FullCompareCard() {
   const { state } = useLocation();
-
   const products: Product[] = state?.products || [];
+
+  const [isFav, setIsFav] = useState(false);
 
   if (!products.length) {
     return (
@@ -35,9 +36,6 @@ export function FullCompareCard() {
     );
   }
 
-  const [isFav, setIsFav] = useState(false);
-
-  // -------- получить характеристику из всех групп --------
   const getChar = (product: Product, charName: string) => {
     for (const group of product.characteristics_groups) {
       const found = group.characteristics.find((c) => c.name === charName);
@@ -46,14 +44,12 @@ export function FullCompareCard() {
     return "-";
   };
 
-  // -------- парсер чисел --------
   function parseValue(str: string): number | null {
     if (!str) return null;
     const n = parseFloat(str.replace(",", "."));
     return isNaN(n) ? null : n;
   }
 
-  // -------- лучший/худший --------
   function getBestWorst(products: Product[], field: string) {
     const list = products.map((p) => {
       const raw = getChar(p, field);
@@ -62,7 +58,6 @@ export function FullCompareCard() {
     });
 
     const numeric = list.filter((v) => v.num !== null);
-
     if (!numeric.length) return { maxIds: [], minIds: [] };
 
     const max = Math.max(...numeric.map((v) => v.num!));
@@ -74,12 +69,8 @@ export function FullCompareCard() {
     };
   }
 
-  // -------- секции --------
   const sections = [
-    {
-      title: "Размеры",
-      fields: ["Ширина", "Высота", "Толщина", "Вес"],
-    },
+    { title: "Размеры", fields: ["Ширина", "Высота", "Толщина", "Вес"] },
     {
       title: "Корпус",
       fields: ["Материал задней панели", "Материал граней", "Пыле-влагозащита"],
@@ -96,47 +87,27 @@ export function FullCompareCard() {
         "Соотношение сторон",
       ],
     },
-    {
-      title: "Процессор",
-      fields: ["Модель процессора", "Количество ядер"],
-    },
-    {
-      title: "Батарея",
-      fields: ["Аккумулятор"],
-    },
+    { title: "Процессор", fields: ["Модель процессора", "Количество ядер"] },
+    { title: "Батарея", fields: ["Аккумулятор"] },
     {
       title: "Основная камера",
       fields: ["Количество камер", "Количество мегапикселей"],
     },
-    {
-      title: "Фронтальная камера",
-      fields: ["Фронтальная камера"],
-    },
-    {
-      title: "Операционная система",
-      fields: ["Операционная система"],
-    },
-    {
-      title: "Bluetooth",
-      fields: ["Bluetooth"],
-    },
+    { title: "Фронтальная камера", fields: ["Фронтальная камера"] },
+    { title: "Операционная система", fields: ["Операционная система"] },
+    { title: "Bluetooth", fields: ["Bluetooth"] },
   ];
 
   return (
-    <main>
-      {/* Верхняя карточка */}
+    <main className="compare-page">
+      {/* Верх */}
       <div className="cards">
         <div className="description">
           {products.map((p, i) => (
-            <div key={p.id} className={`product${i + 1}`}>
+            <div key={p.id} className={`product product${i + 1}`}>
               <div className="card-image-wrapper">
                 {p.img ? (
-                  <img
-                    className="card-image"
-                    src={p.img}
-                    alt={p.name}
-                    loading="lazy"
-                  />
+                  <img src={p.img} alt={p.name} className="card-image" />
                 ) : (
                   <div className="image-placeholder" />
                 )}
@@ -147,7 +118,7 @@ export function FullCompareCard() {
         </div>
 
         <button className="fav-btn" onClick={() => setIsFav(!isFav)}>
-          <img src={isFav ? favOn : favOff} alt="icon" />
+          <img src={isFav ? favOn : favOff} alt="fav" />
         </button>
       </div>
 

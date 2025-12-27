@@ -10,13 +10,19 @@
 .char-header {
   background-color: #97a1a1;
   color: #fff6f6;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
+  padding: 8px 16px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.compare-page {
+  min-width: 900px; /* под 3 карточки */
 }
 
 .description {
-  background: no-repeat center/100% url("./src/images/cards-bg.png");
+  background: url("./src/images/cards-bg.png") center center no-repeat;
+  background-size: cover;
   height: 500px;
   display: flex;
   flex-direction: row;
@@ -73,13 +79,21 @@
 }
 
 .char {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+
   background-color: #fce5cc;
   color: #1d4a58;
-  width: 100%;
-  padding: 10px 0px;
-  display: flex;
-  justify-content: space-evenly;
-  font-size: large;
+  padding: 12px 24px;
+  align-items: center;
+}
+
+.char p {
+  text-align: center;
+  margin: 0;
+  line-height: 1.4;
+  font-size: 16px;
 }
 
 .full-card {
@@ -87,14 +101,16 @@
 }
 
 .fav-btn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 40px;
+  z-index: 1000;
+
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
-  position: absolute;
-  top: 30px;
-  right: 50px;
-  width: 40px;
 }
 
 .fav-btn img {
@@ -156,4 +172,30 @@
   height: 60%;
   background: #e0e0e0;
   border-radius: 6px;
+}
+
+@media (max-width: 1024px) {
+  .fav-btn {
+    top: 12px;
+    right: 12px;
+    width: 32px;
+  }
+
+  .fav-btn img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .char {
+    grid-template-rows: 1fr;
+    text-align: center;
+  }
+
+  body {
+    overflow-x: auto;
+  }
+
+  .compare-page {
+    min-width: 900px;
+  }
 }
