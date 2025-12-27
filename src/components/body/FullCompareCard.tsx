@@ -146,9 +146,9 @@ export function FullCompareCard() {
           ))}
         </div>
 
-        <button className="fav-btn" onClick={() => setIsFav(!isFav)}>
+        {/* <button className="fav-btn" onClick={() => setIsFav(!isFav)}>
           <img src={isFav ? favOn : favOff} alt="icon" />
-        </button>
+        </button> */}
       </div>
 
       {/* Таблица */}

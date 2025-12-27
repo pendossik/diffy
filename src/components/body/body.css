@@ -13,10 +13,10 @@ body {
 }
 
 * {
-  box-sizing: border-box; /* Чтобы padding не ломал ширину элементов */
+  box-sizing: border-box;
 }
 
-/* 2. Общие стили для всех кнопок (Сравнить и Подробнее теперь одинаковые) */
+/* 2. Общие стили для всех кнопок */
 button {
   width: 100%;
   max-width: 200px;
@@ -32,12 +32,12 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto; /* Центрирование кнопки */
+  margin: 0 auto;
 }
 
 button:hover:enabled {
   background-color: #fff0df;
-  transform: translateY(-2px); /* Легкий эффект при наведении */
+  transform: translateY(-2px);
 }
 
 button:disabled {
@@ -45,9 +45,38 @@ button:disabled {
   cursor: not-allowed;
 }
 
+/* --- НОВОЕ: Стили для кнопки-сердца (fav-btn-main) --- */
+/* Используем специфичный класс, чтобы перебить общие стили button выше */
+button.fav-btn-main {
+  all: unset; /* Сбрасываем ширину 100%, фон и прочее */
+  position: absolute;
+  top: 20px;
+  right: 50px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s ease;
+  width: auto;
+  height: auto;
+  max-width: none;
+  margin: 0;
+}
+
+button.fav-btn-main:hover {
+  transform: scale(1.1);
+  background: none !important; /* Убираем фон при наведении */
+}
+
+button.fav-btn-main img {
+  width: 45px;
+  height: 45px;
+}
+
 /* 3. Секция поиска */
 .search-section {
-  min-height: 90vh; /* Занимает почти всю высоту экрана */
+  min-height: 90vh;
   background: no-repeat center/cover url("../../images/body-bg.png");
   display: flex;
   justify-content: center;
@@ -61,7 +90,7 @@ button:disabled {
   align-items: center;
   gap: 30px;
   width: 100%;
-  max-width: 1200px; /* Поля теперь широкие */
+  max-width: 1200px;
 }
 
 .search-inputs {
@@ -92,11 +121,24 @@ button:disabled {
   background: no-repeat center/cover url("../../images/cards-bg.png");
 }
 
+/* Контейнер для результатов (обертка для карточек и сердца) */
+.compare-results {
+  position: relative; /* Обязательно для позиционирования сердца */
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px 20px; /* Отступ сверху для сердца */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .compare-cards-flex {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center; /* Центрируем карточки */
   gap: 30px;
-  overflow-x: auto; /* Позволяет карточкам переноситься на новую строку */
+  width: 100%;
+  flex-wrap: wrap; /* Чтобы не вылезали на маленьких экранах */
 }
 
 /* Общие стили карточек */
@@ -105,14 +147,14 @@ button:disabled {
 .short-product3 {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Текст по левому краю */
+  align-items: center;
   justify-content: center;
   padding: 40px;
-  margin: 30px;
+  margin: 10px; /* Уменьшил отступ, чтобы 3 карточки влезали лучше */
   border-radius: 4px;
   width: 100%;
-  max-width: 480px; /* Две карточки влезут в ряд на десктопе */
-  min-height: 300px;
+  max-width: 380px; /* Оптимально для 3-х в ряд */
+  min-height: 450px; /* Увеличил высоту для характеристик */
   background-size: cover;
   background-position: center;
 }
@@ -133,12 +175,12 @@ button:disabled {
 }
 
 .short-char {
-  text-align: center; /* Выравнивание текста характеристик */
+  text-align: center;
+  margin-top: 10px;
 }
 
-/* 5. АДАПТИВНОСТЬ (Media Queries) */
+/* 5. АДАПТИВНОСТЬ */
 
-/* Планшеты и небольшие ноутбуки */
 @media (max-width: 1024px) {
   .search-container input {
     height: 65px;
@@ -147,59 +189,51 @@ button:disabled {
   .short-product2,
   .short-product3 {
     max-width: 45%;
-    padding: 30px;
+  }
+  button.fav-btn-main {
+    right: 20px;
   }
 }
 
-/* Мобильные устройства */
 @media (max-width: 768px) {
   .search-section {
     min-height: 600px;
   }
 
-  .plus-icon img {
-    width: 50px; /* Уменьшаем плюс на мобилках */
-  }
-
   .compare-cards-flex {
-    flex-direction: row; /* Карточки встают друг под друга */
-    gap: 0;
+    flex-direction: column;
+    align-items: center;
   }
 
   .short-product1,
   .short-product2,
   .short-product3 {
-    max-width: 70%; /* Карточка на всю ширину экрана */
-    min-height: auto;
-    padding: 30px 20px;
-    margin: 0;
-    border-radius: 0;
+    max-width: 90%;
+    margin: 10px 0;
   }
 
-  .search-container input {
-    height: 60px;
-    font-size: 16px;
+  button.fav-btn-main {
+    top: 10px;
+    right: 10px;
   }
 }
 
-/* Контейнер под картинку — резервируем место */
+/* Картинки внутри карточек */
 .card-image-wrapper {
   width: 100%;
-  height: 220px; /* ФИКСИРОВАННЫЙ РАЗМЕР */
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
 }
 
-/* Сама картинка */
 .card-image {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
 }
 
-/* Ошибка */
 .error-text {
   color: #ff4d4f;
   background: rgba(255, 255, 255, 0.8);
@@ -224,13 +258,6 @@ button:disabled {
   background: #f4e9de;
   color: #4d463e;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease;
-}
-
-.search-input:focus {
-  outline: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  background: #fff0df;
 }
 
 .search-dropdown {
@@ -244,7 +271,7 @@ button:disabled {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   max-height: 250px;
   overflow-y: auto;
-  z-index: 10;
+  z-index: 100;
   padding: 0;
   list-style: none;
 }
@@ -252,24 +279,8 @@ button:disabled {
 .search-dropdown li {
   padding: 12px 20px;
   cursor: pointer;
-  transition: background 0.2s;
 }
 
 .search-dropdown li:hover {
   background: #f4e9de;
-}
-
-.search-dropdown li:not(:last-child) {
-  border-bottom: 1px solid #e0d5c5;
-}
-
-/* Подсказки адаптивно под мобилки */
-@media (max-width: 768px) {
-  .search-wrapper {
-    max-width: 100%;
-  }
-  .search-input {
-    height: 50px;
-    font-size: 16px;
-  }
 }
