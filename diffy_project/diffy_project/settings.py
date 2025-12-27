@@ -60,6 +60,15 @@ REST_FRAMEWORK = {
     ),
     # чтобы включить генерацию схемы через spectacular
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle', # Для неавторизованных
+        'rest_framework.throttling.UserRateThrottle'  # Для авторизованных
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '30/minute',  # Аноним может делать 30 запросов в минуту
+        'user': '100/minute'  # Залогиненный может больше, но тоже лимит
+    }
 }
 
 

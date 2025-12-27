@@ -88,44 +88,19 @@ class CharacteristicValue(models.Model):
 
 
 
-class FavoritePair(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="favorite_pairs")
-    product_1 = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="favorite_as_first")
-    product_2 = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="favorite_as_second")
+class FavoriteComparison(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="favorite_comparisons")
+    products = models.ManyToManyField(Product, related_name="favorited_in_sets")
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    # Хэш для быстрой проверки на дубликаты (опционально, но полезно)
+    # Позволит быстро понять, что набор [1,2] и [2,1] — это одно и то же
+    products_hash = models.CharField(max_length=255, unique=True, null=True, blank=True)
 
     class Meta:
-        verbose_name = "Избранная пара"
-        verbose_name_plural = "Избранные пары"
-        unique_together = ("user", "product_1", "product_2")  # защита от дублей
-
-    def save(self, *args, **kwargs):
-        # сортируем id чтобы (A,B) == (B,A)
-        if self.product_1_id > self.product_2_id:
-            self.product_1, self.product_2 = self.product_2, self.product_1
-
-        super().save(*args, **kwargs)
+        verbose_name = "Избранное сравнение"
+        verbose_name_plural = "Избранные сравнения"
+        ordering = ['-created_at']
 
     def __str__(self):
-        return f"{self.user.username}: {self.product_1.name} + {self.product_2.name}"
-    
-
-# class Characteristic(models.Model):
-#     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='characteristics', verbose_name="Товар")
-#     group = models.ForeignKey(
-#         CharacteristicGroup,
-#         on_delete=models.SET_NULL,
-#         null=True,
-#         blank=True,
-#         related_name="fields",
-#         verbose_name="Группа"
-#     )
-#     name = models.CharField(max_length=100, verbose_name="Наименование характеристики")
-#     value = models.CharField(max_length=200, verbose_name="Значение")
-
-#     def __str__(self):
-#         return f"{self.product.name} - {self.name}: {self.value}"
-    
-
-
-
+        return f"{self.user.username}'s set ({self.products.count()} items)"

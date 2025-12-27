@@ -1,42 +1,7 @@
 from rest_framework import serializers
-from .models import Category, Product, FavoritePair, CharacteristicGroup, CharacteristicValue
+from .models import Category, Product, CharacteristicGroup, CharacteristicValue, FavoriteComparison
 # для свагера
 from drf_spectacular.utils import extend_schema_field
-
-
-
-# class CharacteristicValueSerializer(serializers.ModelSerializer):
-#     name = serializers.CharField(source='template.name', read_only=True)
-    
-#     class Meta:
-#         model = CharacteristicValue
-#         fields = ['id', 'name', 'value']
-
-# class CharacteristicGroupSerializer(serializers.ModelSerializer):
-#     characteristics = serializers.SerializerMethodField()
-
-#     class Meta:
-#         model = CharacteristicGroup
-#         fields = ['name', 'characteristics']
-
-#     # Подсказываем Swagger, что тут вернется список CharacteristicValueSerializer
-#     @extend_schema_field(CharacteristicValueSerializer(many=True))
-#     def get_characteristics(self, group):
-#         # Возвращаем только характеристики текущего продукта
-#         product = self.context.get('product')
-#         if not product:
-#             return []
-#         values = CharacteristicValue.objects.filter(product=product, template__group=group)
-#         return CharacteristicValueSerializer(values, many=True).data
-
-# class DetailedProductSerializer(serializers.ModelSerializer):
-#     """Полный объект товара с вложенными характеристиками"""
-#     category = serializers.CharField(source='category.name')
-#     # Явно указываем сериализатор для групп, чтобы Swagger не писал "string"
-#     characteristics_groups = CharacteristicGroupSerializer(many=True)
-#     class Meta:
-#         model = Product
-#         fields = ['id', 'name', 'category', 'img', 'characteristics_groups']
 
 # только для отображения каталога, без характеристик
 class ProductSerializer(serializers.ModelSerializer):
@@ -64,8 +29,6 @@ class CompareResultSerializer(serializers.Serializer):
     img = serializers.CharField()
     characteristics_groups = CharsGroupSerializer(many=True)
 
-
-
 # Сериализатор для входных данных сравнения
 class CompareRequestSerializer(serializers.Serializer):
     product_ids = serializers.ListField(
@@ -80,47 +43,53 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ['id', 'name']
 
-class FavoritePairSerializer(serializers.ModelSerializer):
-    # Используем вложенный сериализатор для чтения
-    product_1 = ProductSerializer(read_only=True)
-    product_2 = ProductSerializer(read_only=True)
+# 1. Легкий сериализатор товара для превью в избранном
+class ProductShortSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['id', 'name', 'img']
+
+# 2. Основной сериализатор избранного
+class FavoriteComparisonSerializer(serializers.ModelSerializer):
+    # Для чтения: возвращаем список товаров с короткими данными
+    products = ProductShortSerializer(many=True, read_only=True)
     
-    # А для записи используем PrimaryKeyRelatedField (id)
-    product_1_id = serializers.PrimaryKeyRelatedField(
-        queryset=Product.objects.all(), source='product_1', write_only=True
-    )
-    product_2_id = serializers.PrimaryKeyRelatedField(
-        queryset=Product.objects.all(), source='product_2', write_only=True
+    # Для записи: принимаем список ID
+    product_ids = serializers.ListField(
+        child=serializers.IntegerField(),
+        write_only=True,
+        min_length=1,
+        max_length=3,
+        help_text="Список ID товаров для сохранения (1-3 шт)"
     )
 
     class Meta:
-        model = FavoritePair
-        fields = ["id", "product_1", "product_2", "product_1_id", "product_2_id", "created_at"]
-        read_only_fields = ["created_at"]
+        model = FavoriteComparison
+        fields = ['id', 'products', 'product_ids', 'created_at']
+        read_only_fields = ['created_at']
 
-    def validate(self, data):
-        p1 = data['product_1']
-        p2 = data['product_2']
+    def validate_product_ids(self, ids):
+        # Проверяем существование товаров
+        if Product.objects.filter(id__in=ids).count() != len(ids):
+            raise serializers.ValidationError("Один или несколько товаров не найдены.")
+        return ids
 
-        if p1 == p2:
-            raise serializers.ValidationError("Нельзя добавить пару одинаковых товаров.")
-
-        # Сортируем прямо здесь, чтобы в БД всегда летело (меньшее, большее)
-        if p1.id > p2.id:
-            p1, p2 = p2, p1
-            data['product_1'] = p1
-            data['product_2'] = p2
-
-        # Проверка на уникальность вручную, т.к. мы могли поменять местами p1 и p2
-        user = self.context['request'].user
-        if FavoritePair.objects.filter(user=user, product_1=p1, product_2=p2).exists():
-             raise serializers.ValidationError("Эта пара уже в избранном.")
-
-        return data
-    
     def create(self, validated_data):
-        # Добавляем пользователя из контекста запроса
-        validated_data['user'] = self.context['request'].user
-        return super().create(validated_data)
+        user = self.context['request'].user
+        product_ids = sorted(validated_data.pop('product_ids'))
+        
+        # Генерируем уникальный ключ для набора (чтобы не было дублей у одного юзера)
+        # Формат: "user_id:1,2,3"
+        items_hash = f"{user.id}:" + ",".join(map(str, product_ids))
+        
+        if FavoriteComparison.objects.filter(products_hash=items_hash).exists():
+            raise serializers.ValidationError({"detail": "Такое сравнение уже есть в избранном."})
 
-
+        # Создаем запись
+        comparison = FavoriteComparison.objects.create(
+            user=user, 
+            products_hash=items_hash
+        )
+        # Привязываем товары
+        comparison.products.set(product_ids)
+        return comparison

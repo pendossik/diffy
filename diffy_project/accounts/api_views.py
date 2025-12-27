@@ -5,8 +5,6 @@ from django.contrib.auth.models import User
 from .serializers import RegisterSerializer, UserSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
-# from rest_framework.authtoken.models import Token
-# from django.contrib.auth import authenticate
 
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -25,17 +23,6 @@ class RegisterAPIView(APIView):
         tags=['Авторизация'],
         request=RegisterSerializer,
         responses={201: UserSerializer}
-        # responses={201: inline_serializer(
-        #     name='RegisterResponse',
-        #     fields={
-        #         'message': serializers.CharField(),
-        #         'user': UserSerializer(),
-        #         'tokens': inline_serializer(name='Tokens', fields={
-        #             'access': serializers.CharField(),
-        #             'refresh': serializers.CharField(),
-        #         })
-        #     }
-        # )}
     )
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
@@ -66,21 +53,7 @@ class CurrentUserAPIView(APIView):
     def get(self, request):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
-    
-# class LoginAPIView(APIView):
-#     permission_classes = [AllowAny]
 
-#     def post(self, request):
-#         username = request.data.get('username')
-#         password = request.data.get('password')
-#         user = authenticate(username=username, password=password)
-#         if user:
-#             token, created = Token.objects.get_or_create(user=user)
-#             return Response({'token' : token.key})
-#         return Response({'error' : 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-    
-
-#для авторизации по почте, вместо username
 
 class EmailTokenObtainPairView(TokenObtainPairView):
     serializer_class = EmailTokenObtainPairSerializer
