@@ -16,5 +16,5 @@ urlpatterns = [
     path('', include(router.urls)),
 
     # Специальный эндпоинт для сравнения 1-3 товаров
-    path('comparetest/', CompareAPIView.as_view(), name='comparetest'),
+    path('comparison/', CompareAPIView.as_view(), name='comparetest'),
 ]
