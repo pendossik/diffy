@@ -11,6 +11,7 @@
    ```bash
    python manage.py runserver
    ```
+```
 
 2. Перейдите в браузере по адресу:
    ```
