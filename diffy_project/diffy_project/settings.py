@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-2b_ch-$6a_q3a_@vnq9#()rtrn24)-$j3-#ur0vsl9ishv&a6e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '100.105.194.90', 'macbook-air']
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Application definition
@@ -37,10 +38,42 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'compare'
+    'compare',
+    'accounts',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt.token_blacklist',
+    'drf_spectacular', # для сваггер
+    # для взаимд с react
+    'corsheaders'
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # было временно для тестов
+        # 'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly', # IsAuthenticatedOrReadOnly AllowAny
+    ),
+    # чтобы включить генерацию схемы через spectacular
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle', # Для неавторизованных
+        'rest_framework.throttling.UserRateThrottle'  # Для авторизованных
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '30/minute',  # Аноним может делать 30 запросов в минуту
+        'user': '100/minute'  # Залогиненный может больше, но тоже лимит
+    }
+}
+
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -49,6 +82,16 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# мои настрйоки
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:5173",
+# ]
+AUTHENTICATION_BACKENDS = [
+    'accounts.backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 
 ROOT_URLCONF = 'diffy_project.urls'
 
@@ -121,3 +164,28 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Diffy Project API',
+    'DESCRIPTION': 'API для сравнения товаров и управления аккаунтами',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # Группировка по тегам
+    'TAGS': [
+        {'name': 'Сравнение', 'description': 'Методы для сопоставления характеристик товаров'},
+        {'name': 'Каталог', 'description': 'Категории и товары'},
+        {'name': 'Избранное', 'description': 'Сохраненные пары/группы товаров'},
+        {'name': 'Авторизация', 'description': 'Регистрация, JWT токены, профиль'},
+    ],
+    # Чтобы JWT работал в UI
+    'APPEND_COMPONENTS': {
+        "securitySchemes": {
+            "Bearer": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+            }
+        }
+    },
+    'SECURITY': [{'Bearer': []}],
+}

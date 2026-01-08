@@ -15,8 +15,31 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
+from rest_framework_simplejwt.views import TokenRefreshView
+from accounts.api_views import EmailTokenObtainPairView
+
+# Импорты для Swagger
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/accounts/', include('accounts.urls')),
+    
+    # JWT
+    path('api/token/', EmailTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    path('api/compare/', include('compare.urls')),
+
+    # --- SWAGGER И СХЕМА ---
+    # 1. Ссылка на скачивание схемы (YAML файл)
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    
+    # 2. Сам интерфейс Swagger UI (то, что нужно фронтендерам)
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    
+    # 3. Альтернативный интерфейс Redoc (по желанию, выглядит чище)
+    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
