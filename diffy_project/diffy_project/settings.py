@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework_simplejwt.token_blacklist',
     'drf_spectacular', # для сваггер
+    'django_extensions', # для отрисовки er-диаграммы БД
     # для взаимд с react
     'corsheaders'
 ]
