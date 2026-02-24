@@ -2,8 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./login.css";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 export function Login() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -26,12 +28,12 @@ export function Login() {
       localStorage.setItem("access_token", access);
       localStorage.setItem("refresh_token", refresh);
 
-      alert("Вы вошли в аккаунт!");
+      alert(t("auth.loginSuccess"));
       navigate("/");
       window.location.reload();
     } catch (error: any) {
       console.error("Ошибка входа:", error.response?.data || error.message);
-      alert("Неверный логин или пароль");
+      alert(t("auth.loginError"));
     }
   };
 
@@ -45,30 +47,36 @@ export function Login() {
           />
         </div>
         <div className="auth__form">
-          <h1>Войти в Diffy</h1>
-          <p>Введите данные ниже</p>
+          <h1>{t("auth.loginTitle")}</h1>
+          <p>{t("auth.loginSubtitle")}</p>
+
           <form onSubmit={handleSubmit} action="">
             <input
               type="email"
-              placeholder="Эл.почта"
+              placeholder={t("auth.emailPlaceholder")}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+
             <input
               type="password"
-              placeholder="Пароль"
+              placeholder={t("auth.passwordPlaceholder")}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <button type="submit">Войти</button>
-            <Link to="/">Забыли пароль?</Link>
+
+            <button type="submit">{t("auth.loginButton")}</button>
+
+            <Link to="/">{t("auth.forgotPassword")}</Link>
           </form>
+
           <div className="auth__footer">
-            <span>Нет аккаунта?</span>
+            <span>{t("auth.noAccount")}</span>
+
             <Link to="/register" className="auth__link">
-              Зарегистрироваться
+              {t("auth.registerLink")}
             </Link>
           </div>
         </div>
