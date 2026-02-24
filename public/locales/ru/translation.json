@@ -1,0 +1,47 @@
+{
+  "nav": {
+    "gadgets": "Гаджеты",
+    "parts": "Комплектующие",
+    "favorites": "Избранное"
+  },
+  "user": {
+    "manageAccount": "Управление аккаунтом",
+    "logout": "Выйти",
+    "login": "Войти"
+  },
+  "home": {
+    "searchPlaceholder1": "Название первого товара",
+    "searchPlaceholder2": "Название второго товара",
+    "searchPlaceholder3": "Название третьего товара",
+    "compareBtn": "Сравнить",
+    "moreBtn": "Подробнее",
+    "errorSelect": "Выберите хотя бы один товар",
+    "errorUnique": "Товары должны быть разными",
+    "errorLoad": "Ошибка загрузки данных",
+    "alertLogin": "Пожалуйста, войдите в аккаунт, чтобы сохранить сравнение.",
+    "alertSaved": "Сохранено в избранное!",
+    "alertSaveError": "Не удалось сохранить."
+  },
+  "auth": {
+    "loginTitle": "Войти в Diffy",
+    "loginSubtitle": "Введите данные ниже",
+    "emailPlaceholder": "Эл.почта",
+    "passwordPlaceholder": "Пароль",
+    "loginButton": "Войти",
+    "forgotPassword": "Забыли пароль?",
+    "noAccount": "Нет аккаунта?",
+    "registerLink": "Зарегистрироваться",
+    "registerTitle": "Создать аккаунт",
+    "registerSubtitle": "Введите данные ниже",
+    "nameLabel": "Имя",
+    "emailLabel": "Эл. почта",
+    "passwordLabel": "Пароль",
+    "createAccountButton": "Создать аккаунт",
+    "googleButton": "Войти через Google",
+    "alreadyHaveAccount": "Уже есть аккаунт?",
+    "loginLink": "Войти",
+    "registerSuccess": "Аккаунт создан успешно!",
+    "registerError": "Ошибка регистрации: ",
+    "checkData": "проверьте данные"
+  }
+}

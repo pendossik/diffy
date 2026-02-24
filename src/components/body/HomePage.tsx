@@ -4,8 +4,8 @@ import { useState } from "react";
 import ShortCompareCard from "./ShortCompareCard";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
-// Импорт иконок (проверь пути, если не появятся)
 import favOff from "../../icons/Favourite_button.svg";
 import favOn from "../../icons/Favourite_button_active.svg";
 
@@ -15,6 +15,7 @@ type Product = {
 };
 
 export function HomePage() {
+  const { t } = useTranslation();
   const [products, setProducts] = useState<Product[]>([
     { id: 0, name: "" }, // первый
     { id: 0, name: "" }, // второй
@@ -39,11 +40,11 @@ export function HomePage() {
   const handleCompare = () => {
     setError(null);
     if (selectedProducts.length === 0) {
-      setError("Выберите хотя бы один товар");
+      setError(t("home.errorSelect"));
       return;
     }
     if (hasDuplicates) {
-      setError("Товары должны быть разными");
+      setError(t("home.errorUnique"));
       return;
     }
 
@@ -56,13 +57,13 @@ export function HomePage() {
         setCompareData(res.data);
         setIsFav(false); // Сбрасываем лайк при новом поиске
       })
-      .catch(() => setError("Ошибка загрузки данных"));
+      .catch(() => setError(t("home.errorLoad")));
   };
 
   const handleSaveToFavorites = async () => {
     const token = localStorage.getItem("access_token");
     if (!token) {
-      alert("Пожалуйста, войдите в аккаунт, чтобы сохранить сравнение.");
+      alert("t('home.alertLogin')");
       return;
     }
 
@@ -76,12 +77,10 @@ export function HomePage() {
         },
       );
       setIsFav(true);
-      alert("Сохранено в избранное!");
+      alert("t('home.alertSaved')");
     } catch (err) {
       console.error(err);
-      alert(
-        "Не удалось сохранить. Возможно, вы не авторизованы или сравнение уже в списке.",
-      );
+      alert(t("home.alertSaveError"));
     }
   };
 
@@ -91,7 +90,7 @@ export function HomePage() {
         <div className="search-container">
           <div className="search-inputs">
             <Search
-              text="Название первого товара"
+              text={t("home.searchPlaceholder1")}
               value={products[0].name}
               onChange={(id, name) => updateProduct(0, id, name)}
             />
@@ -102,7 +101,7 @@ export function HomePage() {
                   <img src="./src/icons/Plus.svg" alt="plus" width="70" />
                 </div>
                 <Search
-                  text="Название второго товара"
+                  text={t("home.searchPlaceholder2")}
                   value={products[1].name}
                   onChange={(id, name) => updateProduct(1, id, name)}
                 />
@@ -115,7 +114,7 @@ export function HomePage() {
                   <img src="./src/icons/Plus.svg" alt="plus" width="70" />
                 </div>
                 <Search
-                  text="Название третьего товара"
+                  text={t("home.searchPlaceholder3")}
                   value={products[2].name}
                   onChange={(id, name) => updateProduct(2, id, name)}
                 />
@@ -129,7 +128,7 @@ export function HomePage() {
               disabled={selectedProducts.length === 0}
               onClick={handleCompare}
             >
-              Сравнить
+              {t("home.compareBtn")}
             </button>
             {error && <p className="error-text">{error}</p>}
           </div>
@@ -182,7 +181,7 @@ export function HomePage() {
                   })
                 }
               >
-                Подробнее
+                {t("home.moreBtn")}
               </button>
             )}
           </div>

@@ -1,0 +1,47 @@
+{
+  "nav": {
+    "gadgets": "Gadgets",
+    "parts": "Components",
+    "favorites": "Favorites"
+  },
+  "user": {
+    "manageAccount": "Manage My Account",
+    "logout": "Logout",
+    "login": "Login"
+  },
+  "home": {
+    "searchPlaceholder1": "First product name",
+    "searchPlaceholder2": "Second product name",
+    "searchPlaceholder3": "Third product name",
+    "compareBtn": "Compare",
+    "moreBtn": "Details",
+    "errorSelect": "Select at least one product",
+    "errorUnique": "Products must be different",
+    "errorLoad": "Error loading data",
+    "alertLogin": "Please log in to save comparison.",
+    "alertSaved": "Saved to favorites!",
+    "alertSaveError": "Failed to save."
+  },
+   "auth": {
+    "loginTitle": "Sign in to Diffy",
+    "loginSubtitle": "Enter your details below",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Password",
+    "loginButton": "Sign in",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "registerLink": "Sign up",
+    "registerTitle": "Create an account",
+    "registerSubtitle": "Enter your details below",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "createAccountButton": "Create account",
+    "googleButton": "Sign in with Google",
+    "alreadyHaveAccount": "Already have an account?",
+    "loginLink": "Sign in",
+    "registerSuccess": "Account created successfully!",
+    "registerError": "Registration error: ",
+    "checkData": "check your data"
+  }
+}

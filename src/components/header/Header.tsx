@@ -5,16 +5,23 @@ import Logo from "../../icons/Diffy.svg";
 import Favorites from "../../icons/Favourite.svg";
 import User from "../../icons/User.svg";
 import "./header.css";
+import { useTranslation } from "react-i18next";
 
 interface UserData {
   email: string;
 }
 
 export default function Header() {
+  const { t, i18n } = useTranslation();
   const [user, setUser] = useState<UserData | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null); // Реф для отслеживания клика вне меню
   const navigate = useNavigate();
+
+  const toggleLanguage = () => {
+    const newLang = i18n.language === "ru" ? "en" : "ru";
+    i18n.changeLanguage(newLang);
+  };
 
   // 1. Получаем данные пользователя
   useEffect(() => {
@@ -87,17 +94,21 @@ export default function Header() {
         <ul className="nav-menu">
           <li>
             <a href="#gadgets" className="header-link">
-              Гаджеты
+              {t("nav.gadgets")}
             </a>
           </li>
           <li>
             <a href="#parts" className="header-link">
-              Комплектующие
+              {t("nav.parts")}
             </a>
           </li>
         </ul>
 
         <div className="header-actions">
+          <button onClick={toggleLanguage} className="header-actions-button">
+            {i18n.language === "ru" ? "EN" : "RU"}
+          </button>
+
           <Link
             to={user ? "/favorites" : "/login"}
             className="action-link"
@@ -128,7 +139,7 @@ export default function Header() {
 
                 <Link to="/profile" className="dropdown-item">
                   <img src={User} alt="" className="dropdown-icon" />
-                  Manage My Account
+                  {t("user.manageAccount")}
                 </Link>
 
                 <button
@@ -149,7 +160,7 @@ export default function Header() {
                       <line x1="21" y1="12" x2="9" y2="12" />
                     </svg>
                   </span>
-                  Logout
+                  {t("home.moreBtn")}
                 </button>
               </div>
             )}
