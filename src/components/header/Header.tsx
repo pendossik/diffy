@@ -4,11 +4,11 @@ import axios from "axios";
 import Logo from "../../icons/Diffy.svg";
 import Favorites from "../../icons/Favourite.svg";
 import User from "../../icons/User.svg";
-import "./header.css";
+import "./Header.css";
 
-interface UserData {
+type UserData = {
   email: string;
-}
+};
 
 export default function Header() {
   const [user, setUser] = useState<UserData | null>(null);

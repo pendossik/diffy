@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./favorites.css";
+import "./FavouritesPage.css";
 
 interface Product {
   id: number;
@@ -40,18 +40,15 @@ export function FavoritesPage() {
       .finally(() => setLoading(false));
   }, [token, navigate]);
 
-  // ОБНОВЛЕННАЯ ФУНКЦИЯ: Работает через comparetest как на главной
   const handleGoToCompare = async (group: FavoriteEntry) => {
     setSyncingId(group.id);
     const apiUrl = import.meta.env.VITE_API_URL;
 
     try {
-      // Отправляем массив ID на эндпоинт comparetest, который возвращает полные данные
       const res = await axios.post(`${apiUrl}/api/compare/comparetest/`, {
         product_ids: group.products.map((p) => p.id),
       });
 
-      // Передаем полученные полные данные (с характеристиками) в state
       navigate("/compare", { state: { products: res.data } });
     } catch (err) {
       console.error("Ошибка при сборке данных для сравнения:", err);

@@ -1,11 +1,9 @@
-import "./body.css";
-import Search from "./Search";
+import "./HomePage.css";
+import Search from "../../components/Search/Search";
 import { useState } from "react";
-import ShortCompareCard from "./ShortCompareCard";
+import ShortCompareCard from "../../components/ShortCompareCard/ShortCompareCard";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
-// Импорт иконок (проверь пути, если не появятся)
 import favOff from "../../icons/Favourite_button.svg";
 import favOn from "../../icons/Favourite_button_active.svg";
 
@@ -16,9 +14,9 @@ type Product = {
 
 export function HomePage() {
   const [products, setProducts] = useState<Product[]>([
-    { id: 0, name: "" }, // первый
-    { id: 0, name: "" }, // второй
-    { id: 0, name: "" }, // третий
+    { id: 0, name: "" },
+    { id: 0, name: "" },
+    { id: 0, name: "" },
   ]);
 
   const [compareData, setCompareData] = useState<any[] | null>(null);
@@ -48,13 +46,13 @@ export function HomePage() {
     }
 
     axios
-      .post(`${import.meta.env.VITE_API_URL}/api/compare/comparetest/`, {
+      .post(`${import.meta.env.VITE_API_URL}/api/compare/comparison/`, {
         product_ids: selectedProducts.map((p) => p.id),
       })
       .then((res) => {
         console.log("RESPONSE:", res.data);
         setCompareData(res.data);
-        setIsFav(false); // Сбрасываем лайк при новом поиске
+        setIsFav(false);
       })
       .catch(() => setError("Ошибка загрузки данных"));
   };
@@ -67,7 +65,6 @@ export function HomePage() {
     }
 
     try {
-      // Отправляем ID всех найденных товаров (compareData)
       await axios.post(
         `${import.meta.env.VITE_API_URL}/api/compare/favorites/`,
         { product_ids: compareData?.map((p: any) => p.id) },
@@ -91,7 +88,7 @@ export function HomePage() {
         <div className="search-container">
           <div className="search-inputs">
             <Search
-              text="Название первого товара"
+              placeholder="Название первого товара"
               value={products[0].name}
               onChange={(id, name) => updateProduct(0, id, name)}
             />
@@ -102,7 +99,7 @@ export function HomePage() {
                   <img src="./src/icons/Plus.svg" alt="plus" width="70" />
                 </div>
                 <Search
-                  text="Название второго товара"
+                  placeholder="Название второго товара"
                   value={products[1].name}
                   onChange={(id, name) => updateProduct(1, id, name)}
                 />
@@ -115,7 +112,7 @@ export function HomePage() {
                   <img src="./src/icons/Plus.svg" alt="plus" width="70" />
                 </div>
                 <Search
-                  text="Название третьего товара"
+                  placeholder="Название третьего товара"
                   value={products[2].name}
                   onChange={(id, name) => updateProduct(2, id, name)}
                 />
@@ -142,7 +139,6 @@ export function HomePage() {
             className="compare-results"
             style={{ position: "relative", paddingBottom: "50px" }}
           >
-            {/* Кнопка-сердце */}
             <button
               className="fav-btn-main"
               onClick={handleSaveToFavorites}

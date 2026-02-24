@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { HomePage } from "./components/body/HomePage";
-import Header from "./components/header/Header";
-import Footer from "./components/footer/Footer";
-import { Login } from "./components/auth/login/Login";
-import { Register } from "./components/auth/register/Register";
-import { ComparePage } from "./components/body/ComparePage";
-import { FavoritesPage } from "./components/body/FavoritesPage";
+import { HomePage } from "./pages/HomePage/HomePage";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import { Login } from "./components/Login/Login";
+import { Register } from "./components/Register/Register";
+import { ComparePage } from "./pages/ComparePage/ComparePage";
+import { FavoritesPage } from "./pages/FavouritesPage/FavoritesPage";
 
 function App() {
   return (

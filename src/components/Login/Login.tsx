@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import "./login.css";
+import "./Login.css";
 import axios from "axios";
 
 export function Login() {
@@ -15,14 +15,13 @@ export function Login() {
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/token/`,
         {
-          email: email, // если ты используешь email как логин
+          email: email,
           password: password,
         },
       );
 
       const { access, refresh } = response.data;
 
-      // сохраняем токены
       localStorage.setItem("access_token", access);
       localStorage.setItem("refresh_token", refresh);
 

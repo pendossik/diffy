@@ -1,4 +1,4 @@
-import "./full-card.css";
+import "./FullCompareCard.css";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import favOff from "../../icons/Favourite_button.svg";
@@ -100,7 +100,6 @@ export function FullCompareCard() {
 
   return (
     <main className="compare-page">
-      {/* Верх */}
       <div className="cards">
         <div className="description">
           {products.map((p, i) => (
@@ -122,7 +121,6 @@ export function FullCompareCard() {
         </button>
       </div>
 
-      {/* Таблица */}
       <div className="full">
         <div className="full-card">
           {sections.map((section) => (

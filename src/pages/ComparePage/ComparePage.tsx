@@ -1,4 +1,4 @@
-import { FullCompareCard } from "./FullCompareCard";
+import { FullCompareCard } from "../../components/FullCompareCard/FullCompareCard";
 
 export function ComparePage() {
   return (
