@@ -2,25 +2,23 @@ footer {
   background-color: black;
   color: white;
   width: 100%;
-  padding: 60px 20px;
+  padding: 35px 20px 45px;
   display: flex;
-  justify-content: center; /* Центрируем контентный блок */
+  justify-content: center;
+  position: absolute;
 }
 
-/* Обертка для всех колонок футера */
 .footer-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
   max-width: 1200px;
-  flex-wrap: wrap; /* Позволяет колонкам падать вниз на мобилках */
-  gap: 40px;
 }
 
 footer ul {
   list-style: none;
-  padding: 0; /* ОБЯЗАТЕЛЬНО: убирает сдвиг текста вправо */
+  padding: 0;
   margin: 0;
 }
 
@@ -34,7 +32,7 @@ footer ul {
   color: white;
   font-size: 14px;
   text-decoration: none;
-  display: block; /* Чтобы паддинги работали корректно */
+  display: block;
   margin-bottom: 10px;
   opacity: 0.8;
 }
@@ -43,11 +41,10 @@ footer ul {
   opacity: 1;
 }
 
-/* Адаптив для футера */
 @media (max-width: 768px) {
   .footer-container {
-    flex-direction: column; /* Колонки встают друг под друга */
-    text-align: left; /* Текст по центру на мобилках */
+    flex-direction: column;
+    text-align: left;
   }
 
   .footer-logo {

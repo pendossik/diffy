@@ -55,7 +55,6 @@
 }
 
 .fav-group-card:hover {
-  transform: translateY(-5px);
   background: rgba(255, 255, 255, 0.08);
 }
 
@@ -95,7 +94,7 @@
 .fav-img-box {
   width: 100px;
   height: 100px;
-  background: white;
+  background: rgb(255, 255, 255);
   border-radius: 8px;
   padding: 10px;
   display: flex;

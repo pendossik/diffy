@@ -1,6 +1,7 @@
 import "./FullCompareCard.css";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import favOff from "../../icons/Favourite_button.svg";
 import favOn from "../../icons/Favourite_button_active.svg";
 
@@ -23,6 +24,7 @@ type Product = {
 };
 
 export function FullCompareCard() {
+  const { t } = useTranslation();
   const { state } = useLocation();
   const products: Product[] = state?.products || [];
 
@@ -60,6 +62,11 @@ export function FullCompareCard() {
     const numeric = list.filter((v) => v.num !== null);
     if (!numeric.length) return { maxIds: [], minIds: [] };
 
+    const firstNum = numeric[0].num;
+    const allSame = numeric.every((v) => v.num === firstNum);
+
+    if (allSame) return { maxIds: [], minIds: [] };
+
     const max = Math.max(...numeric.map((v) => v.num!));
     const min = Math.min(...numeric.map((v) => v.num!));
 
@@ -70,7 +77,10 @@ export function FullCompareCard() {
   }
 
   const sections = [
-    { title: "Размеры", fields: ["Ширина", "Высота", "Толщина", "Вес"] },
+    {
+      title: t("card.charSize"),
+      fields: ["Ширина", "Высота", "Толщина", "Вес"],
+    },
     {
       title: "Корпус",
       fields: ["Материал задней панели", "Материал граней", "Пыле-влагозащита"],
@@ -116,9 +126,9 @@ export function FullCompareCard() {
           ))}
         </div>
 
-        <button className="fav-btn" onClick={() => setIsFav(!isFav)}>
+        {/* <button className="fav-btn" onClick={() => setIsFav(!isFav)}>
           <img src={isFav ? favOn : favOff} alt="fav" />
-        </button>
+        </button> */}
       </div>
 
       <div className="full">

@@ -1,0 +1,93 @@
+{
+  "nav": {
+    "gadgets": "Gadgets",
+    "parts": "Components",
+    "favorites": "Favorites"
+  },
+  "user": {
+    "manageAccount": "Manage My Account",
+    "logout": "Logout",
+    "login": "Login"
+  },
+  "home": {
+    "searchPlaceholder1": "First product name",
+    "searchPlaceholder2": "Second product name",
+    "searchPlaceholder3": "Third product name",
+    "compareBtn": "Compare",
+    "moreBtn": "Details",
+    "errorSelect": "Select at least one product",
+    "errorUnique": "Products must be different",
+    "errorLoad": "Error loading data",
+    "alertLogin": "Please log in to save comparison.",
+    "alertSaved": "Saved to favorites!",
+    "alertSaveError": "Failed to save."
+  },
+   "auth": {
+    "loginTitle": "Sign in to Diffy",
+    "loginSubtitle": "Enter your details below",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Password",
+    "loginButton": "Sign in",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "registerLink": "Sign up",
+    "registerTitle": "Create an account",
+    "registerSubtitle": "Enter your details below",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "createAccountButton": "Create account",
+    "googleButton": "Sign in with Google",
+    "alreadyHaveAccount": "Already have an account?",
+    "loginLink": "Sign in",
+    "registerSuccess": "Account created successfully!",
+    "registerError": "Registration error: ",
+    "checkData": "check your data"
+  },
+  "card": {
+    "charHeader": "Characteristics",
+    "charSize": "Dimensions",
+    "charWidth": "Width",
+    "charHeight": "Height",
+    "charThickness": "Thickness",
+    "charWeight": "Weight",
+    "charCase": "Casing",
+    "charBackMaterial": "Back panel material",
+    "charSideMaterial": "Side panel material",
+    "charProtection": "Dust and moisture protection",
+    "charDisplay": "Display",
+    "charScreen": "Screen type",
+    "charDiagonal": "Screen diagonal",
+    "charResolution": "Screen resolution",
+    "charFrequency": "Screen refresh rate",
+    "charBrightness": "Screen brightness",
+    "charDensity": "Pixel density",
+    "charRatio": "Aspect ratio",
+    "charCPU": "Processor",
+    "charCPUModel": "Processor model",
+    "charCores": "Number of cores",
+    "charBattery": "Battery",
+    "charAccumulator": "Battery cell",
+    "charMainCamera": "Main camera",
+    "charCount": "Number of cameras",
+    "charMegapixels": "Megapixel count",
+    "charFrontalCamera": "Front camera",
+    "charOS": "Operating system",
+    "charBluetooth": "Bluetooth"
+  },
+  "footer": {
+    "support": "Support",
+    "account": "Account",
+    "myAccount": "My account",
+    "signInUp": "Login/Sign up",
+    "aboutUs": "About us",
+    "privacyPolicy": "Privacy policy"
+  },
+  "favourites": {
+    "favCompares": "Favorite comparisons",
+    "noneFavouriteCompares": "You don't have any saved comparisons yet",
+    "favLoading": "Loading favorites...",
+    "charLoading": "Loading characteristics",
+    "details": "View details"
+  }
+}

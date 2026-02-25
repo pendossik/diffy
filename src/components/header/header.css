@@ -1,5 +1,5 @@
 .main-header {
-  background-color: #f8d9b5;
+  background-color: #ffe8ce;
   padding: 0 20px;
   min-height: 100px; /* Фиксированная высота для предсказуемости */
   display: flex;
@@ -28,8 +28,19 @@
 
 .header-actions {
   display: flex;
-  gap: 20px;
+  gap: 15px;
   align-items: center;
+}
+
+.header-actions-button {
+  flex-shrink: 0;
+  width: 48px;
+  height: 32px;
+  background: #fbebd8;
+  border: 1px solid;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .header-link {
@@ -42,9 +53,16 @@
 .header-link:hover {
   text-decoration: underline;
 }
+.user-profile-container {
+  flex-shrink: 0;
+}
 
 .action-link img {
-  width: 32px; /* Задаем четкий размер иконкам */
+  display: flex;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  width: 32px;
   height: 32px;
   transition: transform 0.2s;
 }
@@ -69,7 +87,7 @@
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: #a3bcb0; /* Цвет с твоего фото */
+  background-color: #32525c; /* Цвет с твоего фото */
   padding: 15px;
   border-radius: 8px;
   min-width: 200px;
@@ -107,4 +125,16 @@
   border: none;
   cursor: pointer;
   width: 100%;
+}
+
+.header-lang-button {
+  flex-shrink: 0;
+  width: 48px;
+  height: 32px;
+  background: #ffe8ce;
+  color: #1d4a58;
+  border: 1px solid;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
 }

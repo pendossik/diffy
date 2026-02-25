@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./FavouritesPage.css";
+import { useTranslation } from "react-i18next";
 
 interface Product {
   id: number;
@@ -22,6 +23,7 @@ export function FavoritesPage() {
 
   const navigate = useNavigate();
   const token = localStorage.getItem("access_token");
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!token) {
@@ -30,7 +32,7 @@ export function FavoritesPage() {
     }
 
     axios
-      .get(`${import.meta.env.VITE_API_URL}/api/compare/favorites/`, {
+      .get(`${import.meta.env.VITE_API_URL}/compare/favorites/`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setFavorites(res.data))
@@ -42,12 +44,14 @@ export function FavoritesPage() {
 
   const handleGoToCompare = async (group: FavoriteEntry) => {
     setSyncingId(group.id);
-    const apiUrl = import.meta.env.VITE_API_URL;
 
     try {
-      const res = await axios.post(`${apiUrl}/api/compare/comparetest/`, {
-        product_ids: group.products.map((p) => p.id),
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/compare/comparetest/`,
+        {
+          product_ids: group.products.map((p) => p.id),
+        },
+      );
 
       navigate("/compare", { state: { products: res.data } });
     } catch (err) {
@@ -61,7 +65,7 @@ export function FavoritesPage() {
   const handleDelete = async (id: number) => {
     try {
       await axios.delete(
-        `${import.meta.env.VITE_API_URL}/api/compare/favorites/${id}/`,
+        `${import.meta.env.VITE_API_URL}/compare/favorites/${id}/`,
         {
           headers: { Authorization: `Bearer ${token}` },
         },
@@ -76,7 +80,7 @@ export function FavoritesPage() {
     return (
       <div className="fav-page-wrapper">
         <h2 style={{ color: "white", textAlign: "center", marginTop: "100px" }}>
-          Загрузка избранного...
+          {t("favourites.favLoading")}
         </h2>
       </div>
     );
@@ -84,14 +88,14 @@ export function FavoritesPage() {
 
   return (
     <main className="fav-page-wrapper">
-      <h1 className="fav-title">Избранные сравнения</h1>
+      <h1 className="fav-title">{t("favourites.favCompares")}</h1>
       <div className="favorites-list">
         {favorites.length === 0 ? (
           <p
             className="no-data"
             style={{ color: "white", textAlign: "center" }}
           >
-            У вас пока нет сохраненных сравнений
+            {t("favourites.noneFavouriteCompares")}
           </p>
         ) : (
           favorites.map((group) => {
@@ -131,8 +135,8 @@ export function FavoritesPage() {
                   onClick={() => handleGoToCompare(group)}
                 >
                   {isThisLoading
-                    ? "Загрузка характеристик..."
-                    : "Посмотреть детали"}
+                    ? t("favourites.charLoading")
+                    : t("favourites.details")}
                 </button>
               </div>
             );

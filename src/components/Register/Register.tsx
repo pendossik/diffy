@@ -2,8 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./Register.css";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 export function Register() {
+  const { t } = useTranslation();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,7 +16,7 @@ export function Register() {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/accounts/register/`,
+        `${import.meta.env.VITE_API_URL}/accounts/register/`,
         {
           username: name,
           email: email,
@@ -23,7 +25,7 @@ export function Register() {
       );
 
       console.log("Пользователь создан:", response.data);
-      alert("Аккаунт создан успешно!");
+      alert(t("auth.registerSuccess"));
       navigate("/login");
     } catch (error: any) {
       console.error(
@@ -31,8 +33,8 @@ export function Register() {
         error.response?.data || error.message,
       );
       alert(
-        "Ошибка регистрации: " +
-          (error.response?.data?.detail || "проверь данные"),
+        t("auth.registerError") +
+          (error.response?.data?.detail || t("auth.checkData")),
       );
     }
   }
@@ -47,11 +49,12 @@ export function Register() {
           />
         </div>
         <div className="reg__form">
-          <h1>Создать аккаунт</h1>
-          <p>Введите данные ниже</p>
+          <h1>{t("auth.registerTitle")}</h1>
+          <p>{t("auth.registerSubtitle")}</p>
+
           <form onSubmit={handleSubmit}>
             <div className="form__group">
-              <label htmlFor="name">Имя</label>
+              <label htmlFor="name">{t("auth.nameLabel")}</label>
               <input
                 id="name"
                 type="text"
@@ -61,8 +64,9 @@ export function Register() {
                 required
               />
             </div>
+
             <div className="form__group">
-              <label htmlFor="email">Эл. почта</label>
+              <label htmlFor="email">{t("auth.emailLabel")}</label>
               <input
                 id="email"
                 type="email"
@@ -72,8 +76,9 @@ export function Register() {
                 required
               />
             </div>
+
             <div className="form__group">
-              <label htmlFor="password">Пароль</label>
+              <label htmlFor="password">{t("auth.passwordLabel")}</label>
               <input
                 id="password"
                 type="password"
@@ -83,22 +88,26 @@ export function Register() {
                 required
               />
             </div>
+
             <button type="submit" className="btn-create__acc">
-              Создать аккаунт
+              {t("auth.createAccountButton")}
             </button>
+
             <button type="button" className="btn-google">
               <img
                 src="./src/icons/Google.svg"
                 alt="Google"
                 className="google-icon"
               />
-              Войти через Google
+              {t("auth.googleButton")}
             </button>
           </form>
+
           <div className="reg__footer">
-            <span>Уже есть аккаунт?</span>
+            <span>{t("auth.alreadyHaveAccount")}</span>
+
             <Link to="/login" className="reg__link">
-              Войти
+              {t("auth.loginLink")}
             </Link>
           </div>
         </div>

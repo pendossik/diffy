@@ -4,15 +4,15 @@ import { useState } from "react";
 import ShortCompareCard from "../../components/ShortCompareCard/ShortCompareCard";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
+import { type Product } from "../../types/product";
+
 import favOff from "../../icons/Favourite_button.svg";
 import favOn from "../../icons/Favourite_button_active.svg";
-
-type Product = {
-  id: number;
-  name: string;
-};
+import Plus from "../../icons/Plus.svg";
 
 export function HomePage() {
+  const { t } = useTranslation();
   const [products, setProducts] = useState<Product[]>([
     { id: 0, name: "" },
     { id: 0, name: "" },
@@ -37,16 +37,16 @@ export function HomePage() {
   const handleCompare = () => {
     setError(null);
     if (selectedProducts.length === 0) {
-      setError("Выберите хотя бы один товар");
+      setError(t("home.errorSelect"));
       return;
     }
     if (hasDuplicates) {
-      setError("Товары должны быть разными");
+      setError(t("home.errorUnique"));
       return;
     }
 
     axios
-      .post(`${import.meta.env.VITE_API_URL}/api/compare/comparison/`, {
+      .post(`${import.meta.env.VITE_API_URL}/compare/comparison/`, {
         product_ids: selectedProducts.map((p) => p.id),
       })
       .then((res) => {
@@ -54,41 +54,39 @@ export function HomePage() {
         setCompareData(res.data);
         setIsFav(false);
       })
-      .catch(() => setError("Ошибка загрузки данных"));
+      .catch(() => setError(t("home.errorLoad")));
   };
 
   const handleSaveToFavorites = async () => {
     const token = localStorage.getItem("access_token");
     if (!token) {
-      alert("Пожалуйста, войдите в аккаунт, чтобы сохранить сравнение.");
+      alert("t('home.alertLogin')");
       return;
     }
 
     try {
       await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/compare/favorites/`,
+        `${import.meta.env.VITE_API_URL}/compare/favorites/`,
         { product_ids: compareData?.map((p: any) => p.id) },
         {
           headers: { Authorization: `Bearer ${token}` },
         },
       );
       setIsFav(true);
-      alert("Сохранено в избранное!");
+      alert("t('home.alertSaved')");
     } catch (err) {
       console.error(err);
-      alert(
-        "Не удалось сохранить. Возможно, вы не авторизованы или сравнение уже в списке.",
-      );
+      alert(t("home.alertSaveError"));
     }
   };
 
   return (
     <main>
-      <div className="search-section">
+      <div className="search-block">
         <div className="search-container">
           <div className="search-inputs">
             <Search
-              placeholder="Название первого товара"
+              placeholder={t("home.searchPlaceholder1")}
               value={products[0].name}
               onChange={(id, name) => updateProduct(0, id, name)}
             />
@@ -96,10 +94,10 @@ export function HomePage() {
             {products[0].id !== 0 && (
               <>
                 <div className="plus-icon">
-                  <img src="./src/icons/Plus.svg" alt="plus" width="70" />
+                  <img src={Plus} alt="plus" width="70" />
                 </div>
                 <Search
-                  placeholder="Название второго товара"
+                  placeholder={t("home.searchPlaceholder2")}
                   value={products[1].name}
                   onChange={(id, name) => updateProduct(1, id, name)}
                 />
@@ -109,10 +107,10 @@ export function HomePage() {
             {products[1].id !== 0 && (
               <>
                 <div className="plus-icon">
-                  <img src="./src/icons/Plus.svg" alt="plus" width="70" />
+                  <img src={Plus} alt="plus" width="70" />
                 </div>
                 <Search
-                  placeholder="Название третьего товара"
+                  placeholder={t("home.searchPlaceholder3")}
                   value={products[2].name}
                   onChange={(id, name) => updateProduct(2, id, name)}
                 />
@@ -126,7 +124,7 @@ export function HomePage() {
               disabled={selectedProducts.length === 0}
               onClick={handleCompare}
             >
-              Сравнить
+              {t("home.compareBtn")}
             </button>
             {error && <p className="error-text">{error}</p>}
           </div>
@@ -178,7 +176,7 @@ export function HomePage() {
                   })
                 }
               >
-                Подробнее
+                {t("home.moreBtn")}
               </button>
             )}
           </div>
