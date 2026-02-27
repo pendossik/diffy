@@ -107,6 +107,14 @@ media/
 *.db
 *.pid
 
+
+.gigaide/
+
+diffy_project/
+backend/diffy/logs
+backend/diffy/.env
+
+.idea/
 # Ignore Django Migrations in Development if you are working on team
 
 # Only for Development only
