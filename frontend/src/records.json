@@ -1,0 +1,311 @@
+[
+    {
+        "id": 1,
+        "name": "Iphone 17 Pro Max",
+        "category": "Смартфоны",
+        "img": "/images/iPhone-17-Pro-Max.png",
+        "characteristics_groups": [
+            {
+                "name": "Размеры",
+                "characteristics": [
+                    { "id": 4, "name": "Ширина", "value": "78 мм" },
+                    { "id": 5, "name": "Высота", "value": "163.4 мм" },
+                    { "id": 6, "name": "Толщина", "value": "8.7 мм" },
+                    { "id": 7, "name": "Вес", "value": "233 г" }
+                ]
+            },
+            {
+                "name": "Корпус",
+                "characteristics": [
+                    {
+                        "id": 8,
+                        "name": "Материал задней панели",
+                        "value": "стекло"
+                    },
+                    { "id": 9, "name": "Материал граней", "value": "алюминий" },
+                    { "id": 10, "name": "Пыле-влагозащита", "value": "IP68" }
+                ]
+            },
+            {
+                "name": "Дисплей",
+                "characteristics": [
+                    {
+                        "id": 11,
+                        "name": "Тип экрана",
+                        "value": "Super Retina XDR"
+                    },
+                    { "id": 12, "name": "Диагональ экрана", "value": "6.9 '" },
+                    {
+                        "id": 13,
+                        "name": "Разрешение экрана",
+                        "value": "2868x1320"
+                    },
+                    { "id": 14, "name": "Частота экрана", "value": "120 Гц" },
+                    { "id": 15, "name": "Яркость экрана", "value": "3000 нит" },
+                    {
+                        "id": 16,
+                        "name": "Плотность пикселей",
+                        "value": "460 ppi"
+                    },
+                    {
+                        "id": 17,
+                        "name": "Соотношение сторон",
+                        "value": "19.5:9"
+                    }
+                ]
+            },
+            {
+                "name": "Процессор",
+                "characteristics": [
+                    {
+                        "id": 18,
+                        "name": "Модель процессора",
+                        "value": "Apple A18 Pro"
+                    },
+                    { "id": 19, "name": "Количество ядер", "value": "6" }
+                ]
+            },
+            {
+                "name": "Батарея",
+                "characteristics": [
+                    { "id": 20, "name": "Аккумулятор", "value": "4823 мАч" }
+                ]
+            },
+            {
+                "name": "Основная камера",
+                "characteristics": [
+                    { "id": 21, "name": "Количество камер", "value": "3" },
+                    {
+                        "id": 22,
+                        "name": "Количество мегапикселей",
+                        "value": "48 Мп"
+                    }
+                ]
+            },
+            {
+                "name": "Фронтальная камера",
+                "characteristics": [
+                    { "id": 23, "name": "Фронтальная камера", "value": "18 Мп" }
+                ]
+            },
+            {
+                "name": "Операционная система",
+                "characteristics": [
+                    { "id": 24, "name": "Операционная система", "value": "iOS" }
+                ]
+            },
+            {
+                "name": "Bluetooth",
+                "characteristics": [
+                    { "id": 25, "name": "Bluetooth", "value": "6.0" }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Iphone Air",
+        "category": "Смартфоны",
+        "img": "/images/iPhone-Air.png",
+        "characteristics_groups": [
+            {
+                "name": "Размеры",
+                "characteristics": [
+                    { "id": 1, "name": "Ширина", "value": "74.7 мм" },
+                    { "id": 2, "name": "Высота", "value": "156.2 мм" },
+                    { "id": 3, "name": "Толщина", "value": "5.6 мм" },
+                    { "id": 4, "name": "Вес", "value": "165 г" }
+                ]
+            },
+            {
+                "name": "Корпус",
+                "characteristics": [
+                    {
+                        "id": 5,
+                        "name": "Материал задней панели",
+                        "value": "стекло"
+                    },
+                    { "id": 6, "name": "Материал граней", "value": "титан" },
+                    { "id": 7, "name": "Пыле-влагозащита", "value": "IP68" }
+                ]
+            },
+            {
+                "name": "Дисплей",
+                "characteristics": [
+                    {
+                        "id": 8,
+                        "name": "Тип экрана",
+                        "value": "Super Retina XDR"
+                    },
+                    { "id": 9, "name": "Диагональ экрана", "value": "6.5 '" },
+                    {
+                        "id": 10,
+                        "name": "Разрешение экрана",
+                        "value": "2736x1260"
+                    },
+                    { "id": 11, "name": "Частота экрана", "value": "120 Гц" },
+                    { "id": 12, "name": "Яркость экрана", "value": "3000 нит" },
+                    {
+                        "id": 13,
+                        "name": "Плотность пикселей",
+                        "value": "460 ppi"
+                    },
+                    {
+                        "id": 14,
+                        "name": "Соотношение сторон",
+                        "value": "19.5:9"
+                    }
+                ]
+            },
+            {
+                "name": "Процессор",
+                "characteristics": [
+                    {
+                        "id": 15,
+                        "name": "Модель процессора",
+                        "value": "Apple A19 Pro"
+                    },
+                    { "id": 16, "name": "Количество ядер", "value": "6" }
+                ]
+            },
+            {
+                "name": "Батарея",
+                "characteristics": [
+                    { "id": 17, "name": "Аккумулятор", "value": "3149 мАч" }
+                ]
+            },
+            {
+                "name": "Основная камера",
+                "characteristics": [
+                    { "id": 20, "name": "Количество камер", "value": "1" },
+                    {
+                        "id": 22,
+                        "name": "Количество мегапикселей",
+                        "value": "48 Мп"
+                    }
+                ]
+            },
+            {
+                "name": "Фронтальная камера",
+                "characteristics": [
+                    { "id": 23, "name": "Фронтальная камера", "value": "18 Мп" }
+                ]
+            },
+            {
+                "name": "Операционная система",
+                "characteristics": [
+                    { "id": 24, "name": "Операционная система", "value": "iOS" }
+                ]
+            },
+            {
+                "name": "Bluetooth",
+                "characteristics": [
+                    { "id": 25, "name": "Bluetooth", "value": "6.0" }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Samsung Galaxy S25 Ultra",
+        "category": "Смартфоны",
+        "img": "/images/Samsung-Galaxy-S25-Ultra.png",
+        "characteristics_groups": [
+            {
+                "name": "Размеры",
+                "characteristics": [
+                    { "id": 1, "name": "Ширина", "value": "78.1 мм" },
+                    { "id": 2, "name": "Высота", "value": "162.3 мм" },
+                    { "id": 3, "name": "Толщина", "value": "8.9 мм" },
+                    { "id": 4, "name": "Вес", "value": "233 г" }
+                ]
+            },
+            {
+                "name": "Корпус",
+                "characteristics": [
+                    {
+                        "id": 5,
+                        "name": "Материал задней панели",
+                        "value": "стекло"
+                    },
+                    { "id": 6, "name": "Материал граней", "value": "алюминий" },
+                    { "id": 7, "name": "Пыле-влагозащита", "value": "IP68" }
+                ]
+            },
+            {
+                "name": "Дисплей",
+                "characteristics": [
+                    {
+                        "id": 8,
+                        "name": "Тип экрана",
+                        "value": "Dynamic AMOLED 2X"
+                    },
+                    { "id": 9, "name": "Диагональ экрана", "value": "6.8 '" },
+                    {
+                        "id": 10,
+                        "name": "Разрешение экрана",
+                        "value": "3120x1440"
+                    },
+                    { "id": 11, "name": "Частота экрана", "value": "120 Гц" },
+                    { "id": 12, "name": "Яркость экрана", "value": "2600 нит" },
+                    {
+                        "id": 13,
+                        "name": "Плотность пикселей",
+                        "value": "505 ppi"
+                    },
+                    { "id": 14, "name": "Соотношение сторон", "value": "20:9" }
+                ]
+            },
+            {
+                "name": "Процессор",
+                "characteristics": [
+                    {
+                        "id": 15,
+                        "name": "Модель процессора",
+                        "value": "Snapdragon 8 Gen 4"
+                    },
+                    { "id": 16, "name": "Количество ядер", "value": "8" }
+                ]
+            },
+            {
+                "name": "Батарея",
+                "characteristics": [
+                    { "id": 17, "name": "Аккумулятор", "value": "5000 мАч" }
+                ]
+            },
+            {
+                "name": "Основная камера",
+                "characteristics": [
+                    { "id": 20, "name": "Количество камер", "value": "4" },
+                    {
+                        "id": 22,
+                        "name": "Количество мегапикселей",
+                        "value": "200 Мп"
+                    }
+                ]
+            },
+            {
+                "name": "Фронтальная камера",
+                "characteristics": [
+                    { "id": 23, "name": "Фронтальная камера", "value": "40 Мп" }
+                ]
+            },
+            {
+                "name": "Операционная система",
+                "characteristics": [
+                    {
+                        "id": 24,
+                        "name": "Операционная система",
+                        "value": "Android 15"
+                    }
+                ]
+            },
+            {
+                "name": "Bluetooth",
+                "characteristics": [
+                    { "id": 25, "name": "Bluetooth", "value": "5.4" }
+                ]
+            }
+        ]
+    }
+]
