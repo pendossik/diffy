@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-2b_ch-$6a_q3a_@vnq9#()rtrn24)-$j3-#ur0vsl9ishv&a6e'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG') == 'True'
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '100.105.194.90', 'macbook-air']
 CORS_ALLOW_ALL_ORIGINS = True
@@ -190,3 +194,25 @@ SPECTACULAR_SETTINGS = {
     },
     'SECURITY': [{'Bearer': []}],
 }
+
+
+# Для тестов: письма будут сыпаться в консоль
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Когда будешь готов к реальной почте (например, Gmail), заменишь на это:
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True         # На скрине написано SSL/TLS для 465, в Django это USE_SSL
+EMAIL_USE_TLS = False  
+
+EMAIL_HOST_USER = 'diffy_team@mail.ru'
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+
+# URL твоего фронтенда (React), куда пользователь попадет из письма
+FRONTEND_URL = "http://localhost:5173"
+# 100.105.194.90 127.0.0.1:8000
+BACKEND_URL = "http://100.105.194.90"

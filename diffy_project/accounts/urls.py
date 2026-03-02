@@ -1,7 +1,7 @@
 from django.urls import path
 # устарели, но пока оставил
 from .views import register, register_page, login_user, login_page, current_user, logout_user, profile_page
-from .api_views import RegisterAPIView, CurrentUserAPIView, LogoutAPIView#, LoginAPIView
+from .api_views import RegisterAPIView, CurrentUserAPIView, LogoutAPIView, ActivateAccountAPIView#, LoginAPIView
 
 urlpatterns = [
     # Регистрация нового аккаунта
@@ -12,4 +12,7 @@ urlpatterns = [
     
     # Выход (инвалидация refresh токена)
     path('logout/', LogoutAPIView.as_view(), name='logout'),
+
+        # Ссылка активации (Backend)
+    path('activate/<str:uidb64>/<str:token>/', ActivateAccountAPIView.as_view(), name='activate'),
 ]

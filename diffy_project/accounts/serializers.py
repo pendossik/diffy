@@ -16,11 +16,17 @@ class RegisterSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'username', 'email', 'password']
 
-    def create(self, validated_date):
+    def validate_email(self, value):
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("Пользователь с таким email уже зарегистрирован.")
+        return value
+
+    def create(self, validated_data):
         user = User.objects.create_user(
-            username=validated_date['username'],
-            email=validated_date['email'],
-            password=validated_date['password']
+            username=validated_data['username'],
+            email=validated_data['email'],
+            password=validated_data['password'],
+            is_active=False  # заблокирован до подтверждения почты
         )
         return user
 
