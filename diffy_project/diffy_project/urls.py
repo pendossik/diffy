@@ -31,7 +31,10 @@ urlpatterns = [
     path('api/token/', EmailTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
-    path('api/compare/', include('compare.urls')),
+    # РЕФАКТОРИНГ: разделили старый compare на два приложения
+    # path('api/compare/', include('compare.urls')),
+    path('api/catalog/', include('catalog.urls')),
+    path('api/comparisons/', include('comparisons.urls')),
 
     # --- SWAGGER И СХЕМА ---
     # 1. Ссылка на скачивание схемы (YAML файл)
