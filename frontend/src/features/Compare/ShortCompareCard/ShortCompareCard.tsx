@@ -5,6 +5,7 @@ type Props = {
 
 export default function ShortCompareCard({ data, bg }: Props) {
     if (!data) return null;
+    console.log(data.img);
 
     return (
         <div className={bg}>

@@ -58,7 +58,7 @@ button.fav-btn-main img {
 
 /* 4. Карточки результатов */
 .cards-bg {
-    background: no-repeat center/cover url("../../images/cards-bg.png");
+    background: no-repeat center/cover url("../../../public/images/cards-bg.png");
 }
 
 /* Контейнер для результатов (обертка для карточек и сердца) */
@@ -83,7 +83,7 @@ button.fav-btn-main img {
 
 .search-block {
     min-height: 90vh;
-    background: no-repeat center/cover url("../../images/body-bg.png");
+    background: no-repeat center/cover url("../../../public/images/body-bg.png");
     display: flex;
     justify-content: center;
     align-items: center;
@@ -129,17 +129,17 @@ button.fav-btn-main img {
 }
 
 .short-product1 {
-    background-image: url("../../images/short-product1-bg.png");
+    background-image: url("../../../public/images/short-product1-bg.png");
     color: white;
 }
 
 .short-product2 {
-    background-image: url("../../images/short-product2-bg.png");
+    background-image: url("../../../public/images/short-product2-bg.png");
     color: #1d4a58;
 }
 
 .short-product3 {
-    background-image: url("../../images/short-product1-bg.png");
+    background-image: url("../../../public/images/short-product1-bg.png");
     color: white;
 }
 
