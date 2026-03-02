@@ -1,0 +1,212 @@
+button {
+    width: 100%;
+    max-width: 200px;
+    height: 55px;
+    border: none;
+    background: #f7e1ca;
+    color: #72675b;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 2.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+button:hover:enabled {
+    background-color: #fff0df;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* --- НОВОЕ: Стили для кнопки-сердца (fav-btn-main) --- */
+/* Используем специфичный класс, чтобы перебить общие стили button выше */
+button.fav-btn-main {
+    all: unset; /* Сбрасываем ширину 100%, фон и прочее */
+    position: absolute;
+    top: 20px;
+    right: 50px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease;
+    width: auto;
+    height: auto;
+    max-width: none;
+    margin: 0;
+}
+
+button.fav-btn-main:hover {
+    transform: scale(1.1);
+    background: none !important; /* Убираем фон при наведении */
+}
+
+button.fav-btn-main img {
+    width: 45px;
+    height: 45px;
+}
+
+/* 3. Секция поиска */
+
+/* 4. Карточки результатов */
+.cards-bg {
+    background: no-repeat center/cover url("../../images/cards-bg.png");
+}
+
+/* Контейнер для результатов (обертка для карточек и сердца) */
+.compare-results {
+    position: relative; /* Обязательно для позиционирования сердца */
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 60px 20px; /* Отступ сверху для сердца */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.compare-cards-flex {
+    display: flex;
+    justify-content: center; /* Центрируем карточки */
+    gap: 30px;
+    width: 100%;
+    flex-wrap: wrap; /* Чтобы не вылезали на маленьких экранах */
+}
+
+.search-block {
+    min-height: 90vh;
+    background: no-repeat center/cover url("../../images/body-bg.png");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.search-inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.search-container input::placeholder {
+    overflow: visible;
+}
+
+/* Общие стили карточек */
+.short-product1,
+.short-product2,
+.short-product3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    margin: 10px; /* Уменьшил отступ, чтобы 3 карточки влезали лучше */
+    border-radius: 4px;
+    width: 100%;
+    max-width: 380px; /* Оптимально для 3-х в ряд */
+    min-height: 450px; /* Увеличил высоту для характеристик */
+    background-size: cover;
+    background-position: center;
+}
+
+.short-product1 {
+    background-image: url("../../images/short-product1-bg.png");
+    color: white;
+}
+
+.short-product2 {
+    background-image: url("../../images/short-product2-bg.png");
+    color: #1d4a58;
+}
+
+.short-product3 {
+    background-image: url("../../images/short-product1-bg.png");
+    color: white;
+}
+
+.short-char {
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* 5. АДАПТИВНОСТЬ */
+
+@media (max-width: 1024px) {
+    .search-container input {
+        height: 65px;
+    }
+    .short-product1,
+    .short-product2,
+    .short-product3 {
+        max-width: 45%;
+    }
+    button.fav-btn-main {
+        right: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-section {
+        min-height: 600px;
+    }
+
+    .compare-cards-flex {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .short-product1,
+    .short-product2,
+    .short-product3 {
+        max-width: 90%;
+        margin: 10px 0;
+    }
+
+    button.fav-btn-main {
+        top: 10px;
+        right: 10px;
+    }
+}
+
+/* Картинки внутри карточек */
+.card-image-wrapper {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.card-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.error-text {
+    color: #ff4d4f;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 5px 15px;
+    border-radius: 4px;
+    margin-top: 10px;
+}

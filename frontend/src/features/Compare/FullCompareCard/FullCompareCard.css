@@ -1,0 +1,188 @@
+.main-char-header {
+    background-color: #1d4a58;
+    width: 100%;
+    color: #fff6f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2px;
+}
+
+.char-header {
+    background-color: #97a1a1;
+    color: #fff6f6;
+    text-align: center;
+    padding: 8px 16px;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 2px;
+}
+
+.compare-page {
+    min-width: 900px; /* под 3 карточки */
+}
+
+.description {
+    background: url("./src/images/cards-bg.png") center center no-repeat;
+    background-size: cover;
+    height: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.product {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    gap: 30px;
+    padding: 175px 50px;
+    font-weight: bold;
+    border-radius: 2.5px;
+}
+
+.product1 {
+    background: no-repeat center/cover url("./src/images/product1-bg.png");
+    color: white;
+}
+
+.product2 {
+    background: no-repeat center/cover url("./src/images/product2-bg.png");
+    color: #1d4a58;
+}
+
+.product3 {
+    background: no-repeat center/cover url("./src/images/product1-bg.png");
+    color: white;
+}
+
+.display-header {
+    visibility: hidden;
+}
+
+.char {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    border-radius: 2px;
+
+    background-color: #fce5cc;
+    color: #1d4a58;
+    padding: 12px 24px;
+    align-items: center;
+}
+
+.char p {
+    text-align: center;
+    margin: 0;
+    line-height: 1.4;
+    font-size: 16px;
+}
+
+.full-card {
+    width: 80vw;
+}
+
+.fav-btn {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 40px;
+    z-index: 1000;
+
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.fav-btn img {
+    width: 40px;
+    height: 40px;
+}
+
+.fav-btn:hover {
+    background-color: unset;
+}
+
+.vertical-line {
+    width: 2px;
+    background-color: black;
+}
+
+.cards {
+    all: unset;
+    position: relative;
+}
+
+.best {
+    background-color: #7cff7c; /* мягкий зелёный */
+    border-radius: 6px;
+    padding: 4px 6px;
+    max-width: 30%;
+}
+
+.worst {
+    background-color: #ffd6d6; /* мягкий красный */
+    border-radius: 6px;
+    padding: 4px 6px;
+}
+
+.full {
+    background: url("../../images/cards-bg.png") no-repeat center/cover;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.card-image-wrapper {
+    width: 150px; /* фиксированная ширина */
+    height: 150px; /* фиксированная высота */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px; /* фон, если картинки нет */
+    border-radius: 8px;
+}
+
+.card-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.image-placeholder {
+    width: 60%;
+    height: 60%;
+    background: #e0e0e0;
+    border-radius: 6px;
+}
+
+@media (max-width: 1024px) {
+    .fav-btn {
+        top: 12px;
+        right: 12px;
+        width: 32px;
+    }
+
+    .fav-btn img {
+        width: 32px;
+        height: 32px;
+    }
+
+    .char {
+        grid-template-rows: 1fr;
+        text-align: center;
+    }
+
+    body {
+        overflow-x: auto;
+    }
+
+    .compare-page {
+        min-width: 900px;
+    }
+}
