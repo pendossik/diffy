@@ -34,7 +34,7 @@ urlpatterns = [
     # РЕФАКТОРИНГ: разделили старый compare на два приложения
     # path('api/compare/', include('compare.urls')),
     path('api/catalog/', include('catalog.urls')),
-    path('api/comparisons/', include('comparisons.urls')),
+    path('api/comparison/', include('comparison.urls')),
 
     # --- SWAGGER И СХЕМА ---
     # 1. Ссылка на скачивание схемы (YAML файл)

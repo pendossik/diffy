@@ -1137,7 +1137,7 @@
   }
 },
 {
-  "model": "comparisons.favoritecomparison",
+  "model": "comparison.favoritecomparison",
   "pk": 1,
   "fields": {
     "user": 10,
@@ -1151,7 +1151,7 @@
   }
 },
 {
-  "model": "comparisons.favoritecomparison",
+  "model": "comparison.favoritecomparison",
   "pk": 3,
   "fields": {
     "user": 10,
@@ -1163,7 +1163,7 @@
   }
 },
 {
-  "model": "comparisons.favoritecomparison",
+  "model": "comparison.favoritecomparison",
   "pk": 10,
   "fields": {
     "user": 16,
@@ -1176,7 +1176,7 @@
   }
 },
 {
-  "model": "comparisons.favoritecomparison",
+  "model": "comparison.favoritecomparison",
   "pk": 12,
   "fields": {
     "user": 17,
@@ -1189,7 +1189,7 @@
   }
 },
 {
-  "model": "comparisons.favoritecomparison",
+  "model": "comparison.favoritecomparison",
   "pk": 14,
   "fields": {
     "user": 16,
@@ -1202,7 +1202,7 @@
   }
 },
 {
-  "model": "comparisons.favoritecomparison",
+  "model": "comparison.favoritecomparison",
   "pk": 15,
   "fields": {
     "user": 16,
@@ -1216,7 +1216,7 @@
   }
 },
 {
-  "model": "comparisons.favoritecomparison",
+  "model": "comparison.favoritecomparison",
   "pk": 16,
   "fields": {
     "user": 10,
@@ -1228,7 +1228,7 @@
   }
 },
 {
-  "model": "comparisons.favoritecomparison",
+  "model": "comparison.favoritecomparison",
   "pk": 17,
   "fields": {
     "user": 27,
@@ -1242,7 +1242,7 @@
   }
 },
 {
-  "model": "comparisons.favoritecomparison",
+  "model": "comparison.favoritecomparison",
   "pk": 18,
   "fields": {
     "user": 27,
@@ -1255,7 +1255,7 @@
   }
 },
 {
-  "model": "comparisons.favoritecomparison",
+  "model": "comparison.favoritecomparison",
   "pk": 19,
   "fields": {
     "user": 27,

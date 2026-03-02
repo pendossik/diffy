@@ -4,7 +4,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 
-from .models import Product, FavoriteComparison
+from .models import FavoriteComparison
+from catalog.models import Product
 from .serializers import CompareRequestSerializer, CompareResultSerializer, FavoriteComparisonSerializer
 
 # чтобы сваггер понял CompareAPIView

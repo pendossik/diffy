@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Product, FavoriteComparison
+from .models import FavoriteComparison
+from catalog.models import Product
 from catalog.serializers import ProductShortSerializer
 
 """

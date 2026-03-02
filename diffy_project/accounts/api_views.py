@@ -70,6 +70,7 @@ class RegisterAPIView(APIView):
                     
                     token = default_token_generator.make_token(user)
                     uid = urlsafe_base64_encode(force_bytes(user.pk))
+                                 # для теста в ветке dev 8001
                     activation_link = f"http://127.0.0.1:8000/api/accounts/activate/{uid}/{token}/"
                     
                     # Пытаемся отправить письмо
