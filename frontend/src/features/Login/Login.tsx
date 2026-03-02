@@ -1,87 +1,81 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import axios from "axios";
-
-import Iphone from "../../../public/images/iPhone-17-Pro-Max.png";
+import { authService } from "../../api/services/auth.service"; // Наш сервис
 import "./Login.css";
 
 export function Login() {
-    const { t } = useTranslation();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const navigate = useNavigate();
+  const { t } = useTranslation();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-        try {
-            const response = await axios.post(
-                `${import.meta.env.VITE_API_URL}/token/`,
-                {
-                    email: email,
-                    password: password,
-                },
-            );
+    try {
+      // 1. Вызываем метод сервиса
+      const data = await authService.login({ email, password });
 
-            const { access, refresh } = response.data;
+      // 2. Сохраняем токены (структура data зависит от того, что вернет apiClient)
+      localStorage.setItem("access_token", data.access);
+      localStorage.setItem("refresh_token", data.refresh);
 
-            localStorage.setItem("access_token", access);
-            localStorage.setItem("refresh_token", refresh);
+      alert(t("auth.loginSuccess"));
 
-            alert(t("auth.loginSuccess"));
-            navigate("/");
-            window.location.reload();
-        } catch (error: any) {
-            console.error(
-                "Ошибка входа:",
-                error.response?.data || error.message,
-            );
-            alert(t("auth.loginError"));
-        }
-    };
+      // 3. Перенаправляем пользователя
+      navigate("/");
 
-    return (
-        <main className="auth">
-            <div className="auth__inner">
-                <div className="auth__image">
-                    <img src={Iphone} alt="Photo_Iphone_17_Pro_dark-blue" />
-                </div>
-                <div className="auth__form">
-                    <h1>{t("auth.loginTitle")}</h1>
-                    <p>{t("auth.loginSubtitle")}</p>
+      // Перезагрузка нужна, если Header не умеет подхватывать изменения localStorage автоматически
+      window.location.reload();
+    } catch (error: any) {
+      // Ошибка уже обработана в apiClient, здесь мы просто выводим уведомление
+      console.error("Ошибка входа:", error.message);
+      alert(t("auth.loginError"));
+    }
+  };
 
-                    <form onSubmit={handleSubmit} action="">
-                        <input
-                            type="email"
-                            placeholder={t("auth.emailPlaceholder")}
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
+  return (
+    <main className="auth">
+      <div className="auth__inner">
+        <div className="auth__image">
+          {/* Убедись, что путь к картинке верный, обычно в Vite это /src/assets/... */}
+          <img src="../../../public/images/iPhone-17.png" alt="iPhone 17 Pro" />
+        </div>
+        <div className="auth__form">
+          <h1>{t("auth.loginTitle")}</h1>
+          <p>{t("auth.loginSubtitle")}</p>
 
-                        <input
-                            type="password"
-                            placeholder={t("auth.passwordPlaceholder")}
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
+          <form onSubmit={handleSubmit}>
+            <input
+              type="email"
+              placeholder={t("auth.emailPlaceholder")}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
 
-                        <button type="submit">{t("auth.loginButton")}</button>
+            <input
+              type="password"
+              placeholder={t("auth.passwordPlaceholder")}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
 
-                        <Link to="/">{t("auth.forgotPassword")}</Link>
-                    </form>
+            <button type="submit">{t("auth.loginButton")}</button>
 
-                    <div className="auth__footer">
-                        <span>{t("auth.noAccount")}</span>
+            <Link to="/">{t("auth.forgotPassword")}</Link>
+          </form>
 
-                        <Link to="/register" className="auth__link">
-                            {t("auth.registerLink")}
-                        </Link>
-                    </div>
-                </div>
-            </div>
-        </main>
-    );
+          <div className="auth__footer">
+            <span>{t("auth.noAccount")}</span>
+            <Link to="/register" className="auth__link">
+              {t("auth.registerLink")}
+            </Link>
+          </div>
+        </div>
+      </div>
+    </main>
+  );
 }
