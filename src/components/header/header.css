@@ -1,5 +1,5 @@
 .main-header {
-  background-color: #f8d9b5;
+  background-color: #ffe8ce;
   padding: 0 20px;
   min-height: 100px; /* Фиксированная высота для предсказуемости */
   display: flex;
@@ -87,7 +87,7 @@
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: #a3bcb0; /* Цвет с твоего фото */
+  background-color: #32525c; /* Цвет с твоего фото */
   padding: 15px;
   border-radius: 8px;
   min-width: 200px;
@@ -125,4 +125,16 @@
   border: none;
   cursor: pointer;
   width: 100%;
+}
+
+.header-lang-button {
+  flex-shrink: 0;
+  width: 48px;
+  height: 32px;
+  background: #ffe8ce;
+  color: #1d4a58;
+  border: 1px solid;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
 }

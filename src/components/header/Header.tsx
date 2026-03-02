@@ -4,12 +4,12 @@ import axios from "axios";
 import Logo from "../../icons/Diffy.svg";
 import Favorites from "../../icons/Favourite.svg";
 import User from "../../icons/User.svg";
-import "./header.css";
+import "./Header.css";
 import { useTranslation } from "react-i18next";
 
-interface UserData {
+type UserData = {
   email: string;
-}
+};
 
 export default function Header() {
   const { t, i18n } = useTranslation();
@@ -31,7 +31,7 @@ export default function Header() {
 
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/accounts/current_user/`,
+          `${import.meta.env.VITE_API_URL}/accounts/current_user/`,
           {
             headers: {
               // Если Bearer не сработает, попробуй заменить на: Authorization: `JWT ${token}`
@@ -105,8 +105,8 @@ export default function Header() {
         </ul>
 
         <div className="header-actions">
-          <button onClick={toggleLanguage} className="header-actions-button">
-            {i18n.language === "ru" ? "EN" : "RU"}
+          <button onClick={toggleLanguage} className="header-lang-button">
+            {i18n.language === "ru" ? "RU" : "EN"}
           </button>
 
           <Link

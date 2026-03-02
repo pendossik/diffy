@@ -1,0 +1,24 @@
+@font-face {
+  font-family: "Montserrat";
+  font-weight: 400;
+  src: url("./fonts/Montserrat/Montserrat-VariableFont_wght.ttf");
+}
+
+:root {
+  font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+body {
+  background-color: #1d4a58;
+  margin: 0;
+  color: #4d463e;
+}
+
+* {
+  box-sizing: border-box;
+}

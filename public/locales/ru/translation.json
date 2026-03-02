@@ -43,5 +43,51 @@
     "registerSuccess": "Аккаунт создан успешно!",
     "registerError": "Ошибка регистрации: ",
     "checkData": "проверьте данные"
+  },
+  "card": {
+    "charHeader": "Характеристики",
+    "charSize": "Размеры",
+    "charWidth": "Ширина",
+    "charHeight": "Высота",
+    "charThickness": "Толщина",
+    "charWeight": "Вес",
+    "charCase": "Корпус",
+    "charBackMaterial": "Материал задней панели",
+    "charSideMaterial": "Материал граней",
+    "charProtection": "Пыле-влагозащита",
+    "charDisplay": "Дисплей",
+    "charScreen": "Тип экрана",
+    "charDiagonal": "Диагональ экрана",
+    "charResolution": "Разрешение экрана",
+    "charFrequency": "Частота экрана",
+    "charBrightness": "Яркость экрана",
+    "charDensity": "Плотность пикселей",
+    "charRatio": "Соотношение сторон",
+    "charCPU": "Процессов",
+    "charCPUModel": "Модель процессора",
+    "charCores": "Количество ядер",
+    "charBattery": "Батарея",
+    "charAccumulator": "Аккумулятор",
+    "charMainCamera": "Основная камера",
+    "charCount": "Количество камер",
+    "charMegapixels": "Количество мегапикселей",
+    "charFrontalCamera": "Фронтальная камера",
+    "charOS": "Операционная система",
+    "charBluetooth": "Bluetooth"
+  },
+  "footer": {
+    "support": "Поддержка",
+    "account": "Аккаунт",
+    "myAccount": "Мой аккаунт",
+    "signInUp": "Вход/Регистрация",
+    "aboutUs": "О нас",
+    "privacyPolicy": "Политика конфиденциальности"
+  },
+  "favourites": {
+    "favCompares": "Избранные сравнения",
+    "noneFavouriteCompares": "У вас пока нет сохраненных сравнений",
+    "favLoading": "Загрузка избранного...",
+    "charLoading": "Загрузка характеристик",
+    "details": "Посмотреть детали"
   }
 }
