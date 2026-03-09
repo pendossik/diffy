@@ -22,12 +22,8 @@ export default function Search({ placeholder, value, onChange }: SearchProps) {
 
     const timeout = setTimeout(async () => {
       try {
-        const data = await productService.getAllProducts();
-        setResults(
-          data.filter((p) =>
-            p.name.toLowerCase().includes(value.toLowerCase()),
-          ),
-        );
+        const data = await productService.searchProduct(value);
+        setResults(data.results);
       } catch (e) {
         console.error(e);
       }
