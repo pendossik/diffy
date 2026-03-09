@@ -7,16 +7,25 @@ export type FavoriteEntry = {
   created_at: string;
 };
 
+export type SearchData = {
+  count: number,
+  next: number | null,
+  previous: number | null,
+  results: Product[];
+}
+
 export const productService = {
-  getAllProducts: () => apiClient.get<Product[]>("/compare/products/"),
+  getAllProducts: () => apiClient.get<Product[]>("/catalog/products/"),
+
+  searchProduct: (name: string) => apiClient.get<SearchData>(`/catalog/products/?search=${name}`),
 
   compare: (ids: number[]) =>
-    apiClient.post<any[]>("/compare/comparison/", { product_ids: ids }),
+    apiClient.post<any[]>("/comparison/comparison/", { product_ids: ids }),
 
   saveToFavorites: (ids: number[]) =>
-    apiClient.post("/compare/favorites/", { product_ids: ids }),
+    apiClient.post("/comparison/favorites/", { product_ids: ids }),
 
-  getFavorites: () => apiClient.get<FavoriteEntry[]>("/compare/favorites/"),
+  getFavorites: () => apiClient.get<FavoriteEntry[]>("/comparison/favorites/"),
 
-  deleteFavorite: (id: number) => apiClient.delete(`/compare/favorites/${id}/`),
+  deleteFavorite: (id: number) => apiClient.delete(`/comparison/favorites/${id}/`),
 };
