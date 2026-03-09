@@ -72,7 +72,7 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.UserRateThrottle'  # Для авторизованных
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '30/minute',  # Аноним может делать 30 запросов в минуту
+        'anon': '60/minute',  # Аноним может делать 30 запросов в минуту
         'user': '100/minute'  # Залогиненный может больше, но тоже лимит
     }
 }

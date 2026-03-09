@@ -1,0 +1,1269 @@
+[
+{
+  "model": "compare.category",
+  "pk": 1,
+  "fields": {
+    "name": "Смартфоны"
+  }
+},
+{
+  "model": "compare.category",
+  "pk": 2,
+  "fields": {
+    "name": "Ноутбуки"
+  }
+},
+{
+  "model": "compare.category",
+  "pk": 3,
+  "fields": {
+    "name": "Планшеты"
+  }
+},
+{
+  "model": "compare.product",
+  "pk": 5,
+  "fields": {
+    "name": "Iphone 17 Pro Max",
+    "category": 1,
+    "img": "/src/images/iPhone-17-Pro-Max.png"
+  }
+},
+{
+  "model": "compare.product",
+  "pk": 6,
+  "fields": {
+    "name": "Iphone Air",
+    "category": 1,
+    "img": "/src/images/iPhone-Air.png"
+  }
+},
+{
+  "model": "compare.product",
+  "pk": 7,
+  "fields": {
+    "name": "Samsung Galaxy S25 Ultra",
+    "category": 1,
+    "img": "/src/images/Samsung-Galaxy-S25-Ultra.png"
+  }
+},
+{
+  "model": "compare.product",
+  "pk": 8,
+  "fields": {
+    "name": "Google Pixel 9 Pro",
+    "category": 1,
+    "img": "/src/images/Google-Pixel-9-Pro.png"
+  }
+},
+{
+  "model": "compare.characteristicgroup",
+  "pk": 10,
+  "fields": {
+    "category": 1,
+    "name": "Размеры",
+    "order": 0
+  }
+},
+{
+  "model": "compare.characteristicgroup",
+  "pk": 11,
+  "fields": {
+    "category": 1,
+    "name": "Корпус",
+    "order": 1
+  }
+},
+{
+  "model": "compare.characteristicgroup",
+  "pk": 12,
+  "fields": {
+    "category": 1,
+    "name": "Дисплей",
+    "order": 2
+  }
+},
+{
+  "model": "compare.characteristicgroup",
+  "pk": 13,
+  "fields": {
+    "category": 1,
+    "name": "Процессор",
+    "order": 3
+  }
+},
+{
+  "model": "compare.characteristicgroup",
+  "pk": 14,
+  "fields": {
+    "category": 1,
+    "name": "Батарея",
+    "order": 4
+  }
+},
+{
+  "model": "compare.characteristicgroup",
+  "pk": 15,
+  "fields": {
+    "category": 1,
+    "name": "Основная камера",
+    "order": 5
+  }
+},
+{
+  "model": "compare.characteristicgroup",
+  "pk": 16,
+  "fields": {
+    "category": 1,
+    "name": "Фронтальная камера",
+    "order": 6
+  }
+},
+{
+  "model": "compare.characteristicgroup",
+  "pk": 17,
+  "fields": {
+    "category": 1,
+    "name": "Операционная система",
+    "order": 7
+  }
+},
+{
+  "model": "compare.characteristicgroup",
+  "pk": 18,
+  "fields": {
+    "category": 1,
+    "name": "Bluetooth",
+    "order": 8
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 1,
+  "fields": {
+    "group": 10,
+    "name": "Ширина",
+    "order": 0
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 2,
+  "fields": {
+    "group": 10,
+    "name": "Высота",
+    "order": 1
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 3,
+  "fields": {
+    "group": 10,
+    "name": "Толщина",
+    "order": 2
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 4,
+  "fields": {
+    "group": 10,
+    "name": "Вес",
+    "order": 3
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 5,
+  "fields": {
+    "group": 11,
+    "name": "Материал задней панели",
+    "order": 0
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 6,
+  "fields": {
+    "group": 11,
+    "name": "Материал граней",
+    "order": 1
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 7,
+  "fields": {
+    "group": 11,
+    "name": "Пыле-влагозащита",
+    "order": 2
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 8,
+  "fields": {
+    "group": 12,
+    "name": "Тип экрана",
+    "order": 0
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 9,
+  "fields": {
+    "group": 12,
+    "name": "Диагональ экрана",
+    "order": 1
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 10,
+  "fields": {
+    "group": 12,
+    "name": "Разрешение экрана",
+    "order": 2
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 11,
+  "fields": {
+    "group": 12,
+    "name": "Частота экрана",
+    "order": 3
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 12,
+  "fields": {
+    "group": 12,
+    "name": "Яркость экрана",
+    "order": 4
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 13,
+  "fields": {
+    "group": 12,
+    "name": "Плотность пикселей",
+    "order": 5
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 14,
+  "fields": {
+    "group": 12,
+    "name": "Соотношение сторон",
+    "order": 6
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 15,
+  "fields": {
+    "group": 13,
+    "name": "Модель процессора",
+    "order": 0
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 16,
+  "fields": {
+    "group": 13,
+    "name": "Количество ядер",
+    "order": 1
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 17,
+  "fields": {
+    "group": 14,
+    "name": "Аккумулятор",
+    "order": 0
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 18,
+  "fields": {
+    "group": 15,
+    "name": "Количество камер",
+    "order": 0
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 19,
+  "fields": {
+    "group": 15,
+    "name": "Количество мегапикселей",
+    "order": 1
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 20,
+  "fields": {
+    "group": 15,
+    "name": "Виды задней камеры",
+    "order": 2
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 21,
+  "fields": {
+    "group": 16,
+    "name": "Фронтальная камера",
+    "order": 0
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 22,
+  "fields": {
+    "group": 17,
+    "name": "Операционная система",
+    "order": 0
+  }
+},
+{
+  "model": "compare.characteristictemplate",
+  "pk": 23,
+  "fields": {
+    "group": 18,
+    "name": "Bluetooth",
+    "order": 0
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 4,
+  "fields": {
+    "product": 5,
+    "template": 1,
+    "value": "78 мм"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 5,
+  "fields": {
+    "product": 5,
+    "template": 2,
+    "value": "163.4 мм"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 6,
+  "fields": {
+    "product": 5,
+    "template": 3,
+    "value": "8.7 мм"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 7,
+  "fields": {
+    "product": 5,
+    "template": 4,
+    "value": "233 г"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 8,
+  "fields": {
+    "product": 5,
+    "template": 5,
+    "value": "стекло"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 9,
+  "fields": {
+    "product": 5,
+    "template": 6,
+    "value": "алюминий"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 10,
+  "fields": {
+    "product": 5,
+    "template": 7,
+    "value": "IP68"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 11,
+  "fields": {
+    "product": 5,
+    "template": 8,
+    "value": "Super Retina XDR"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 12,
+  "fields": {
+    "product": 5,
+    "template": 9,
+    "value": "6.9 '"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 13,
+  "fields": {
+    "product": 5,
+    "template": 10,
+    "value": "2868x1320"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 14,
+  "fields": {
+    "product": 5,
+    "template": 11,
+    "value": "120 Гц"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 15,
+  "fields": {
+    "product": 5,
+    "template": 12,
+    "value": "3000 нит"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 16,
+  "fields": {
+    "product": 5,
+    "template": 13,
+    "value": "460 ppi"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 17,
+  "fields": {
+    "product": 5,
+    "template": 14,
+    "value": "19.5:9"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 18,
+  "fields": {
+    "product": 5,
+    "template": 15,
+    "value": "Apple A18 Pro"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 19,
+  "fields": {
+    "product": 5,
+    "template": 16,
+    "value": "6"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 20,
+  "fields": {
+    "product": 5,
+    "template": 17,
+    "value": "4823 мАч"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 21,
+  "fields": {
+    "product": 5,
+    "template": 18,
+    "value": "3"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 22,
+  "fields": {
+    "product": 5,
+    "template": 19,
+    "value": "48 + 48 + 48 Мп"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 23,
+  "fields": {
+    "product": 5,
+    "template": 21,
+    "value": "18 Мп"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 24,
+  "fields": {
+    "product": 5,
+    "template": 22,
+    "value": "iOS"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 25,
+  "fields": {
+    "product": 5,
+    "template": 23,
+    "value": "6.0"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 26,
+  "fields": {
+    "product": 6,
+    "template": 1,
+    "value": "74.7 мм"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 27,
+  "fields": {
+    "product": 6,
+    "template": 2,
+    "value": "156.2 мм"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 28,
+  "fields": {
+    "product": 6,
+    "template": 3,
+    "value": "5.6 мм"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 29,
+  "fields": {
+    "product": 6,
+    "template": 4,
+    "value": "165 г"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 30,
+  "fields": {
+    "product": 6,
+    "template": 5,
+    "value": "стекло"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 31,
+  "fields": {
+    "product": 6,
+    "template": 6,
+    "value": "титан"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 32,
+  "fields": {
+    "product": 6,
+    "template": 7,
+    "value": "IP68"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 33,
+  "fields": {
+    "product": 6,
+    "template": 8,
+    "value": "Super Retina XDR"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 34,
+  "fields": {
+    "product": 6,
+    "template": 9,
+    "value": "6.5 '"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 35,
+  "fields": {
+    "product": 6,
+    "template": 10,
+    "value": "2736x1260"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 36,
+  "fields": {
+    "product": 6,
+    "template": 11,
+    "value": "120 Гц"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 37,
+  "fields": {
+    "product": 6,
+    "template": 12,
+    "value": "3000 нит"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 38,
+  "fields": {
+    "product": 6,
+    "template": 13,
+    "value": "460 ppi"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 39,
+  "fields": {
+    "product": 6,
+    "template": 14,
+    "value": "19.5:9"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 40,
+  "fields": {
+    "product": 6,
+    "template": 15,
+    "value": "Apple A19 Pro"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 41,
+  "fields": {
+    "product": 6,
+    "template": 16,
+    "value": "6"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 42,
+  "fields": {
+    "product": 6,
+    "template": 17,
+    "value": "3149 мАч"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 43,
+  "fields": {
+    "product": 6,
+    "template": 18,
+    "value": "1"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 44,
+  "fields": {
+    "product": 6,
+    "template": 19,
+    "value": "48 Мп"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 45,
+  "fields": {
+    "product": 6,
+    "template": 21,
+    "value": "18 Мп"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 46,
+  "fields": {
+    "product": 6,
+    "template": 22,
+    "value": "iOS"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 47,
+  "fields": {
+    "product": 6,
+    "template": 23,
+    "value": "6.0"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 48,
+  "fields": {
+    "product": 7,
+    "template": 1,
+    "value": "78.1 мм"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 49,
+  "fields": {
+    "product": 7,
+    "template": 2,
+    "value": "162.3 мм"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 50,
+  "fields": {
+    "product": 7,
+    "template": 3,
+    "value": "8.9 мм"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 51,
+  "fields": {
+    "product": 7,
+    "template": 4,
+    "value": "233 г"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 52,
+  "fields": {
+    "product": 7,
+    "template": 5,
+    "value": "стекло"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 53,
+  "fields": {
+    "product": 7,
+    "template": 6,
+    "value": "алюминий"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 54,
+  "fields": {
+    "product": 7,
+    "template": 7,
+    "value": "IP68"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 55,
+  "fields": {
+    "product": 7,
+    "template": 8,
+    "value": "Dynamic AMOLED 2X"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 56,
+  "fields": {
+    "product": 7,
+    "template": 9,
+    "value": "6.8 '"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 57,
+  "fields": {
+    "product": 7,
+    "template": 10,
+    "value": "3120x1440"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 58,
+  "fields": {
+    "product": 7,
+    "template": 11,
+    "value": "120 Гц"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 59,
+  "fields": {
+    "product": 7,
+    "template": 12,
+    "value": "2600 нит"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 60,
+  "fields": {
+    "product": 7,
+    "template": 13,
+    "value": "505 ppi"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 61,
+  "fields": {
+    "product": 7,
+    "template": 14,
+    "value": "20:9"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 62,
+  "fields": {
+    "product": 7,
+    "template": 15,
+    "value": "Snapdragon 8 Gen 4"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 63,
+  "fields": {
+    "product": 7,
+    "template": 16,
+    "value": "8"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 64,
+  "fields": {
+    "product": 7,
+    "template": 17,
+    "value": "5000 мАч"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 65,
+  "fields": {
+    "product": 7,
+    "template": 18,
+    "value": "4"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 66,
+  "fields": {
+    "product": 7,
+    "template": 19,
+    "value": "200 Мп"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 67,
+  "fields": {
+    "product": 7,
+    "template": 21,
+    "value": "40 Мп"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 68,
+  "fields": {
+    "product": 7,
+    "template": 22,
+    "value": "Android 15"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 69,
+  "fields": {
+    "product": 7,
+    "template": 23,
+    "value": "5.4"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 70,
+  "fields": {
+    "product": 8,
+    "template": 1,
+    "value": "72.0 мм"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 71,
+  "fields": {
+    "product": 8,
+    "template": 2,
+    "value": "152.8 мм"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 72,
+  "fields": {
+    "product": 8,
+    "template": 3,
+    "value": "8.5 мм"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 73,
+  "fields": {
+    "product": 8,
+    "template": 4,
+    "value": "199 г"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 74,
+  "fields": {
+    "product": 8,
+    "template": 5,
+    "value": "стекло (Gorilla Glass Victus 2)"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 75,
+  "fields": {
+    "product": 8,
+    "template": 6,
+    "value": "полированный алюминий"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 76,
+  "fields": {
+    "product": 8,
+    "template": 7,
+    "value": "IP68"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 77,
+  "fields": {
+    "product": 8,
+    "template": 8,
+    "value": "LTPO OLED"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 78,
+  "fields": {
+    "product": 8,
+    "template": 9,
+    "value": "6.3 '"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 79,
+  "fields": {
+    "product": 8,
+    "template": 10,
+    "value": "2856x1280"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 80,
+  "fields": {
+    "product": 8,
+    "template": 11,
+    "value": "120 Гц"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 81,
+  "fields": {
+    "product": 8,
+    "template": 12,
+    "value": "3000 нит"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 82,
+  "fields": {
+    "product": 8,
+    "template": 13,
+    "value": "495 ppi"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 83,
+  "fields": {
+    "product": 8,
+    "template": 14,
+    "value": "20:9"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 84,
+  "fields": {
+    "product": 8,
+    "template": 15,
+    "value": "Google Tensor G4"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 85,
+  "fields": {
+    "product": 8,
+    "template": 16,
+    "value": "8"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 86,
+  "fields": {
+    "product": 8,
+    "template": 17,
+    "value": "4700 мАч"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 87,
+  "fields": {
+    "product": 8,
+    "template": 18,
+    "value": "3"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 88,
+  "fields": {
+    "product": 8,
+    "template": 19,
+    "value": "50 Мп"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 89,
+  "fields": {
+    "product": 8,
+    "template": 21,
+    "value": "42 Мп"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 90,
+  "fields": {
+    "product": 8,
+    "template": 22,
+    "value": "Android 15"
+  }
+},
+{
+  "model": "compare.characteristicvalue",
+  "pk": 91,
+  "fields": {
+    "product": 8,
+    "template": 23,
+    "value": "5.4"
+  }
+},
+{
+  "model": "compare.favoritecomparison",
+  "pk": 1,
+  "fields": {
+    "user": 10,
+    "created_at": "2025-12-26T16:22:49.515Z",
+    "products_hash": "10:5,6,8",
+    "products": [
+      5,
+      6,
+      8
+    ]
+  }
+},
+{
+  "model": "compare.favoritecomparison",
+  "pk": 3,
+  "fields": {
+    "user": 10,
+    "created_at": "2025-12-26T16:23:50.353Z",
+    "products_hash": "10:7",
+    "products": [
+      7
+    ]
+  }
+},
+{
+  "model": "compare.favoritecomparison",
+  "pk": 10,
+  "fields": {
+    "user": 16,
+    "created_at": "2025-12-27T05:35:17.893Z",
+    "products_hash": "16:5,6",
+    "products": [
+      5,
+      6
+    ]
+  }
+},
+{
+  "model": "compare.favoritecomparison",
+  "pk": 12,
+  "fields": {
+    "user": 17,
+    "created_at": "2025-12-27T06:02:44.760Z",
+    "products_hash": "17:7,8",
+    "products": [
+      7,
+      8
+    ]
+  }
+},
+{
+  "model": "compare.favoritecomparison",
+  "pk": 14,
+  "fields": {
+    "user": 16,
+    "created_at": "2025-12-27T06:44:57.549Z",
+    "products_hash": "16:7,8",
+    "products": [
+      7,
+      8
+    ]
+  }
+},
+{
+  "model": "compare.favoritecomparison",
+  "pk": 15,
+  "fields": {
+    "user": 16,
+    "created_at": "2025-12-27T06:45:11.724Z",
+    "products_hash": "16:5,7,8",
+    "products": [
+      5,
+      7,
+      8
+    ]
+  }
+},
+{
+  "model": "compare.favoritecomparison",
+  "pk": 16,
+  "fields": {
+    "user": 10,
+    "created_at": "2025-12-27T10:01:48.898Z",
+    "products_hash": "10:8",
+    "products": [
+      8
+    ]
+  }
+},
+{
+  "model": "compare.favoritecomparison",
+  "pk": 17,
+  "fields": {
+    "user": 27,
+    "created_at": "2026-02-25T06:47:15.756Z",
+    "products_hash": "27:5,6,7",
+    "products": [
+      5,
+      6,
+      7
+    ]
+  }
+},
+{
+  "model": "compare.favoritecomparison",
+  "pk": 18,
+  "fields": {
+    "user": 27,
+    "created_at": "2026-02-25T06:49:32.887Z",
+    "products_hash": "27:5,6",
+    "products": [
+      5,
+      6
+    ]
+  }
+},
+{
+  "model": "compare.favoritecomparison",
+  "pk": 19,
+  "fields": {
+    "user": 27,
+    "created_at": "2026-02-25T06:49:37.841Z",
+    "products_hash": "27:5",
+    "products": [
+      5
+    ]
+  }
+}
+]
