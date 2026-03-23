@@ -1,7 +1,7 @@
 from django.urls import path
 # устарели, но пока оставил
-from .views import register, register_page, login_user, login_page, current_user, logout_user, profile_page
-from .api_views import RegisterAPIView, CurrentUserAPIView, LogoutAPIView, ActivateAccountAPIView#, LoginAPIView
+from .api_views import RegisterAPIView, CurrentUserAPIView, LogoutAPIView, ActivateAccountAPIView
+from .api_views import ChangePasswordAPIView, PasswordResetRequestAPIView, PasswordResetConfirmAPIView
 
 urlpatterns = [
     # Регистрация нового аккаунта
@@ -15,4 +15,10 @@ urlpatterns = [
 
         # Ссылка активации (Backend)
     path('activate/<str:uidb64>/<str:token>/', ActivateAccountAPIView.as_view(), name='activate'),
+
+    path('password_change/', ChangePasswordAPIView.as_view(), name='password_change'),
+
+    # Сброс пароля
+    path('password_reset/', PasswordResetRequestAPIView.as_view(), name='password_reset_request'),
+    path('password_reset/confirm/', PasswordResetConfirmAPIView.as_view(), name='password_reset_confirm'),
 ]

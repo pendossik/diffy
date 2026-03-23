@@ -23,6 +23,10 @@ from drf_spectacular.utils import OpenApiParameter
 
 from rest_framework import serializers
 
+# Для управления паролями
+from django.contrib.auth.password_validation import validate_password
+from .serializers import ChangePasswordSerializer, PasswordResetRequestSerializer, PasswordResetConfirmSerializer
+
 
 # class RegisterAPIView(APIView):
 #     permission_classes = [AllowAny]
@@ -166,3 +170,115 @@ class LogoutAPIView(APIView):
         except Exception:
             return Response({"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
 
+
+# ДЛЯ СМЕНЫ И ВОССТАНОВЛЕНИЯ ПАРОЛЯ
+class ChangePasswordAPIView(APIView):
+    """
+    Эндпоинт для смены пароля авторизованным пользователем
+    """
+    permission_classes = [IsAuthenticated]
+
+    @extend_schema(
+        summary="Смена пароля",
+        tags=['Авторизация'],
+        request=ChangePasswordSerializer,
+        responses={200: inline_serializer(name='ChangePasswordSuccess', fields={'message': serializers.CharField()})}
+    )
+    def post(self, request):
+        serializer = ChangePasswordSerializer(data=request.data)
+        if serializer.is_valid():
+            user = request.user
+            # Проверяем старый пароль
+            if not user.check_password(serializer.validated_data['old_password']):
+                return Response({"old_password": ["Неверный текущий пароль."]}, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Устанавливаем новый пароль
+            user.set_password(serializer.validated_data['new_password'])
+            user.save()
+            return Response({"message": "Пароль успешно изменен."}, status=status.HTTP_200_OK)
+            
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class PasswordResetRequestAPIView(APIView):
+    """
+    Эндпоинт для запроса сброса пароля (отправка письма)
+    """
+    permission_classes = [AllowAny]
+
+    @extend_schema(
+        summary="Запрос на сброс пароля",
+        description="Отправляет ссылку для сброса на email, если он существует в базе.",
+        tags=['Авторизация'],
+        request=PasswordResetRequestSerializer,
+        responses={200: inline_serializer(name='ResetRequestSuccess', fields={'message': serializers.CharField()})}
+    )
+    def post(self, request):
+        serializer = PasswordResetRequestSerializer(data=request.data)
+        if serializer.is_valid():
+            email = serializer.validated_data['email']
+            # Ищем пользователя. Используем .first(), чтобы не упасть, если их почему-то несколько
+            user = User.objects.filter(email=email).first()
+            
+            # В целях безопасности всегда возвращаем 200 OK, даже если email не найден,
+            # чтобы злоумышленники не могли перебирать email-ы (Email Enumeration).
+            if user:
+                token = default_token_generator.make_token(user)
+                uid = urlsafe_base64_encode(force_bytes(user.pk))
+                
+                # ССЫЛКА НА ФРОНТЕНД! Фронтенд должен отловить её и показать форму ввода нового пароля
+                reset_link = f"{settings.FRONTEND_URL}/reset-password/{uid}/{token}/"
+                
+                try:
+                    send_mail(
+                        'Сброс пароля',
+                        f'Вы запросили сброс пароля. Для установки нового пароля перейдите по ссылке: {reset_link}',
+                        settings.EMAIL_HOST_USER,
+                        [user.email],
+                        fail_silently=False,
+                    )
+                except Exception as e:
+                    return Response({'error': 'Ошибка отправки письма', 'details': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+            return Response(
+                {"message": "Если email существует в нашей системе, на него была отправлена ссылка для сброса пароля."},
+                status=status.HTTP_200_OK
+            )
+            
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class PasswordResetConfirmAPIView(APIView):
+    """
+    Эндпоинт для непосредственной установки нового пароля по токену
+    """
+    permission_classes = [AllowAny]
+
+    @extend_schema(
+        summary="Подтверждение сброса пароля",
+        description="Принимает uid, token из ссылки и новый пароль.",
+        tags=['Авторизация'],
+        request=PasswordResetConfirmSerializer,
+        responses={200: inline_serializer(name='ResetConfirmSuccess', fields={'message': serializers.CharField()})}
+    )
+    def post(self, request):
+        serializer = PasswordResetConfirmSerializer(data=request.data)
+        if serializer.is_valid():
+            uidb64 = serializer.validated_data['uidb64']
+            token = serializer.validated_data['token']
+            new_password = serializer.validated_data['new_password']
+
+            try:
+                uid = force_str(urlsafe_base64_decode(uidb64))
+                user = User.objects.get(pk=uid)
+            except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+                user = None
+
+            if user is not None and default_token_generator.check_token(user, token):
+                user.set_password(new_password)
+                user.save()
+                return Response({"message": "Пароль успешно сброшен. Теперь вы можете войти."}, status=status.HTTP_200_OK)
+            else:
+                return Response({"error": "Ссылка недействительна или устарела."}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

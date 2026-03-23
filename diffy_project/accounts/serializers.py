@@ -4,6 +4,11 @@ from django.contrib.auth.models import User
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth import authenticate
 
+# Для управления паролями
+import django.contrib.auth.password_validation as validators
+from django.core.exceptions import ValidationError as DjangoValidationError
+
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -47,3 +52,33 @@ class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
         data = super().validate(attrs)
         data['user'] = {'id': self.user.id, 'email': self.user.email}
         return data
+    
+
+# --- СМЕНА ПАРОЛЯ ДЛЯ АВТОРИЗОВАННЫХ ---
+class ChangePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+
+    def validate_new_password(self, value):
+        try:
+            validators.validate_password(value)
+        except DjangoValidationError as exc:
+            raise serializers.ValidationError(list(exc.messages))
+        return value
+
+# --- СБРОС ПАРОЛЯ (ЗАПРОС НА ПОЧТУ) ---
+class PasswordResetRequestSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
+
+# --- УСТАНОВКА НОВОГО ПАРОЛЯ (ПО ТОКЕНУ ИЗ ПОЧТЫ) ---
+class PasswordResetConfirmSerializer(serializers.Serializer):
+    uidb64 = serializers.CharField(required=True)
+    token = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+
+    def validate_new_password(self, value):
+        try:
+            validators.validate_password(value)
+        except DjangoValidationError as exc:
+            raise serializers.ValidationError(list(exc.messages))
+        return value
