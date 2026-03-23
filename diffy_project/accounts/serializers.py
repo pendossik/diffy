@@ -82,3 +82,17 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
         except DjangoValidationError as exc:
             raise serializers.ValidationError(list(exc.messages))
         return value
+    
+# --- СБРОС ЮЗЕРНЕЙМА ---
+class ChangeUsernameSerializer(serializers.Serializer):
+    """
+    Сериализатор для смены имени пользователя.
+    Не требует ввода пароля.
+    """
+    new_username = serializers.CharField(required=True)
+
+    def validate_new_username(self, value):
+        # Проверяем, что новый username не занят
+        if User.objects.filter(username=value).exists():
+            raise serializers.ValidationError("Пользователь с таким username уже существует.")
+        return value

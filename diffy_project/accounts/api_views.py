@@ -27,6 +27,8 @@ from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from .serializers import ChangePasswordSerializer, PasswordResetRequestSerializer, PasswordResetConfirmSerializer
 
+from .serializers import ChangeUsernameSerializer
+
 
 # class RegisterAPIView(APIView):
 #     permission_classes = [AllowAny]
@@ -281,4 +283,34 @@ class PasswordResetConfirmAPIView(APIView):
             else:
                 return Response({"error": "Ссылка недействительна или устарела."}, status=status.HTTP_400_BAD_REQUEST)
 
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+class ChangeUsernameAPIView(APIView):
+    """
+    Эндпоинт для смены имени пользователя (username).
+    """
+    permission_classes = [IsAuthenticated]
+
+    @extend_schema(
+        summary="Смена username",
+        tags=['Авторизация'],
+        request=ChangeUsernameSerializer,
+        responses={200: inline_serializer(name='ChangeUsernameSuccess', fields={'message': serializers.CharField(), 'user': UserSerializer()})}
+    )
+    def post(self, request):
+        serializer = ChangeUsernameSerializer(data=request.data)
+        if serializer.is_valid():
+            user = request.user
+            
+            # Просто меняем username и сохраняем
+            user.username = serializer.validated_data['new_username']
+            user.save()
+            
+            # Возвращаем успешный ответ с обновленными данными пользователя
+            return Response({
+                "message": "Username успешно изменен.",
+                "user": UserSerializer(user).data
+            }, status=status.HTTP_200_OK)
+            
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
