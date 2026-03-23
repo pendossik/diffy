@@ -33,7 +33,7 @@ class ProductPagination(LimitOffsetPagination):
 
 
 @extend_schema_view(
-    list=extend_schema(summary="Список всех товаров", tags=['Каталог']),
+    list=extend_schema(summary="Список всех товаров или выборка по search", tags=['Каталог']),
     retrieve=extend_schema(summary="Детали товара", tags=['Каталог']),
 )
 class ProductViewSet(viewsets.ReadOnlyModelViewSet):
@@ -49,5 +49,5 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
     filter_backends = [filters.SearchFilter]
     search_fields = ['name']
     # если заменить ['^name'] то поиск будет быстрее, но только с начала слова, а не по всей строке
-
+    
     pagination_class = ProductPagination # Подключаем пагинацию для лимита 10
