@@ -96,3 +96,7 @@ class ChangeUsernameSerializer(serializers.Serializer):
         if User.objects.filter(username=value).exists():
             raise serializers.ValidationError("Пользователь с таким username уже существует.")
         return value
+
+class ActivationSerializer(serializers.Serializer):
+    uidb64 = serializers.CharField(help_text="Закодированный ID пользователя")
+    token = serializers.CharField(help_text="Токен активации")

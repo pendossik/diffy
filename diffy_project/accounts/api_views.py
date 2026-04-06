@@ -27,7 +27,7 @@ from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from .serializers import ChangePasswordSerializer, PasswordResetRequestSerializer, PasswordResetConfirmSerializer
 
-from .serializers import ChangeUsernameSerializer
+from .serializers import ActivationSerializer, ChangeUsernameSerializer
 
 
 # class RegisterAPIView(APIView):
@@ -77,7 +77,10 @@ class RegisterAPIView(APIView):
                     token = default_token_generator.make_token(user)
                     uid = urlsafe_base64_encode(force_bytes(user.pk))
                                  # для теста в ветке dev 8001
-                    activation_link = f"http://127.0.0.1:8000/api/accounts/activate/{uid}/{token}/"
+                                #     f"{settings.FRONTEND_URL}/activate/{uid}/{token}/"
+                    activation_link = f"{settings.FRONTEND_URL}/activate/{uid}/{token}/"
+                               # было f"http://127.0.0.1:8000/api/accounts/activate/{uid}/{token}/"
+                    # reset_link = f"{settings.FRONTEND_URL}/reset-password/{uid}/{token}/"
                     
                     # Пытаемся отправить письмо
                     send_mail(
@@ -106,27 +109,36 @@ class ActivateAccountAPIView(APIView):
     @extend_schema(
         summary="Активация аккаунта",
         tags=['Авторизация'],
-        parameters=[
-            OpenApiParameter(name='uidb64', type=str, location=OpenApiParameter.PATH, description="Encoded user ID"),
-            OpenApiParameter(name='token', type=str, location=OpenApiParameter.PATH, description="Activation token"),
-        ],
-        responses={200: inline_serializer(name='Success', fields={'message': serializers.CharField()})}
+        request=ActivationSerializer,  # Теперь ждем данные в теле запроса (JSON)
+        responses={
+            200: inline_serializer(name='ActivationSuccess', fields={'message': serializers.CharField()}),
+            400: inline_serializer(name='ActivationError', fields={'error': serializers.CharField()})
+        }
     )
-    def get(self, request, uidb64, token):
-        try:
-            # Декодируем ID пользователя
-            uid = force_str(urlsafe_base64_decode(uidb64))
-            user = User.objects.get(pk=uid)
-        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-            user = None
+    def post(self, request):
+        serializer = ActivationSerializer(data=request.data)
+        
+        if serializer.is_valid():
+            uidb64 = serializer.validated_data['uidb64']
+            token = serializer.validated_data['token']
+            
+            try:
+                # Декодируем ID пользователя
+                uid = force_str(urlsafe_base64_decode(uidb64))
+                user = User.objects.get(pk=uid)
+            except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+                user = None
 
-        # Проверяем токен
-        if user is not None and default_token_generator.check_token(user, token):
-            user.is_active = True
-            user.save()
-            return Response({"message": "Account activated successfully"}, status=status.HTTP_200_OK)
-        else:
-            return Response({"error": "Invalid or expired token"}, status=status.HTTP_400_BAD_REQUEST)
+            # Проверяем токен
+            if user is not None and default_token_generator.check_token(user, token):
+                user.is_active = True
+                user.save()
+                return Response({"message": "Аккаунт успешно активирован"}, status=status.HTTP_200_OK)
+            else:
+                return Response({"error": "Неверный или просроченный токен"}, status=status.HTTP_400_BAD_REQUEST)
+                
+        # Если фронтенд прислал неполные данные
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CurrentUserAPIView(APIView):
@@ -229,7 +241,7 @@ class PasswordResetRequestAPIView(APIView):
                 uid = urlsafe_base64_encode(force_bytes(user.pk))
                 
                 # ССЫЛКА НА ФРОНТЕНД! Фронтенд должен отловить её и показать форму ввода нового пароля
-                reset_link = f"{settings.FRONTEND_URL}/reset-password/{uid}/{token}/"
+                reset_link = f"{settings.FRONTEND_URL}/password_reset/{uid}/{token}/"
                 
                 try:
                     send_mail(
@@ -314,3 +326,33 @@ class ChangeUsernameAPIView(APIView):
             }, status=status.HTTP_200_OK)
             
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+class DeleteAccountAPIView(APIView):
+    """
+    Эндпоинт для полного удаления своего аккаунта.
+    Пароль не требуется, защита от мисскликов реализована на фронтенде.
+    """
+    permission_classes = [IsAuthenticated]
+
+    @extend_schema(
+        summary="Удаление аккаунта",
+        description="Полностью удаляет профиль авторизованного пользователя из БД.",
+        tags=['Авторизация'],
+        # request=... убрали, так как тело запроса пустое
+        responses={
+            200: inline_serializer(name='DeleteSuccess', fields={'message': serializers.CharField()})
+        }
+    )
+    def delete(self, request):
+        # request.user берется из JWT токена
+        user = request.user
+        
+        # Полностью удаляем пользователя из БД (каскадно удалятся и его связи)
+        user.delete()
+        
+        return Response(
+            {"message": "Аккаунт успешно удален."}, 
+            status=status.HTTP_200_OK
+        )
+

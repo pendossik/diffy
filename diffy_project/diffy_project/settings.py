@@ -89,7 +89,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# мои настрйоки
+# мои настройки
 # CORS_ALLOWED_ORIGINS = [
 #     "http://localhost:5173",
 # ]
