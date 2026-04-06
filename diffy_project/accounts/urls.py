@@ -3,6 +3,7 @@ from django.urls import path
 from .api_views import RegisterAPIView, CurrentUserAPIView, LogoutAPIView, ActivateAccountAPIView
 from .api_views import ChangePasswordAPIView, PasswordResetRequestAPIView, PasswordResetConfirmAPIView
 from .api_views import ChangeUsernameAPIView, DeleteAccountAPIView
+from .api_views import AdminBlockUserAPIView, AdminForcePasswordResetAPIView
 
 urlpatterns = [
     # Регистрация нового аккаунта
@@ -28,4 +29,8 @@ urlpatterns = [
 
     # Удаление аккаунта
     path('profile_delete/', DeleteAccountAPIView.as_view(), name='delete_account'),
+
+    # Администратору: заблокировать/сменить пароль пользовалеля
+    path('admin/users/<int:user_id>/block/', AdminBlockUserAPIView.as_view(), name='admin_block_user'),
+    path('admin/users/<int:user_id>/force_password/', AdminForcePasswordResetAPIView.as_view(), name='admin_force_password'),
 ]

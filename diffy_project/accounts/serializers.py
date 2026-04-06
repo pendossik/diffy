@@ -100,3 +100,10 @@ class ChangeUsernameSerializer(serializers.Serializer):
 class ActivationSerializer(serializers.Serializer):
     uidb64 = serializers.CharField(help_text="Закодированный ID пользователя")
     token = serializers.CharField(help_text="Токен активации")
+
+
+class AdminForcePasswordResetSerializer(serializers.Serializer):
+    new_password = serializers.CharField(
+        required=False, 
+        help_text="Новый пароль. Если оставить пустым, система сгенерирует случайный."
+    )

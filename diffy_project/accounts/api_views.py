@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from rest_framework import status#, permission
 from django.contrib.auth.models import User
 from .serializers import RegisterSerializer, UserSerializer
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 
 
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -27,33 +27,12 @@ from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from .serializers import ChangePasswordSerializer, PasswordResetRequestSerializer, PasswordResetConfirmSerializer
 
-from .serializers import ActivationSerializer, ChangeUsernameSerializer
+from .serializers import ChangeUsernameSerializer
+
+from .serializers import ActivationSerializer
+from .serializers import AdminForcePasswordResetSerializer
 
 
-# class RegisterAPIView(APIView):
-#     permission_classes = [AllowAny]
-
-#     @extend_schema(
-#         summary="Регистрация нового пользователя",
-#         tags=['Авторизация'],
-#         request=RegisterSerializer,
-#         responses={201: UserSerializer}
-#     )
-#     def post(self, request):
-#         serializer = RegisterSerializer(data=request.data)
-#         if serializer.is_valid():
-#             user = serializer.save()
-#             refresh = RefreshToken.for_user(user)
-            
-#             return Response({
-#                 'message':'User registered successfully',
-#                 'user': UserSerializer(user).data,
-#                 'tokens': {
-#                     'refresh': str(refresh),
-#                     'access': str(refresh.access_token),
-#                 }
-#             }, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class RegisterAPIView(APIView):
     permission_classes = [AllowAny]
 
@@ -76,11 +55,9 @@ class RegisterAPIView(APIView):
                     
                     token = default_token_generator.make_token(user)
                     uid = urlsafe_base64_encode(force_bytes(user.pk))
-                                 # для теста в ветке dev 8001
-                                #     f"{settings.FRONTEND_URL}/activate/{uid}/{token}/"
+
                     activation_link = f"{settings.FRONTEND_URL}/activate/{uid}/{token}/"
-                               # было f"http://127.0.0.1:8000/api/accounts/activate/{uid}/{token}/"
-                    # reset_link = f"{settings.FRONTEND_URL}/reset-password/{uid}/{token}/"
+
                     
                     # Пытаемся отправить письмо
                     send_mail(
@@ -356,3 +333,100 @@ class DeleteAccountAPIView(APIView):
             status=status.HTTP_200_OK
         )
 
+
+class AdminBlockUserAPIView(APIView):
+    """
+    Эндпоинт для блокировки/разблокировки пользователя администратором.
+    """
+    # Доступ только для персонала (is_staff=True)
+    permission_classes = [IsAdminUser] 
+
+    @extend_schema(
+        summary="Блокировка пользователя (Админ)",
+        description="Переключает статус is_active у пользователя. Нельзя заблокировать суперюзера.",
+        tags=['Администрирование'],
+        responses={
+            200: inline_serializer(name='AdminBlockSuccess', fields={'message': serializers.CharField(), 'is_active': serializers.BooleanField()}),
+            400: inline_serializer(name='AdminBlockError', fields={'error': serializers.CharField()}),
+            404: inline_serializer(name='AdminBlockNotFound', fields={'error': serializers.CharField()})
+        }
+    )
+    def post(self, request, user_id):
+        try:
+            target_user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return Response({"error": "Пользователь не найден."}, status=status.HTTP_404_NOT_FOUND)
+
+        # Защита: нельзя заблокировать суперпользователя или самого себя
+        if target_user.is_superuser:
+            return Response({"error": "Невозможно заблокировать суперпользователя."}, status=status.HTTP_400_BAD_REQUEST)
+        if target_user == request.user:
+            return Response({"error": "Вы не можете заблокировать сами себя."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Переключаем статус (если был активен - блокируем, если был заблокирован - разблокируем)
+        target_user.is_active = not target_user.is_active
+        target_user.save()
+
+        status_text = "разблокирован" if target_user.is_active else "заблокирован"
+        return Response(
+            {
+                "message": f"Пользователь {target_user.email} был {status_text}.",
+                "is_active": target_user.is_active
+            }, 
+            status=status.HTTP_200_OK
+        )
+
+
+class AdminForcePasswordResetAPIView(APIView):
+    """
+    Эндпоинт для принудительной смены пароля пользователя администратором.
+    """
+    permission_classes = [IsAdminUser]
+
+    @extend_schema(
+        summary="Принудительная смена пароля (Админ)",
+        description="Меняет пароль пользователю. Возвращает новый пароль в ответе, чтобы админ мог передать его юзеру.",
+        tags=['Администрирование'],
+        request=AdminForcePasswordResetSerializer,
+        responses={
+            200: inline_serializer(name='AdminPasswordResetSuccess', fields={
+                'message': serializers.CharField(),
+                'new_password': serializers.CharField()
+            }),
+            400: inline_serializer(name='AdminPasswordError', fields={'error': serializers.CharField()}),
+            404: inline_serializer(name='AdminPasswordNotFound', fields={'error': serializers.CharField()})
+        }
+    )
+    def post(self, request, user_id):
+        serializer = AdminForcePasswordResetSerializer(data=request.data)
+        
+        if serializer.is_valid():
+            try:
+                target_user = User.objects.get(id=user_id)
+            except User.DoesNotExist:
+                return Response({"error": "Пользователь не найден."}, status=status.HTTP_404_NOT_FOUND)
+
+            if target_user.is_superuser and not request.user.is_superuser:
+                return Response({"error": "У вас нет прав менять пароль суперпользователю."}, status=status.HTTP_403_FORBIDDEN)
+
+            # Берем пароль из запроса, либо генерируем надежный случайный длиной 12 символов
+            new_password = serializer.validated_data.get('new_password')
+            if not new_password:
+                new_password = get_random_string(length=12)
+
+            # Устанавливаем новый пароль
+            target_user.set_password(new_password)
+            target_user.save()
+
+            # Здесь можно было бы добавить отправку письма пользователю
+            # send_mail(...)
+
+            return Response(
+                {
+                    "message": f"Пароль для {target_user.email} успешно изменен.",
+                    "new_password": new_password # Возвращаем пароль админу!
+                }, 
+                status=status.HTTP_200_OK
+            )
+            
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
