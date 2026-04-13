@@ -1,7 +1,5 @@
-"""Сериализаторы приложения accounts."""
 from rest_framework import serializers
-from .models import User
-
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 class RegisterSerializer(serializers.Serializer):
     """
@@ -55,18 +53,6 @@ class ActivateSerializer(serializers.Serializer):
         ref_name = 'AccountActivate'
 
 
-class ProfileSerializer(serializers.ModelSerializer):
-    """
-    Сериализатор для данных профиля пользователя.
-    
-    Представление информации о пользователе только для чтения.
-    """
-    class Meta:
-        model = User
-        fields = ('email', 'role', 'is_active', 'date_joined')
-        read_only_fields = fields
-        ref_name = 'UserProfile'
-
 class LogoutRequestSerializer(serializers.Serializer):
     """Сериализатор для выхода пользователя."""
     refresh = serializers.CharField(
@@ -75,3 +61,28 @@ class LogoutRequestSerializer(serializers.Serializer):
     
     class Meta:
         ref_name = 'AccountLogout'
+
+"""
+    Для фронтенда при Логине помимо refresh и access токенов добавляем данные о пользователе
+"""
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    """
+    Кастомный сериализатор логина.
+    Проверяет email/пароль и добавляет данные юзера в ответ.
+    """
+    def validate(self, attrs):
+        # Вызываем базовую валидацию (она сама проверит пароль и is_active)
+        data = super().validate(attrs)
+        
+        # Добавляем нужные поля для фронтенда
+        data['user'] = {
+            'id': self.user.id, 
+            'email': self.user.email,
+            'role': self.user.role,
+            'username': self.user.username
+        }
+        return data
+    
+class ActivationSerializer(serializers.Serializer):
+    uidb64 = serializers.CharField(help_text="Закодированный ID пользователя")
+    token = serializers.CharField(help_text="Токен активации")
