@@ -1,8 +1,10 @@
 from django.db import models
+from categories.models import Category
+from products.models import Product
 
 
 class CharacteristicGroup(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="char_groups",
+    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name="char_groups",
                                  verbose_name="Категория")
     name = models.CharField(max_length=200, verbose_name="Название группы характеристик")
     order = models.PositiveIntegerField(default=0)
@@ -36,9 +38,6 @@ class CharacteristicTemplate(models.Model):
     def __str__(self):
         return f"{self.group.name}: {self.name}"
 
-
-# Замеил этой моделью Characteristic
-# Теперь бывший Characteristic поделен на CharacteristicTemplate и CharacteristicValue
 class CharacteristicValue(models.Model):
     product = models.ForeignKey(
         Product,

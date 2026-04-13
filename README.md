@@ -17,3 +17,8 @@ python manage.py migrate
 запустить, перейдя в папку с django-проектом
 cd diffy_project
 python manage.py runserver
+
+Категории найдены:
+  - Ноутбуки: Ноутбук (ID=1027)
+  - Телевизоры: Телевизор (ID=1020)
+  - Планшеты: Планшет (ID=1028)

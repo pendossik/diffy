@@ -1,0 +1,17 @@
+# License
+
+This skill is provided as part of the Qwen Code ecosystem.
+
+## Terms of Use
+
+This skill may be used for comprehensive testing of Django REST API applications through pytest with coverage of services, views, fixtures, and documentation.
+
+## Restrictions
+
+- Do not use for modifying application code (only tests and reports)
+- Do not use for creating tests without documenting deviations
+- Do not distribute outside of the Qwen Code ecosystem without permission
+
+## Attribution
+
+This skill follows the skill-creator pattern and best practices.

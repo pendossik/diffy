@@ -1,0 +1,51 @@
+[run]
+# Какие файлы включать в покрытие
+source =
+    accounts
+    categories
+    characteristic
+    comparisons
+    products
+    config
+
+# Какие файлы ИСКЛЮЧИТЬ из покрытия
+omit =
+    # Файлы __init__.py
+    */__init__.py
+    # Админки
+    */admin.py
+    # management commands
+    */management/commands/*
+    */management/*
+    # Миграции
+    */migrations/*
+    # Тесты
+    test/*
+    # Конфигурационные файлы
+    config/asgi.py
+    config/wsgi.py
+    manage.py
+    # Встроенные тесты приложений (tests.py)
+    */tests.py
+
+[report]
+# Исключить из отчёта
+exclude_lines =
+    pragma: no cover
+    def __str__
+    raise AssertionError
+    raise NotImplementedError
+    if __name__ == .__main__.:
+    if TYPE_CHECKING:
+    class .*\bProtocol\):
+    @(abc\.)?abstractmethod
+
+# Показывать missing строки
+show_missing = True
+
+# Минимальный порог покрытия (опционально)
+# fail_under = 80
+
+[html]
+# Директория для HTML отчёта
+directory = htmlcov
