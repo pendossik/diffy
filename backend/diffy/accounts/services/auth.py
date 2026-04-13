@@ -1,6 +1,4 @@
-"""Бизнес-логика приложения accounts."""
 from django.db import transaction
-from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.password_validation import validate_password
@@ -10,10 +8,11 @@ from django.utils.encoding import force_bytes, force_str
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken, OutstandingToken
 import logging
-from .models import User
+
+from accounts.models.user import User
+from .email import EmailService
 
 logger = logging.getLogger('accounts')
-
 
 class AuthService:
     """
@@ -64,29 +63,18 @@ class AuthService:
         # Генерируем токен через default_token_generator — не раскрывает ID пользователя
         token = default_token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
+
+        # тут важно поменять ссылку на f"{settings.FRONTEND_URL}/activate/{uid}/{token}/"
+        # так нужно для фронтенда иначе работать не будет
+        # оставлю ссылку как есть для отладки
         activation_link = f'{settings.BACKEND_URL}/api/accounts/activate/{uid}/{token}/'
 
-        try:
-            send_mail(
-                subject='Активация аккаунта',
-                message=f'Перейдите для активации: {activation_link}',
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[user.email],
-                fail_silently=False,
-            )
-        except Exception as e:
-            logger.error(
-                f"Не удалось отправить письмо на {email}. "
-                f"Регистрация отменена, пользователь не создан."
-            )
-            raise ValueError(
-                "Не удалось завершить регистрацию. Попробуйте позже."
-            )
+        EmailService.send_activation_email(email=user.email, activation_link=activation_link)
 
         logger.info(f"Письмо с активацией отправлено на {email}")
 
         return user
-    
+
     @staticmethod
     @transaction.atomic
     def activate_account(uid: str, token: str) -> User:
@@ -197,21 +185,3 @@ class AuthService:
         except Exception as e:
             logger.error(f"Ошибка при добавлении токена в блэклист: {str(e)}")
             raise ValueError("Не удалось завершить сессию")
-        
-    @staticmethod
-    def get_user_profile(user: User) -> dict:
-        """
-        Получить данные профиля пользователя для отображения.
-        
-        Аргументы:
-            user: Аутентифицированный экземпляр User
-            
-        Возвращает:
-            dict: Сериализованная информация профиля
-        """
-        return {
-            'email': user.email,
-            'role': user.role,
-            'is_active': user.is_active,
-            'date_joined': user.date_joined
-        }

@@ -87,6 +87,14 @@ DATABASES = {
     }
 }
 
+# Для локальной разработки удобно использовать SQLite
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -271,11 +279,16 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
-EMAIL_USE_TLS = False  
+EMAIL_USE_TLS = False
 
 EMAIL_HOST_USER = 'diffy_team@mail.ru'
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# добавил для удобного просмотра сообщений в терминале
+# важно убрать когда запускаешь для фронтенда
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Нужно взять из .env
 FRONTEND_URL = "http://localhost:5173"
