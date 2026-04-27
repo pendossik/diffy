@@ -40,9 +40,7 @@ INSTALLED_APPS = [
 
     # Local apps
     'accounts',
-    'categories',
-    'products',
-    'characteristic',
+    'catalog',
     'comparisons',
 ]
 
@@ -227,12 +225,7 @@ LOGGING = {
             'level': 'INFO',
             'propagate': False,
         },
-        'categories': {
-            'handlers': ['console', 'file'],
-            'level': 'INFO',
-            'propagate': False,
-        },
-        'products': {
+        'catalog': {
             'handlers': ['console', 'file'],
             'level': 'INFO',
             'propagate': False,
@@ -241,11 +234,6 @@ LOGGING = {
             'handlers': ['console', 'file'],
             'level': 'INFO',
             'propagate': False,
-        },
-        'characteristic': {
-            'handlers': ['console', 'file'],
-            'level': 'INFO',
-            'propagate': True,
         },
     },
 }

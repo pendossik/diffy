@@ -1,6 +1,6 @@
 from django.db import models
 from accounts.models import User
-from products.models import Product
+from catalog.models import Product
 
 class FavoriteComparison(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="favorite_comparisons")
@@ -12,6 +12,7 @@ class FavoriteComparison(models.Model):
     products_hash = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
+        app_label = 'comparisons'
         verbose_name = "Избранное сравнение"
         verbose_name_plural = "Избранные сравнения"
         ordering = ['-created_at']
