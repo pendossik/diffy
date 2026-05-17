@@ -36,6 +36,8 @@ urlpatterns = [
     path('api/catalog/', include('catalog.urls')),
     path('api/comparison/', include('comparison.urls')),
 
+    path('api/ai/', include('ai_assistant.urls')),
+
     # --- SWAGGER И СХЕМА ---
     # 1. Ссылка на скачивание схемы (YAML файл)
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
