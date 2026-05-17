@@ -61,7 +61,7 @@ class CharacteristicTemplate(models.Model):
         return f"{self.group.name}: {self.name}"
     
 
-# Замеил этой моделью Characteristic
+# Заменил этой моделью Characteristic
 # Теперь бывший Characteristic поделен на CharacteristicTemplate и CharacteristicValue
 class CharacteristicValue(models.Model):
     product = models.ForeignKey(

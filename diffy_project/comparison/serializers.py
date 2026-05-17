@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import FavoriteComparison
 from catalog.models import Product
-from catalog.serializers import ProductShortSerializer
+from catalog.serializers.get_serializers import ProductShortSerializer
 
 """
     Хотя эти сериализаторы описывают данные характеристик,
