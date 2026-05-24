@@ -59,7 +59,7 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
     Пример: GET /products/?category=Смартфоны&search=Iphone
     """
     def get_queryset(self):
-        # 1. Получаем базовый кверисет
+        # 1. Получаем базовый queryset
         queryset = super().get_queryset()
         
         # 2. Ищем параметр category в URL (?category=...)

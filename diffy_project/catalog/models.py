@@ -61,8 +61,6 @@ class CharacteristicTemplate(models.Model):
         return f"{self.group.name}: {self.name}"
     
 
-# Заменил этой моделью Characteristic
-# Теперь бывший Characteristic поделен на CharacteristicTemplate и CharacteristicValue
 class CharacteristicValue(models.Model):
     product = models.ForeignKey(
         Product,
@@ -84,3 +82,5 @@ class CharacteristicValue(models.Model):
     class Meta:
         verbose_name = "Характеристика товара"
         verbose_name_plural = "Характеристики товаров"
+        # ограничение, которое запрещет одному товару иметь несколько значений для одного и того же шаблона характеристики
+        unique_together = ('product', 'template')
