@@ -1,5 +1,24 @@
 from rest_framework import serializers
+from ..models import Product
 
+# только для отображения каталога, без характеристик
+class ProductSerializer(serializers.ModelSerializer):
+    category = serializers.CharField(source='category.name', read_only=True)
+    # Мы убираем SerializerMethodField, так как для списка товаров 
+    # характеристики обычно не нужны или грузятся отдельно.
+    
+    class Meta:
+        model = Product
+        fields = ['id', 'name', 'category', 'img']
+
+
+# легкий сериализатор товара для превью в избранном
+class ProductShortSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['id', 'name', 'img']
+
+# сериализоторы для создания товара админом
 class FastCharacteristicSerializer(serializers.Serializer):
     name = serializers.CharField(help_text="Название характеристики (н-р, 'Вес')")
     value = serializers.CharField(help_text="Значение (н-р, '233 г')")

@@ -385,7 +385,7 @@ class AdminForcePasswordResetAPIView(APIView):
 
     @extend_schema(
         summary="Принудительная смена пароля (Админ)",
-        description="Меняет пароль пользователю. Возвращает новый пароль в ответе, чтобы админ мог передать его юзеру.",
+        description="Меняет пароль пользователю. Возвращает новый пароль в ответе, чтобы админ мог передать его юзеру. Пустое тело без пароля пока не передавать!",
         tags=['Администрирование'],
         request=AdminForcePasswordResetSerializer,
         responses={
