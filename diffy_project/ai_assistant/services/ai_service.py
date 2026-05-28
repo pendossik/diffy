@@ -2,6 +2,7 @@ import json
 from catalog.models import Product
 from .openrouter import call_openrouter_llm
 from ..prompts.templates import SYSTEM_PROMPT, get_user_prompt
+from django.utils.translation import get_language
 
 def generate_comparison_summary(product_ids: list[int]) -> str:
     # --- МЕСТО ДЛЯ КЭШИРОВАНИЯ ---
@@ -38,7 +39,8 @@ def generate_comparison_summary(product_ids: list[int]) -> str:
     products_json_str = json.dumps(products_data, ensure_ascii=False, indent=2)
 
     # 4. Формируем промпт и делаем запрос
-    user_prompt = get_user_prompt(products_json_str)
+    current_lang = get_language()  # Вернет 'ru' или 'en'
+    user_prompt = get_user_prompt(products_json_str, lang=current_lang)
     
     try:
         ai_response = call_openrouter_llm(SYSTEM_PROMPT, user_prompt)
