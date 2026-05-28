@@ -2,7 +2,7 @@
 
 Для запуска проекта нужно скачать папку бэкенда и фронтенда. В корне всего прокта необходимо создать файл docker-compose.yml
 с таким содержимым:
-
+```
 version: '3.8'
 
 services:
@@ -41,24 +41,30 @@ services:
 
 volumes:
   postgres_data:
+```
+Для запуска всего проекта
+```docker-compose up --build```
 
-Для запуска всего проекта проекта
-docker-compose up --build
+------------------
 
-для запуска необходимо только бэкенда локально:
+Для запуска только бэкенда локально:
 Создать окружение
-python -m venv .venv
+```python -m venv .venv```
 
 Активировать окружение
-.venv\Scripts\activate
+```.venv\Scripts\activate```
 
 Установить зависимости из requirements.txt
-pip install -r requirements.txt
+```pip install -r requirements.txt```
 
 Сделать миграции для создания таблиц в бд (у вас будут пустые таблицы, напишу тесты позже для добавления элементов)
+```
 python manage.py makemigrations
 python manage.py migrate
+```
 
 запустить, перейдя в папку с django-проектом
+```
 cd diffy_project
 python manage.py runserver
+```
