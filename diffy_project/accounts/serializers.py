@@ -107,3 +107,11 @@ class AdminForcePasswordResetSerializer(serializers.Serializer):
         required=False, 
         help_text="Новый пароль. Если оставить пустым, система сгенерирует случайный."
     )
+
+
+class SetLanguageSerializer(serializers.Serializer):
+    lang = serializers.ChoiceField(
+        choices=['ru', 'en'], 
+        default='en',
+        help_text="Код языка ('ru' или 'en')"
+    )

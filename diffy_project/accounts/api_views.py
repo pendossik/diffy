@@ -19,7 +19,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import EmailTokenObtainPairSerializer
 
-from drf_spectacular.utils import extend_schema, inline_serializer
+from drf_spectacular.utils import extend_schema, inline_serializer, OpenApiExample
 from drf_spectacular.utils import OpenApiParameter
 
 from rest_framework import serializers
@@ -32,6 +32,8 @@ from .serializers import ChangeUsernameSerializer
 
 from .serializers import ActivationSerializer
 from .serializers import AdminForcePasswordResetSerializer
+from .serializers import SetLanguageSerializer
+
 
 
 class RegisterAPIView(APIView):
@@ -435,11 +437,15 @@ class AdminForcePasswordResetAPIView(APIView):
 # фронтенд должен иметь возможность сообщить бэкенду, что пользователь переключил язык
 # нам нужен эндпоинт, который примет выбранный язык и запишет его в куки.
 class SetLanguageView(APIView):
+    serializer_class = SetLanguageSerializer
     """
     Эндпоинт для установки выбранного языка в cookies.
     Ожидает POST-запрос с телом: {"lang": "en"} или {"lang": "ru"}
     """
     def post(self, request):
+        serializer = SetLanguageSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
         lang = request.data.get('lang', settings.LANGUAGE_CODE)
         
         # Валидируем язык: проверяем, поддерживает ли его наш бэкенд

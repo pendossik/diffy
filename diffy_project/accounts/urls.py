@@ -36,5 +36,5 @@ urlpatterns = [
     path('admin/users/<int:user_id>/force_password/', AdminForcePasswordResetAPIView.as_view(), name='admin_force_password'),
     
     # Смена языка в куки
-    path('api/set-language/', SetLanguageView.as_view(), name='set_language'),
+    path('set_language/', SetLanguageView.as_view(), name='set_language'),
 ]

@@ -21,7 +21,13 @@ class ProductShortSerializer(serializers.ModelSerializer):
 # сериализоторы для создания товара админом
 class FastCharacteristicSerializer(serializers.Serializer):
     name = serializers.CharField(help_text="Название характеристики (н-р, 'Вес')")
-    value = serializers.CharField(help_text="Значение (н-р, '233 г')")
+    value = serializers.CharField(help_text="Значение на русском (н-р, '233 г')")
+    value_en = serializers.CharField(
+        required=False, 
+        allow_blank=True, 
+        default=None, 
+        help_text="Значение на английском (н-р, '233 g') — необязательно"
+    )
 
 class FastCharGroupSerializer(serializers.Serializer):
     name = serializers.CharField(help_text="Название группы (н-р, 'Корпус')")

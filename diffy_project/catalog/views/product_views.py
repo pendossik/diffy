@@ -65,7 +65,7 @@ class FastProductCreateView(APIView):
     # Обертка для Swagger (drf-spectacular)
     @extend_schema(
         summary="Быстрое добавление товара через JSON",
-        description="Принимает готовую структуру товара с характеристиками и создает записи в БД.",
+        description="Поле value_en НЕ ОБЯЗАТЕЛЬНО! Принимает готовую структуру товара с характеристиками и создает записи в БД.",
         request=ProductFastCreateSerializer,
         responses={
             201: OpenApiResponse(description='{"detail": "Товар успешно добавлен", "product_id": 5}'),

@@ -74,11 +74,17 @@ class ProductService:
                 seen_templates.add(template_obj.id)
 
                 # Добавляем в список для создания
+                val_en = char_data.get('value_en')
+                val_en = val_en.strip() if val_en else None
+
+                # Добавляем в список для создания с явным указанием локалей
                 values_to_create.append(
                     CharacteristicValue(
                         product=product,
                         template=template_obj,
-                        value=char_data['value']
+                        value=char_data['value'],      # Базовое поле
+                        value_ru=char_data['value'],   # Русское значение (копия базового)
+                        value_en=val_en                # Английское значение (опционально)
                     )
                 )
 
