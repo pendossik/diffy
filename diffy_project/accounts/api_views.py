@@ -1,6 +1,7 @@
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
+from django.utils.translation import activate
 from django.core.mail import send_mail
 from django.db import transaction
 from django.conf import settings
@@ -430,3 +431,38 @@ class AdminForcePasswordResetAPIView(APIView):
             )
             
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+# фронтенд должен иметь возможность сообщить бэкенду, что пользователь переключил язык
+# нам нужен эндпоинт, который примет выбранный язык и запишет его в куки.
+class SetLanguageView(APIView):
+    """
+    Эндпоинт для установки выбранного языка в cookies.
+    Ожидает POST-запрос с телом: {"lang": "en"} или {"lang": "ru"}
+    """
+    def post(self, request):
+        lang = request.data.get('lang', settings.LANGUAGE_CODE)
+        
+        # Валидируем язык: проверяем, поддерживает ли его наш бэкенд
+        supported_languages = [code for code, _ in settings.LANGUAGES]
+        if lang not in supported_languages:
+            lang = settings.LANGUAGE_CODE
+        
+        # Активируем язык в текущем потоке обработки запроса
+        activate(lang)
+        
+        response = Response({
+            "detail": "Language preferences updated.",
+            "current_lang": lang
+        })
+        
+        # Устанавливаем куку "lang" в браузере пользователя на 1 год
+        response.set_cookie(
+            key=settings.LANGUAGE_COOKIE_NAME,  # Будет взято 'lang' из settings.py
+            value=lang,
+            max_age=365 * 24 * 60 * 60,         # Время жизни куки в секундах (1 год)
+            httponly=False,                     # Фронтенд на React должен иметь доступ к этой куке
+            samesite='Lax',                     # Рекомендуемая политика безопасности для кук
+            secure=False                        # Установите True в продакшене при работе по HTTPS
+        )
+        
+        return response

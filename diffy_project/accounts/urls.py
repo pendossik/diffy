@@ -4,6 +4,7 @@ from .api_views import RegisterAPIView, CurrentUserAPIView, LogoutAPIView, Activ
 from .api_views import ChangePasswordAPIView, PasswordResetRequestAPIView, PasswordResetConfirmAPIView
 from .api_views import ChangeUsernameAPIView, DeleteAccountAPIView
 from .api_views import AdminBlockUserAPIView, AdminForcePasswordResetAPIView
+from .api_views import SetLanguageView
 
 urlpatterns = [
     # Регистрация нового аккаунта
@@ -33,4 +34,7 @@ urlpatterns = [
     # Администратору: заблокировать/сменить пароль пользовалеля
     path('admin/users/<int:user_id>/block/', AdminBlockUserAPIView.as_view(), name='admin_block_user'),
     path('admin/users/<int:user_id>/force_password/', AdminForcePasswordResetAPIView.as_view(), name='admin_force_password'),
+    
+    # Смена языка в куки
+    path('api/set-language/', SetLanguageView.as_view(), name='set_language'),
 ]

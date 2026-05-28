@@ -38,6 +38,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -86,6 +87,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware', # для куки
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -155,14 +157,22 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
+USE_I18N = True
+LANGUAGES = [
+    ('ru', 'Russian'),
+    ('en', 'English'),
+]
+LANGUAGE_CODE = 'ru'
+LANGUAGE_COOKIE_NAME = 'lang'
+# разрешаем фронтенду читать эту куку из JavaScript
+LANGUAGE_COOKIE_HTTPONLY = False
 
 TIME_ZONE = 'UTC'
 
-USE_I18N = True
-
 USE_TZ = True
+
+# если перевода на текущий язык нет, использовать 'ru'
+MODELTRANSLATION_FALLBACK_LANGUAGES = ('ru', 'en')
 
 
 # Static files (CSS, JavaScript, Images)
