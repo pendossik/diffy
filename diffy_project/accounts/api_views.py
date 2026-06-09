@@ -437,6 +437,7 @@ class AdminForcePasswordResetAPIView(APIView):
 # фронтенд должен иметь возможность сообщить бэкенду, что пользователь переключил язык
 # нам нужен эндпоинт, который примет выбранный язык и запишет его в куки.
 class SetLanguageView(APIView):
+    permission_classes = [AllowAny]
     serializer_class = SetLanguageSerializer
     """
     Эндпоинт для установки выбранного языка в cookies.

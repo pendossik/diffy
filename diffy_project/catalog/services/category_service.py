@@ -4,12 +4,12 @@ from ..models import Category, CharacteristicGroup, CharacteristicTemplate, Prod
 
 class CategoryService:
     @staticmethod
-    @transaction.atomic  # Если где-то упадет ошибка, в БД ничего не запишется
+    @transaction.atomic  # открываем транзакцию
     def create_category_with_hierarchy(validated_data: dict) -> Category:
-        # 1. Создаем категорию
+        # создаем категорию
         category = Category.objects.create(name=validated_data['name'])
         
-        # 2. Перебираем группы
+        # перебираем группы
         for group_data in validated_data.get('char_groups', []):
             group = CharacteristicGroup.objects.create(
                 category=category,
@@ -17,7 +17,7 @@ class CategoryService:
                 order=group_data.get('order', 0)
             )
             
-            # 3. Готовим шаблоны к массовому созданию (bulk_create)
+            # готовим шаблоны к массовому созданию (bulk_create)
             templates_to_create = [
                 CharacteristicTemplate(
                     group=group,
@@ -36,7 +36,7 @@ class CategoryService:
         if not category:
             raise NotFound("Категория не найдена")
         
-        # БИЗНЕС-ЛОГИКА: Проверка наличия товаров перед удалением
+        # проверка наличия товаров перед удалением
         if Product.objects.filter(category=category).exists():
             raise ValidationError("Невозможно удалить категорию: в ней еще есть товары.")
         

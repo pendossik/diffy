@@ -31,6 +31,7 @@ DEBUG = os.getenv('DEBUG') == 'True'
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
+CORS_ALLOW_CREDENTIALS = True
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '100.105.194.90', 'macbook-air']
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -96,9 +97,9 @@ MIDDLEWARE = [
 ]
 
 # мои настройки
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:5173",
-# ]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+]
 AUTHENTICATION_BACKENDS = [
     'accounts.backends.EmailBackend',
     'django.contrib.auth.backends.ModelBackend',
@@ -228,6 +229,6 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 # URL твоего фронтенда (React), куда пользователь попадет из письма
-FRONTEND_URL = "http://localhost:5173"
+FRONTEND_URL = "http://localhost:8000" # было 5173 до перевода через cookie
 # 100.105.194.90 127.0.0.1:8000
 BACKEND_URL = "http://100.105.194.90"
