@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from rest_framework_simplejwt.views import TokenRefreshView
-from accounts.api_views import EmailTokenObtainPairView
+from accounts.views.auth_views import EmailTokenObtainPairView
 
 # Импорты для Swagger
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
