@@ -7,7 +7,7 @@ class FavoriteComparison(models.Model):
     products = models.ManyToManyField(Product, related_name="favorited_in_sets")
     created_at = models.DateTimeField(auto_now_add=True)
     
-    # Хэш для быстрой проверки на дубликаты (опционально, но полезно)
+    # Хэш для быстрой проверки на дубликаты
     # Позволит быстро понять, что набор [1,2] и [2,1] — это одно и то же
     products_hash = models.CharField(max_length=255, unique=True, null=True, blank=True)
 

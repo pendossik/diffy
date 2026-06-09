@@ -212,14 +212,13 @@ SPECTACULAR_SETTINGS = {
 }
 
 
-# Для тестов: письма будут сыпаться в консоль
+# Для тестов: письма будут приходить в консоль
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# Когда будешь готов к реальной почте (например, Gmail), заменишь на это:
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 465
-EMAIL_USE_SSL = True         # На скрине написано SSL/TLS для 465, в Django это USE_SSL
+EMAIL_USE_SSL = True         # SSL/TLS для 465, в Django это USE_SSL
 EMAIL_USE_TLS = False  
 
 EMAIL_HOST_USER = 'diffy_team@mail.ru'
@@ -228,7 +227,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 
-# URL твоего фронтенда (React), куда пользователь попадет из письма
+# URL React, куда пользователь попадет из письма
 FRONTEND_URL = "http://localhost:8000" # было 5173 до перевода через cookie
 # 100.105.194.90 127.0.0.1:8000
 BACKEND_URL = "http://100.105.194.90"
