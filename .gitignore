@@ -111,6 +111,14 @@ media/
 *.db
 *.pid
 
+# IntelliJ IDEA / JetBrains IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.idea_modules/
+
 # Ignore Django Migrations in Development if you are working on team
 
 # Only for Development only
